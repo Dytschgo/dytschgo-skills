@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra Orchestrator"
+  short_description: "Coordinate Luna, Terra, and Sol with evidence-led review"
+  default_prompt: "Use $astra-orchestrator to plan, delegate, review, and complete this task with the appropriate specialist agents."

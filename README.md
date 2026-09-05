@@ -1,94 +1,136 @@
-# Astra Engineering
+# Dytschgo Skills
 
-A reusable Codex skill for ambitious, evidence-driven engineering work. Astra Engineering is designed to carry difficult repository tasks beyond superficial fixes and into finished, verified outcomes.
+Reusable agent skills by Dylan Ferraro (Dytschgo) for investigating engineering problems, implementing improvements, coordinating agents, and verifying finished work.
 
-It guides an agent to inspect the real implementation and its history, challenge unnecessary complexity, make substantial changes when the evidence supports them, and verify claims with the right kind of evidence.
+Each skill has its own folder and can be installed independently. The collection currently contains two Astra skills.
 
-## What it is used for
+## Choose a skill
 
-- Codebase cleanup and "slop" audits
-- Root-cause investigation and coherent simplification
-- Measured performance optimization
-- Improving agent setup and verification loops
-- Auditing pull requests and issues
-- Preparing or performing authorized merges
-- Recovering and finishing stalled engineering work
+| Skill | What it does | When to use it |
+| --- | --- | --- |
+| [Astra Engineering](skills/astra-engineering/SKILL.md) | Guides deep investigation, useful code changes, and evidence-based verification. | Cleanup, performance, agent DX, PR and issue review, authorized merges, and stalled work. |
+| [Astra Orchestrator](skills/astra-orchestrator/SKILL.md) | Coordinates specialist assignments, shared task state, implementation, independent review, and final acceptance. | Larger engineering tasks that benefit from agents with distinct responsibilities. |
 
-The skill shapes engineering behavior. It does not select a model, change reasoning settings, grant permissions, or override repository instructions.
+Engineering supplies the working methods. Orchestrator supplies the coordination process. Use either independently, or combine them when a task needs both.
 
-## What's included
+## Install
 
-```text
-astra-engineering/
-├── SKILL.md
-├── agents/
-│   └── openai.yaml
-└── references/
-    ├── code-improvement.md
-    └── delivery-and-recovery.md
-```
-
-### `SKILL.md`
-
-The main operating workflow. It explains how to infer scope and acceptance criteria, investigate before changing code, choose proportionate verification, use existing authorization correctly, and finish with concrete evidence.
-
-### `references/code-improvement.md`
-
-Detailed guidance for:
-
-- Identifying unjustified wrappers, duplicated state, dead paths, obsolete compatibility code, weak tests, and other accidental complexity
-- Establishing meaningful performance baselines and comparing results under equivalent conditions
-- Repairing developer and agent workflows with repeatable setup, isolation, useful logs, and trustworthy smoke or end-to-end checks
-
-### `references/delivery-and-recovery.md`
-
-Detailed guidance for:
-
-- Evidence-based PR and issue triage
-- Safe, authorized merges with current-head and required-check verification
-- Taking over stalled work by recovering the original outcome, identifying why the effort stalled, and choosing whether to salvage, simplify, or replace it
-
-### `agents/openai.yaml`
-
-Display metadata and a default prompt for exposing the skill in compatible Codex interfaces.
-
-## Installation
-
-Copy this repository into your Codex skills directory so the final path contains `SKILL.md`:
-
-```text
-~/.codex/skills/astra-engineering/SKILL.md
-```
-
-For example:
+Use the [skills CLI](https://github.com/vercel-labs/skills) to install the skill you want:
 
 ```bash
-git clone https://github.com/Dytschgo/astra-engineering-skill.git ~/.codex/skills/astra-engineering
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-engineering
 ```
 
-Restart or reload Codex if the skill is not detected immediately.
+```bash
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-orchestrator
+```
 
-## Usage
+Install both globally for Codex:
 
-Invoke the skill explicitly:
+```bash
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-engineering astra-orchestrator --agent codex -g
+```
+
+List available skills without installing:
+
+```bash
+npx skills add https://github.com/Dytschgo/dytschgo-skills --list
+```
+
+For manual installation, copy each desired folder from `skills/` into your agent's skill directory, including its references and metadata. For an existing Codex setup using `~/.codex/skills`, the final paths would be `~/.codex/skills/astra-engineering/SKILL.md` and `~/.codex/skills/astra-orchestrator/SKILL.md`.
+
+### Existing Astra Engineering installations
+
+This repository was previously named `astra-engineering-skill`. The skill's name remains `astra-engineering`, but its files now live under `skills/astra-engineering/`. Existing local copies are unchanged until updated. If you installed by cloning the old repository directly into your skill directory, use the new installation instructions when updating; the repository root is now a collection, not an individual skill.
+
+## Astra Engineering
+
+The skill encourages the agent to understand the implementation, challenge unnecessary complexity, make justified changes, and produce evidence that the requested outcome was achieved.
+
+It covers six workflows:
+
+1. **Slop audits and cleanup:** investigate wrappers, duplicate state, dead paths, obsolete compatibility code, and weak tests while preserving useful behavior and public contracts.
+2. **Performance:** locate a bottleneck, establish a representative baseline, make an improvement, and compare equivalent workloads.
+3. **Agent DX and verification:** improve setup, worktree isolation, logs, test data, preview startup, and reliable end-to-end checks.
+4. **PR and issue triage:** identify merge-ready changes, useful work needing repair, duplicates, and resolved issues using current evidence.
+5. **Authorized merges:** verify the current revision, required CI and reviews, target branch, and release boundary.
+6. **Stalled-work takeover:** recover the requirements, identify the failed assumption, and decide whether to salvage, simplify, or replace the implementation.
+
+Example:
 
 ```text
-Use $astra-engineering to audit this codebase for unnecessary complexity, implement the highest-value cleanup, and verify preserved behavior.
+Use $astra-engineering to find and fix the most valuable problems in this codebase. Remove unnecessary complexity, investigate performance bottlenecks, improve verification where needed, and prove the results.
 ```
+
+For an audit without edits:
 
 ```text
-Use $astra-engineering to find the actual performance bottleneck, measure a baseline, implement a justified improvement, and compare the result.
+Use $astra-engineering to audit this module for unnecessary complexity. Give prioritized findings and verification suggestions. Leave the files untouched.
 ```
+
+## Astra Orchestrator
+
+The primary agent owns the task, divides useful independent work, assigns clear boundaries, reviews results, and accepts the finished outcome. Workers return evidence and blockers. Concurrent writers need explicit file ownership or isolated worktrees.
+
+The included routing preferences are:
+
+| Role | Preferred model | Responsibility |
+| --- | --- | --- |
+| Luna | `gpt-5.6-luna` | Context gathering, extraction, summaries, and simple checks. |
+| Terra | `gpt-5.6-terra` | Implementation, integration, tests, and ordinary diff reviews. |
+| Sol | `gpt-5.6-sol` | Difficult debugging, architecture-sensitive work, and consequential reviews. |
+| Astra | The existing primary session | Coordination, scope, conflict resolution, final review, and acceptance. |
+
+These are the author's preferences. Availability depends on the account and runtime. The skill checks supported tools and models, discloses fallbacks, and does not silently change the primary session's model. If delegation is unavailable, suitable work can continue locally, but the agent must not claim that independent review occurred.
+
+Example:
 
 ```text
-Use $astra-engineering to take over this stalled implementation, recover the original acceptance criteria, and finish it with evidence.
+Use $astra-orchestrator to implement this feature. Define acceptance criteria, delegate independent work where useful, review the combined changes, and verify the result.
 ```
 
-The skill loads only the reference relevant to the requested work, keeping its working context focused.
+Combine the skills:
 
-## Safety and authority
+```text
+Use $astra-orchestrator and $astra-engineering to investigate this slow application, delegate independent bottleneck investigations, implement justified improvements, and report measured results.
+```
 
-Astra Engineering does not independently authorize merges, deployments, contributor messages, force-pushes, destructive changes, or deletion of user work. Those actions still require permission from the user and must follow repository protections.
+## Files and their purpose
+
+```text
+skills/
+  astra-engineering/
+    SKILL.md
+    agents/openai.yaml
+    references/code-improvement.md
+    references/delivery-and-recovery.md
+  astra-orchestrator/
+    SKILL.md
+    agents/openai.yaml
+    references/runtime.md
+    references/contracts-and-state.md
+    references/github-and-review.md
+```
+
+| File | Purpose |
+| --- | --- |
+| Each `SKILL.md` | Discovery, scope, core instructions, and reference routing. |
+| Each `agents/openai.yaml` | Display metadata and a default invocation prompt. |
+| Engineering: `code-improvement.md` | Cleanup, performance measurement, and agent DX methods. |
+| Engineering: `delivery-and-recovery.md` | PR/issue triage, merge checks, and stalled-work recovery. |
+| Orchestrator: `runtime.md` | Tool availability, model fallbacks, worktree isolation, context synchronization, and budgets. |
+| Orchestrator: `contracts-and-state.md` | Assignment/result contracts, lifecycle states, and decision records. |
+| Orchestrator: `github-and-review.md` | Branch and PR ownership, review evidence, corrections, and final delivery. |
+
+## Compatibility and permissions
+
+These are instruction packages for compatible coding agents. Installing them does not provide model access, tools, credentials, or extra concurrency. Orchestrator's runtime reference describes the authoring environment and requires adaptation to the tools actually available.
+
+Both skills preserve the user's scope and existing authorization. Installing a skill does not grant permission to merge, deploy, delete work, change account settings, or message contributors. Repository protections and tool permissions still apply. Delegation can increase usage; use task budgets appropriate to your environment.
+
+## Adding more skills
+
+Add each skill under `skills/<skill-name>/` with its `SKILL.md` and required supporting files, then add it to the table above. Include only material you have permission to redistribute, retain applicable attribution and license notices, and remove machine-specific credentials or private project context before publishing.
 
 ## License
 
