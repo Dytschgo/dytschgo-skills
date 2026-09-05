@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra Engineering"
+  short_description: "Deep cleanup, measured speedups, and verified delivery"
+  default_prompt: "Use $astra-engineering to find and fix the most valuable problems in this codebase, improve verification where needed, and show evidence of the result."
