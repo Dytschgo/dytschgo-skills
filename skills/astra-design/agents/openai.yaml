@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra Design"
+  short_description: "Design, build, and verify distinctive interfaces"
+  default_prompt: "Use $astra-design to improve this interface, preserve its product intent, and verify the finished result."
