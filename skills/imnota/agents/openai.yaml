@@ -1,0 +1,4 @@
+interface:
+  display_name: "Imnota"
+  short_description: "Act on Imnota screenshot bundles instead of guessing from pixels"
+  default_prompt: "Use $imnota to read this prompt bundle and fix the marked elements. Prefer MCP get_latest_bundle when available; otherwise use the Markdown and PNGs."
