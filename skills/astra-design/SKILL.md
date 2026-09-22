@@ -32,4 +32,6 @@ Do not load the full catalog for ordinary work or create a new design system for
 
 Reuse the project's stack and design system. Build semantic structure, real content, working navigation, and the primary flow before effects. Keep static and reduced-motion presentations usable. Cover relevant loading, empty, error, success, disabled, and permission states. Choose assets deliberately and keep interface text editable. Check narrow widths, long labels, keyboard and touch use, and zoom. Consult current official documentation when framework or browser details matter.
 
+When moving or removing controls, follow the [interaction-preservation checks](references/review.md#preserve-interactions-through-ui-changes): verify reachability across affected content types and loading/error states, navigation state, and keyboard focus. Evidence must show the actual changed surface and state.
+
 Use available tools within their own permissions. This skill does not require another design skill, agent team, or deployment. For implementation, inspect the rendered result, exercise affected flows and states, run relevant project checks, fix meaningful issues, and stop when the requested result is met. Report what changed and what was actually verified; distinguish rendered evidence from source inspection.
