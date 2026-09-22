@@ -2,7 +2,7 @@
 
 Reusable agent skills by Dylan Ferraro (Dytschgo) for engineering, interface design, coordinated implementation, and verified delivery.
 
-Each skill has its own folder and can be installed independently. The collection contains three Astra skills.
+Each skill has its own folder and can be installed independently.
 
 The short skill descriptions are what Codex sees during skill selection. Each `SKILL.md` keeps shared decisions and routes to task-specific references, so using one workflow does not load the others. This reduces initial and selected-skill context; it does not guarantee an API prompt-cache hit. Prompt caching depends on an unchanged prompt prefix and the model/runtime's cache behavior. See [OpenAI's prompt caching guide](https://developers.openai.com/api/docs/guides/prompt-caching) and [Codex skill loading guidance](https://learn.chatgpt.com/docs/build-skills).
 
@@ -10,15 +10,20 @@ The short skill descriptions are what Codex sees during skill selection. Each `S
 
 | Skill | What it does | When to use it |
 | --- | --- | --- |
+| [Imnota](skills/imnota/SKILL.md) | Reads Imnota prompt bundles (annotated screenshots, notes, marks) and acts on the marked elements, with or without MCP. | Any coding agent given an Imnota bundle, “the screenshot”, or Picture/Note/Marks. |
 | [Astra Design](skills/astra-design/SKILL.md) | Unifies art direction, product UI, websites, motion, accessibility, and rendered verification. | New interfaces, redesigns, scoped UI fixes, design reviews, and visual polish. |
 | [Astra Engineering](skills/astra-engineering/SKILL.md) | Guides deep investigation, useful code changes, and evidence-based verification. | Cleanup, performance, agent DX, PR and issue review, authorized merges, and stalled work. |
 | [Astra Orchestrator](skills/astra-orchestrator/SKILL.md) | Coordinates specialist assignments, shared task state, implementation, independent review, and final acceptance. | Larger engineering tasks that benefit from agents with distinct responsibilities. |
 
-Design supplies the interface workflow. Engineering supplies investigation and implementation methods. Orchestrator supplies coordination. Use them independently or combine them when the task benefits.
+Imnota is for visual briefs handed to any coding agent. Design supplies the interface workflow. Engineering supplies investigation and implementation methods. Orchestrator supplies coordination. Use them independently or combine them when the task benefits.
 
 ## Install
 
 Use the [skills CLI](https://github.com/vercel-labs/skills) to install the skill you want:
+
+```bash
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill imnota
+```
 
 ```bash
 npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-design
@@ -32,7 +37,7 @@ npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-enginee
 npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-orchestrator
 ```
 
-Install all three globally for Codex:
+Install all Astra skills globally for Codex:
 
 ```bash
 npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-design astra-engineering astra-orchestrator --agent codex -g
@@ -49,6 +54,18 @@ For manual installation, copy each desired folder from `skills/` into your agent
 ### Existing Astra Engineering installations
 
 This repository was previously named `astra-engineering-skill`. The skill's name remains `astra-engineering`, but its files now live under `skills/astra-engineering/`. Existing local copies are unchanged until updated. If you installed by cloning the old repository directly into your skill directory, use the new installation instructions when updating; the repository root is now a collection, not an individual skill.
+
+## Imnota
+
+Use this skill when an Imnota prompt bundle (Markdown + PNG) is the source of truth. If Imnota MCP is connected, call `get_latest_bundle`. If not, read the pasted or attached files. Follow Picture/Note/Marks instead of guessing from pixels.
+
+```text
+Use $imnota to read this bundle and fix the marked UI.
+```
+
+```bash
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill imnota
+```
 
 ## Astra Design
 
@@ -132,6 +149,9 @@ Use $astra-orchestrator and $astra-engineering to investigate this slow applicat
 
 ```text
 skills/
+  imnota/
+    SKILL.md
+    agents/openai.yaml
   astra-design/
     SKILL.md
     agents/openai.yaml
@@ -154,6 +174,7 @@ skills/
 | File | Purpose |
 | --- | --- |
 | Each `SKILL.md` | Discovery, scope, core instructions, and reference routing. |
+| Imnota: `agents/openai.yaml` | Display name and default invocation prompt. |
 | Each `agents/openai.yaml` | Display metadata and a default invocation prompt. |
 | Design: `references/` | Focused foundations, product UI, websites, motion, review, and optional lookup guidance. |
 | Design: `library/ui-ux-pro-max/` | Optional search scripts, integrity validator, catalog data, and upstream license. |
