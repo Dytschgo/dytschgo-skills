@@ -9,13 +9,12 @@ Astra owns scope, task state, decisions, integration, final review, acceptance, 
 
 ## Route useful work
 
-These are the user's preferred roles, not claims about universal availability or pricing. Check the live runtime before spawning and record the actual model and any fallback. Use the least costly suitable available model; escalate for observed complexity or impact.
+These are the user's worker defaults, not claims about universal availability or pricing. Check the live runtime before spawning and record the actual model. Use Luna for bounded support work and Sol for implementation and technical review. Pass the exact model ID explicitly; do not use older-generation defaults or fallbacks without explicit user authorization.
 
 | Role | Preferred model | Work |
 | --- | --- | --- |
-| Luna | `gpt-5.6-luna` | Focused context gathering, extraction, summaries, simple checks |
-| Terra | `gpt-5.6-terra` | Default implementation, integration, tests, ordinary review |
-| Sol | `gpt-5.6-sol` | Difficult debugging, architecture, security, consequential review |
+| Luna | `gpt-6-luna` | Focused context gathering, extraction, summaries, simple checks |
+| Sol | `gpt-6-sol` | Default implementation, integration, tests, debugging, architecture, security, independent technical review |
 | Astra | Existing primary session | Coordination, conflict resolution, final acceptance |
 
 Read [runtime, isolation, and context](references/runtime.md) before first delegation. It covers actual tool mechanics, model fallbacks, shared filesystems, worktrees, and state synchronization. Do not silently substitute a required model or simulate separate agents in one thread. If critical independent review cannot run, leave that acceptance criterion pending.

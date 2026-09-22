@@ -6,7 +6,7 @@ Read before first delegation. The live tool schemas and higher-priority instruct
 
 The preferred mappings in SKILL.md use IDs exposed in the authoring session. They are runtime-specific preferences, not promises that every account or client offers those models. Inspect the actual spawn tool and available overrides each session. Never infer availability from a display name or use undocumented model aliases.
 
-When a preferred model is absent, record it and choose a disclosed suitable supported fallback if the user's task permits substitution. Ask only when an exact model is a hard requirement, a material cost constraint would change, or the fallback cannot meet the assignment. If delegation itself is unavailable, do suitable work locally and state the limitation; do not invent worker threads or independent review. High-risk independent review remains outstanding.
+Use `gpt-6-luna` for bounded support and `gpt-6-sol` for implementation and technical review. Pass the ID explicitly in the spawn call; changing a role label or launcher prompt does not select a model. If a default is unavailable, record the limitation and honor any explicit session authorization for a suitable replacement. Do not silently downgrade or use an older-generation fallback without explicit user authorization. Continue independent work that the current session can perform; ask for a replacement only when delegation is necessary to complete the assignment. Do not invent worker threads or independent review. Required independent review remains outstanding until performed.
 
 With the currently exposed `collaboration` tools:
 

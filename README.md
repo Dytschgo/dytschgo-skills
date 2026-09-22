@@ -16,6 +16,18 @@ The short skill descriptions are what Codex sees during skill selection. Each `S
 
 Design supplies the interface workflow. Engineering supplies investigation and implementation methods. Orchestrator supplies coordination. Use them independently or combine them when the task benefits.
 
+## Review and verification improvements
+
+The skills now include safeguards drawn from reviewing real agent-written PRs:
+
+- **Preserve UI behavior:** check moved controls across content types, loading/error states, collapsed panels, and keyboard focus transitions. Search renamed labels through native menus, error messages, tests, and current docs.
+- **Investigate before claiming a fix:** distinguish demonstrated causes from hypotheses, test meaningful regressions, and preserve the capability protected by any changed or removed test.
+- **Verify state and compatibility:** synchronize native/recovery checks on fixture identity and expected state; cover new preferences, missing legacy fields, and explicitly saved values.
+- **Make evidence traceable:** inspect the actual changed screen, keep baseline filenames and provenance consistent, and tie claims to the revision, platform, and run step that supports them.
+- **Review the integrated result:** compare CI history before labeling failures, refresh dependent PRs after parent changes, and use independent review according to impact.
+
+These checks scale with the change. A small visual fix can use direct rendered evidence; older verification remains useful when its source and applicability are clear. See the [design review guidance](skills/astra-design/references/review.md), [engineering safeguards](skills/astra-engineering/references/code-improvement.md), and [acceptance workflow](skills/astra-orchestrator/references/github-and-review.md).
+
 ## Install
 
 Use the [skills CLI](https://github.com/vercel-labs/skills) to install the skill you want:
@@ -109,12 +121,11 @@ The included routing preferences are:
 
 | Role | Preferred model | Responsibility |
 | --- | --- | --- |
-| Luna | `gpt-5.6-luna` | Context gathering, extraction, summaries, and simple checks. |
-| Terra | `gpt-5.6-terra` | Implementation, integration, tests, and ordinary diff reviews. |
-| Sol | `gpt-5.6-sol` | Difficult debugging, architecture-sensitive work, and consequential reviews. |
+| Luna | `gpt-6-luna` | Bounded context gathering, extraction, summaries, and simple checks. |
+| Sol | `gpt-6-sol` | Default implementation, integration, tests, debugging, and independent technical review. |
 | Astra | The existing primary session | Coordination, scope, conflict resolution, final review, and acceptance. |
 
-These are the author's preferences. Availability depends on the account and runtime. The skill checks supported tools and models, discloses fallbacks, and does not silently change the primary session's model. If delegation is unavailable, suitable work can continue locally, but the agent must not claim that independent review occurred.
+GPT-6 Sol and Luna replace the previous worker defaults. The exact runtime IDs are `gpt-6-sol` and `gpt-6-luna`. Availability depends on the account and runtime. Orchestrator passes the selected ID explicitly when spawning a worker and checks that the runtime supports it. It does not fall back to an older model without explicit user authorization. If delegation is unavailable, suitable work can continue locally, but the agent must not claim that independent review occurred. Skills do not change the primary session's model; Design and Engineering used alone retain that session's model.
 
 Example:
 
