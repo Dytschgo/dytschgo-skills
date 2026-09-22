@@ -4,6 +4,8 @@ Reusable agent skills by Dylan Ferraro (Dytschgo) for engineering, interface des
 
 Each skill has its own folder and can be installed independently. The collection contains three Astra skills.
 
+The short skill descriptions are what Codex sees during skill selection. Each `SKILL.md` keeps shared decisions and routes to task-specific references, so using one workflow does not load the others. This reduces initial and selected-skill context; it does not guarantee an API prompt-cache hit. Prompt caching depends on an unchanged prompt prefix and the model/runtime's cache behavior. See [OpenAI's prompt caching guide](https://developers.openai.com/api/docs/guides/prompt-caching) and [Codex skill loading guidance](https://learn.chatgpt.com/docs/build-skills).
+
 ## Choose a skill
 
 | Skill | What it does | When to use it |
