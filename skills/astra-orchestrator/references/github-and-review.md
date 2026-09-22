@@ -58,9 +58,17 @@ Default reviewer authority is read-only, with safe validation allowed in an isol
 
 Review evidence at the final revision. A changed head, base, configuration, or relevant generated artifact can invalidate earlier findings/checks. Re-review affected areas and run integrated checks after combining branches. Test output from another revision is historical evidence, not final validation.
 
+For preference/default/schema changes, review new profiles, older profiles missing fields, explicitly saved values, and failure/recovery behavior. For native, persistence, recovery, or smoke synchronization changes, use a reviewer suited to the platform/state complexity and honor repository-specific consequential-change gates. Route by observed risk and failed assumptions, not model price or diff size alone.
+
+Ask reviewers to inspect changed or removed assertions for lost behavioral coverage. Setup that writes a value cannot prove navigation preserved it; an optional DOM check cannot prove an expected recovery occurred. Require state-based synchronization and inspect the original failure evidence before accepting a test-harness fix. A hypothesized cause or mitigation must remain labeled as such until supported.
+
 ## Astra final review and correction loop
 
 Astra inspects the request, acceptance criteria, approved scope, assignment, actual diff/files, commits, tests, CI, assumptions, risks, PR description, unrelated changes, repository conventions, and safety. Do not accept a packet without checking underlying work.
+
+For stacked work, track actual parent/head ancestry and refresh dependent branches after relevant parent updates, including visual baselines and generated artifacts. Verify the integrated revision and affected postconditions; a merge-order note alone is insufficient. Split independently deliverable outcomes while keeping coupled implementation and tests together.
+
+Match evidence claims to their exact revision, platform, run/step, and artifact. Distinguish personally executed checks from inspected historical/independent evidence, and step success from overall job success. Inspect whether captures actually show the claimed content type and state, and whether manifest keys match filenames. Compare CI history before calling a failure pre-existing or intermittent; retain uncertainty when the evidence does not establish origin or cause. Reconcile reviewer disagreements against source or reproduction rather than adopting the most confident verdict.
 
 Choose: Accept, Request changes, Request independent review, Reassign, Replan, or Block. For corrections, identify exact issues, evidence, expected behavior, and required validation. Resume the original worker, update the same branch/PR, rerun affected checks, and inspect revised evidence. Create a new PR only when the old branch is unusable, the approach changes substantially, separation is needed for safety, or Astra requests it.
 

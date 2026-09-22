@@ -12,6 +12,18 @@ Evaluate tests by the failure they can catch. Duplicated assertions, snapshots w
 
 For an audit, return prioritized findings with locations, rationale, a concrete simplification, and an appropriate verification method. For cleanup, implement justified cuts in coherent groups and verify preserved behavior. Do not replace removed complexity with a new generic framework or mix unrelated style churn into the change. It is valid to find no justified removal.
 
+## Behavior and verification safeguards
+
+Trace a reported problem through its producer, state transitions, and consumers before choosing the fix. State the supported cause and evidence; distinguish a reproduced cause from a hypothesis. A display-only correction can be appropriate when stored user data should remain unchanged, but check collisions, editing, accessible names, and other consumers. Do not raise limits, suppress errors, or add fallbacks as a claimed resolution without evidence connecting them to the failure. When reproduction is unavailable, gather bounded diagnostics within scope or report the unresolved hypothesis; label any justified mitigation accordingly.
+
+Protect changed behavior and meaningful failure boundaries with regression coverage. Prefer a failing-before/passing-after reproduction where feasible. Before deleting or rewriting a test, identify the user capability it protected and where that capability is now exercised. Renaming assertions is not coverage for new behavior; neither is a test that merely mirrors implementation. Small presentation-only changes can use direct visual evidence instead of an arbitrary test per function.
+
+Keep test preconditions distinct from observations. Assigning a control's value and reading it back proves setup, not state preservation across navigation. A conditional assertion must depend on known scenario state, not on whether the expected UI happens to be visible. For native/watch/recovery workflows, establish the active fixture and project identity, then wait for the expected content, revision, save completion, or explicit terminal state. A one-time existence check, arbitrary delay, retry, or optional branch must not turn a missed outcome into a pass. Use isolated fixtures; make editing the displayed fixture deliberate when the scenario requires it.
+
+When changing preference defaults or schemas, distinguish new profiles, older profiles missing the field, and explicitly saved values. Define intended behavior for each affected case and test preservation or migration accordingly. For consequential persistence, recovery, permissions, or native changes, document failure behavior and recovery and obtain the independent review required by repository policy; inspect native filtering, swallowed errors, and platform assumptions before changing enumeration bounds. A cosmetic diff or small line count does not make a behavioral change low risk.
+
+For renamed UI text, settings locations, or actions, search the old wording across active source, native/tray/error paths, tests, and current documentation. Fix relevant occurrences or record why they remain; preserve historical records and stable identifiers where appropriate. For manifests and other structured files, follow the existing schema and key format, check references to real artifacts, and remove conflicting stale entries. A valid JSON parse alone does not verify provenance.
+
 ## Performance wins
 
 Choose a metric connected to the user's problem, such as request latency, startup time, build time, peak memory, query count, or bundle size. Establish a representative workload and baseline before claiming an optimization.

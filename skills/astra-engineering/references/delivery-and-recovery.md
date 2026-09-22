@@ -10,6 +10,16 @@ Classify with a reason: ready to merge, useful but needs repair, duplicate or su
 
 Return actionable recommendations with links and evidence. When repair is requested, reproduce the problem and complete a focused fix. When closure or merging is authorized, act on qualifying items and verify the resulting state. Otherwise prepare the specific proposed action without posting it. Do not optimize for a closure count.
 
+## Classify failures and evidence
+
+Before calling a failure pre-existing, compare the failing revision and step with the relevant base/default-branch runs and useful sibling runs. With GitHub CLI, use `gh run list`, `gh run view`, and `gh run view --log-failed`; use equivalent evidence when another tool is available. Separate reproducible regressions, supported intermittent failures, environment failures, and unknown causes. Passing sibling runs alone do not prove a failure occurs on the base, and intermittent behavior does not establish its cause. Link the relevant runs and state uncertainty rather than guessing a classification.
+
+Tie every acceptance claim to the outcome, exact revision, platform/environment, and command/run or retained artifact. Distinguish personally executed checks from inspected historical or independent evidence. Earlier evidence can remain useful, but explain its applicability to the current revision. Record step-level outcomes separately from the overall job: a smoke step can pass while a later visual comparison fails. Ensure PR descriptions and manifests agree about which revision and step passed or remains unverified.
+
+Inspect cited artifacts to ensure they actually show the claimed screen, content type, state, and interaction. A screenshot of a neighboring editor cannot prove a changed drawing toolbar; green general checks cannot prove a requested alignment. Do not use generic repeated review prose as a substitute for inspecting each changed artifact. Check filename keys and source revisions when updating baseline manifests.
+
+Keep one independently deliverable outcome per PR. Split speculative native fixes from separable renames or restyles; keep schema, IPC, UI, tests, and documentation together when they implement one coherent outcome. Apply repository size warnings with judgment rather than treating file count as proof of bad scope.
+
 ## Merge when authorized
 
 Determine the exact PR, destination branch, and allowed release step from the user's instructions and established workflow. Account for automatic deployment triggered by merging: authorization for a staging merge must not silently become production release authority. Do not invent a staging environment.
@@ -17,6 +27,8 @@ Determine the exact PR, destination branch, and allowed release step from the us
 Review the current diff against the requested behavior, relevant regression coverage, required checks and approvals, conflicts, unresolved review findings, and branch protections. Fix issues within scope and revalidate. Never bypass required checks or weaken protections to merge.
 
 Immediately before merging, confirm that the reviewed revision is still the current PR head and that required checks and approvals apply to it. If the head changed, inspect the new changes and refresh relevant verification. Use the repository's normal merge or queue mechanism and expected revision guard when available.
+
+For stacked PRs, record base/head relationships and refresh dependent branches after relevant parent changes, including generated artifacts and visual baselines. Follow the repository's history policy; do not force-push without authorization. Inspect the resulting integrated diff and rerun affected outcome checks. A green child built on an older parent does not verify the current stack.
 
 If authorization already covers the prepared action, execute it without requesting the same approval again. Otherwise present the concrete merge-ready result and request only the missing authorization. After execution, verify the merge or queue state; queue admission is not a completed merge. Verify staging when it is part of the authorized workflow.
 

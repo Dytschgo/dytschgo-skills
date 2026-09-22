@@ -41,6 +41,16 @@ Use automated accessibility checks when available, complemented by manual keyboa
 
 Batch the first inspection and corrections, then confirm the affected areas. Repeat only for new changes, unresolved defects, or failed checks. Do not stop with a known material defect because a fixed number of passes elapsed, and do not keep polishing after the criteria are met.
 
+## Preserve interactions through UI changes
+
+Before moving, consolidating, or deleting a control, identify every affected entry point and content type. Verify that the capability remains reachable for each relevant selection, empty/loading/error state, collapsed panel, and supported viewport. A replacement toolbar visible only for screenshots does not preserve an action previously available for drawings and text. Keep recovery and inspector controls available when an editor fails to load.
+
+Exercise opening and closing panels with the keyboard. If the trigger unmounts, restore focus to its replacement or another deliberate target; do not rely on a detached node or silently leave focus on the page body. Test navigation away and back when a change moves related settings across pages. Observe state preservation before any test setup reselects or rewrites the value.
+
+For display-name normalization, compare the displayed label with stored data, rename inputs, accessible names, and nearby disambiguating information. Check names that become identical after normalization. For renamed labels or settings locations, search active renderer, native menu/tray, error-message, test, and documentation paths. Preserve useful guidance for other supported input methods when simplifying tooltips. Exercise new keyboard navigation, including Tab entry/exit and arrow-key selection, against the control's semantics.
+
+When styling a third-party component through internal classes, inspect the installed markup and rendered result rather than assuming selectors work. Prefer supported styling hooks when available and keep version-sensitive overrides localized. Treat possible future library changes as maintenance risk, not proof of a current defect.
+
 ## Performance work
 
 Measure the user's actual problem: initial useful content, input latency, list scrolling, filtering, media decoding, or interaction with a large document. Record workload, device, network assumptions, and measurement method so the before/after comparison means something.
@@ -54,3 +64,5 @@ Keep initial important content prioritized, reserve asset space, and defer expen
 Run the repository's relevant format, lint, type, test, and build commands according to its requirements and the changed scope. Add behavioral tests when they protect meaningful interaction or state contracts; do not add brittle tests for arbitrary styling values.
 
 State what changed and why, what was actually inspected or exercised, and any material uncertainty. If the app could not be rendered, explicitly say the review was based on source or static artifacts. Identify the concrete blocker without implying a browser pass occurred.
+
+For visual baselines, inspect every changed capture and difference image in the actual affected surface/state. Record the source revision, platform, viewport/scale, run or artifact, and the outcome it demonstrates. Keep manifest keys consistent with artifact filenames and update stale provenance. Distinguish inspected prior evidence from checks executed now, and a passed step from the overall job result. Repeated wording or an image from another editor does not establish the requested outcome.
