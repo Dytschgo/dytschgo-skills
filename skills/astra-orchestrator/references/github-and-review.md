@@ -48,7 +48,7 @@ Explicitly say the PR is ready for Astra review. CI pending is not passing; reco
 
 ## Independent review
 
-Every implementer self-reviews. Use a fresh Terra thread for standard medium-risk multi-file review when practical, and a fresh Sol thread for complex/high-impact review. High-risk independent review is required. Luna can validate simple checklists but does not replace high-impact technical review.
+Every implementer self-reviews. Use a fresh Sol (`gpt-6-sol`) thread for standard medium-risk multi-file review when practical and for complex/high-impact review. High-risk independent review is required. A Sol implementer's own review does not replace a separate reviewer thread. Luna (`gpt-6-luna`) can validate simple checklists but does not replace high-impact technical review.
 
 Fresh means independent of the implementer's thread; it does not require repeating a completed qualifying review at every stage. Astra may reuse an existing independent thread's review evidence when it identifies the reviewer/thread, independence, scope and acceptance criteria, exact base/head revisions, findings and their disposition, and covers the current action's risks. Inspect the evidence itself. A deployment also needs its operational plan/configuration reviewed; a code-only review does not automatically cover deployment. Changed revisions, scope, environment, or unresolved findings require review of the affected work. If qualifying evidence already exists, the reviewer being offline is not itself a blocker. Human approval and automated CI can supplement this evidence but do not by themselves establish the independent agent-thread review required by this skill.
 
