@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra Blast Radius"
+  short_description: "Trace cross-system effects and prove key safety claims"
+  default_prompt: "Use $astra-blast-radius to review this change beyond its direct callers. Prioritize concrete failure paths, verify the key safety assumption with real evidence, and mark anything unproven."

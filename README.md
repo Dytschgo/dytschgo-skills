@@ -2,7 +2,7 @@
 
 Reusable agent skills by Dylan Ferraro (Dytschgo) for engineering, interface design, coordinated implementation, and verified delivery.
 
-Each skill has its own folder and can be installed independently. The collection contains three Astra skills.
+Each skill has its own folder and can be installed independently. The collection contains five Astra skills.
 
 The short skill descriptions are what Codex sees during skill selection. Each `SKILL.md` keeps shared decisions and routes to task-specific references, so using one workflow does not load the others. This reduces initial and selected-skill context; it does not guarantee an API prompt-cache hit. Prompt caching depends on an unchanged prompt prefix and the model/runtime's cache behavior. See [OpenAI's prompt caching guide](https://developers.openai.com/api/docs/guides/prompt-caching) and [Codex skill loading guidance](https://learn.chatgpt.com/docs/build-skills).
 
@@ -13,8 +13,10 @@ The short skill descriptions are what Codex sees during skill selection. Each `S
 | [Astra Design](skills/astra-design/SKILL.md) | Unifies art direction, product UI, websites, motion, accessibility, and rendered verification. | New interfaces, redesigns, scoped UI fixes, design reviews, and visual polish. |
 | [Astra Engineering](skills/astra-engineering/SKILL.md) | Guides deep investigation, useful code changes, and evidence-based verification. | Cleanup, performance, agent DX, PR and issue review, authorized merges, and stalled work. |
 | [Astra Orchestrator](skills/astra-orchestrator/SKILL.md) | Coordinates specialist assignments, shared task state, implementation, independent review, and final acceptance. | Larger engineering tasks that benefit from agents with distinct responsibilities. |
+| [Astra Verification](skills/astra-verification/SKILL.md) | Creates a project-local verification workflow and maintains its feature map against source and live behavior. | A project lacks a reliable way to prove user-facing behavior, or an existing verification guide may have drifted. |
+| [Astra Blast Radius](skills/astra-blast-radius/SKILL.md) | Finds consequential effects beyond a diff and tests the key assumption that makes the change safe. | Reviewing a risky change or asking what a small-looking change could break elsewhere. |
 
-Design supplies the interface workflow. Engineering supplies investigation and implementation methods. Orchestrator supplies coordination. Use them independently or combine them when the task benefits.
+Design supplies the interface workflow. Engineering supplies investigation and implementation methods. Orchestrator supplies coordination. Verification establishes a repeatable proof path for a project. Blast Radius examines cross-system effects before a change ships. Use them independently or combine them when the task benefits.
 
 ## Review and verification improvements
 
@@ -44,10 +46,14 @@ npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-enginee
 npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-orchestrator
 ```
 
-Install all three globally for Codex:
+```bash
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-verification astra-blast-radius
+```
+
+Install all five globally for Codex:
 
 ```bash
-npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-design astra-engineering astra-orchestrator --agent codex -g
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-design astra-engineering astra-orchestrator astra-verification astra-blast-radius --agent codex -g
 ```
 
 List available skills without installing:
@@ -139,6 +145,26 @@ Combine the skills:
 Use $astra-orchestrator and $astra-engineering to investigate this slow application, delegate independent bottleneck investigations, implement justified improvements, and report measured results.
 ```
 
+## Astra Verification
+
+Builds or audits a repository-specific skill that can launch the real application, check that the instance is healthy, exercise user paths, preserve evidence, and clean up what it started. It also keeps a feature map aligned with current source and live behavior. The generated workflow follows the repository's conventions and avoids real external side effects.
+
+Example:
+
+```text
+Use $astra-verification to create a local verification skill for this app. Discover its primary user surfaces, use the existing harness, map the main features, then run one end-to-end proof and preserve the evidence.
+```
+
+## Astra Blast Radius
+
+Traces a change beyond direct callers to affected data, lifecycle behavior, public contracts, flags, and downstream consumers. It prioritizes concrete risks, names what evidence cleared or confirmed them, and tries to exercise the key safety assumption with the real code.
+
+Example:
+
+```text
+Use $astra-blast-radius to review this change. Find the most consequential way it could break another path and prove or clearly mark the key safety assumption.
+```
+
 ## Files and their purpose
 
 ```text
@@ -160,6 +186,14 @@ skills/
     references/runtime.md
     references/contracts-and-state.md
     references/github-and-review.md
+  astra-verification/
+    SKILL.md
+    agents/openai.yaml
+  astra-blast-radius/
+    SKILL.md
+    agents/openai.yaml
+SOURCES.md
+UPSTREAM-LICENSE-PSTACK.txt
 ```
 
 | File | Purpose |
@@ -173,6 +207,10 @@ skills/
 | Orchestrator: `runtime.md` | Tool availability, model fallbacks, worktree isolation, context synchronization, and budgets. |
 | Orchestrator: `contracts-and-state.md` | Assignment/result contracts, lifecycle states, and decision records. |
 | Orchestrator: `github-and-review.md` | Branch and PR ownership, review evidence, corrections, and final delivery. |
+| Verification | Portable project-local verification skill generation and maintenance. |
+| Blast Radius | Evidence-led impact tracing and validation of key safety assumptions. |
+| `UPSTREAM-LICENSE-PSTACK.txt` | Retained MIT notice for the P stack work that inspired the verification and blast-radius workflows. |
+| `SOURCES.md` | Names the P stack workflows that informed each new skill and summarizes the adaptations. |
 
 ## Compatibility and permissions
 
@@ -186,4 +224,4 @@ Add each skill under `skills/<skill-name>/` with its `SKILL.md` and required sup
 
 ## License
 
-[MIT](LICENSE). The bundled UI/UX Pro Max library retains its [upstream MIT notice](skills/astra-design/library/ui-ux-pro-max/LICENSE); see [source notes](skills/astra-design/SOURCES.md).
+[MIT](LICENSE). The bundled UI/UX Pro Max library retains its [upstream MIT notice](skills/astra-design/library/ui-ux-pro-max/LICENSE); see [design source notes](skills/astra-design/SOURCES.md). Astra Verification and Astra Blast Radius were written for this collection using ideas from Cursor's [P stack](https://github.com/cursor/plugins/tree/main/pstack); the specific source flows and adaptations are recorded in [SOURCES.md](SOURCES.md), and its MIT notice is retained in [UPSTREAM-LICENSE-PSTACK.txt](UPSTREAM-LICENSE-PSTACK.txt).
