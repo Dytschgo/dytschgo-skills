@@ -128,10 +128,10 @@ The included routing preferences are:
 | Role | Preferred model | Responsibility |
 | --- | --- | --- |
 | Luna | `gpt-6-luna` | Bounded context gathering, extraction, summaries, and simple checks. |
-| Sol | `gpt-6-sol` | Default implementation, integration, tests, debugging, and independent technical review. |
+| Sol | `gpt-6.1-sol` | Default implementation, integration, tests, debugging, and independent technical review. |
 | Astra | The existing primary session | Coordination, scope, conflict resolution, final review, and acceptance. |
 
-GPT-6 Sol and Luna replace the previous worker defaults. The exact runtime IDs are `gpt-6-sol` and `gpt-6-luna`. Availability depends on the account and runtime. Orchestrator passes the selected ID explicitly when spawning a worker and checks that the runtime supports it. It does not fall back to an older model without explicit user authorization. If delegation is unavailable, suitable work can continue locally, but the agent must not claim that independent review occurred. Skills do not change the primary session's model; Design and Engineering used alone retain that session's model.
+GPT-6.1 Sol and Luna replace the previous worker defaults. The exact runtime IDs are `gpt-6.1-sol` and `gpt-6-luna`. Availability depends on the account and runtime. Orchestrator passes the selected ID explicitly when spawning a worker and checks that the runtime supports it. It does not fall back to an older model without explicit user authorization. If delegation is unavailable, suitable work can continue locally, but the agent must not claim that independent review occurred. Skills do not change the primary session's model; Design and Engineering used alone retain that session's model.
 
 Example:
 
