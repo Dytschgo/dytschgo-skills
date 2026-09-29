@@ -14,7 +14,7 @@ These are the user's worker defaults, not claims about universal availability or
 | Role | Preferred model | Work |
 | --- | --- | --- |
 | Luna | `gpt-6-luna` | Focused context gathering, extraction, summaries, simple checks |
-| Sol | `gpt-6-sol` | Default implementation, integration, tests, debugging, architecture, security, independent technical review |
+| Sol | `gpt-6.1-sol` | Default implementation, integration, tests, debugging, architecture, security, independent technical review |
 | Astra | Existing primary session | Coordination, conflict resolution, final acceptance |
 
 Read [runtime, isolation, and context](references/runtime.md) before first delegation. It covers actual tool mechanics, model fallbacks, shared filesystems, worktrees, and state synchronization. Do not silently substitute a required model or simulate separate agents in one thread. If critical independent review cannot run, leave that acceptance criterion pending.

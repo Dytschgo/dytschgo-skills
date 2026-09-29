@@ -1,4 +1,4 @@
 interface:
   display_name: "Astra Orchestrator"
-  short_description: "Coordinate GPT-6 Sol and Luna with evidence-led review"
-  default_prompt: "Use $astra-orchestrator to complete this task with gpt-6-sol for implementation and independent technical review, and gpt-6-luna for bounded support work."
+  short_description: "Coordinate GPT-6.1 Sol and Luna with evidence-led review"
+  default_prompt: "Use $astra-orchestrator to complete this task with gpt-6.1-sol for implementation and independent technical review, and gpt-6-luna for bounded support work."
