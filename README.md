@@ -1,8 +1,8 @@
 # Dytschgo Skills
 
-Reusable agent skills by Dylan Ferraro (Dytschgo) for engineering, interface design, coordinated implementation, and verified delivery.
+Reusable agent skills by Dylan Ferraro (Dytschgo) for engineering, interface design, feature planning, coordinated implementation, and verified delivery.
 
-Each skill has its own folder and can be installed independently. The collection contains five Astra skills.
+Each skill has its own folder and can be installed independently. The collection contains five Astra skills and Dahlei Plana, a feature-planning skill.
 
 The short skill descriptions are what Codex sees during skill selection. Each `SKILL.md` keeps shared decisions and routes to task-specific references, so using one workflow does not load the others. This reduces initial and selected-skill context; it does not guarantee an API prompt-cache hit. Prompt caching depends on an unchanged prompt prefix and the model/runtime's cache behavior. See [OpenAI's prompt caching guide](https://developers.openai.com/api/docs/guides/prompt-caching) and [Codex skill loading guidance](https://learn.chatgpt.com/docs/build-skills).
 
@@ -15,8 +15,9 @@ The short skill descriptions are what Codex sees during skill selection. Each `S
 | [Astra Orchestrator](skills/astra-orchestrator/SKILL.md) | Coordinates specialist assignments, shared task state, implementation, independent review, and final acceptance. | Larger engineering tasks that benefit from agents with distinct responsibilities. |
 | [Astra Verification](skills/astra-verification/SKILL.md) | Creates a project-local verification workflow and maintains its feature map against source and live behavior. | A project lacks a reliable way to prove user-facing behavior, or an existing verification guide may have drifted. |
 | [Astra Blast Radius](skills/astra-blast-radius/SKILL.md) | Finds consequential effects beyond a diff and tests the key assumption that makes the change safe. | Reviewing a risky change or asking what a small-looking change could break elsewhere. |
+| [Dahlei Plana](skills/dahlei-plana/SKILL.md) | Turns a feature idea into a detailed coding-agent prompt and recommends a current model from xAI, OpenAI, or Anthropic. | Feature planning, prompt preparation, or choosing a model for a specific build. |
 
-Design supplies the interface workflow. Engineering supplies investigation and implementation methods. Orchestrator supplies coordination. Verification establishes a repeatable proof path for a project. Blast Radius examines cross-system effects before a change ships. Use them independently or combine them when the task benefits.
+Design supplies the interface workflow. Engineering supplies investigation and implementation methods. Orchestrator supplies coordination. Verification establishes a repeatable proof path for a project. Blast Radius examines cross-system effects before a change ships. Dahlei Plana prepares feature prompts and model recommendations. Use them independently or combine them when the task benefits.
 
 ## Review and verification improvements
 
@@ -50,10 +51,14 @@ npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-orchest
 npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-verification astra-blast-radius
 ```
 
-Install all five globally for Codex:
+```bash
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill dahlei-plana
+```
+
+Install all six globally for Codex:
 
 ```bash
-npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-design astra-engineering astra-orchestrator astra-verification astra-blast-radius --agent codex -g
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-design astra-engineering astra-orchestrator astra-verification astra-blast-radius dahlei-plana --agent codex -g
 ```
 
 List available skills without installing:
@@ -62,7 +67,7 @@ List available skills without installing:
 npx skills add https://github.com/Dytschgo/dytschgo-skills --list
 ```
 
-For manual installation, copy each desired folder from `skills/` into your agent's skill directory, including its references, metadata, and any library directory. For an existing Codex setup using `~/.codex/skills`, Astra Design's entrypoint would be `~/.codex/skills/astra-design/SKILL.md`.
+For manual installation, copy each desired folder from `skills/` into your agent's skill directory, including its references, metadata, and any library directory. For an existing Codex setup using `~/.codex/skills`, Astra Design's entrypoint is `~/.codex/skills/astra-design/SKILL.md`, and Dahlei Plana's is `~/.codex/skills/dahlei-plana/SKILL.md`.
 
 ### Existing Astra Engineering installations
 
@@ -165,6 +170,16 @@ Example:
 Use $astra-blast-radius to review this change. Find the most consequential way it could break another path and prove or clearly mark the key safety assumption.
 ```
 
+## Dahlei Plana
+
+Dahlei Plana turns a feature idea into a self-contained prompt for a coding agent. It uses available project context, calls out assumptions, and makes acceptance criteria concrete. It also recommends a suitable model from xAI, OpenAI, or Anthropic based on the feature's needs. Since model availability and capabilities change, it checks current primary vendor sources before making specific model claims. For independent parts of larger work, it can propose separate agent assignments and define how they fit together; it does not claim to dispatch agents unless the current environment actually supports that.
+
+Example:
+
+```text
+Use $dahlei-plana to plan a saved-search feature for this app. Inspect the existing search flow, write a detailed implementation prompt with acceptance criteria, and recommend the best current model from xAI, OpenAI, or Anthropic with a source-backed alternative.
+```
+
 ## Files and their purpose
 
 ```text
@@ -192,6 +207,9 @@ skills/
   astra-blast-radius/
     SKILL.md
     agents/openai.yaml
+  dahlei-plana/
+    SKILL.md
+    agents/openai.yaml
 SOURCES.md
 UPSTREAM-LICENSE-PSTACK.txt
 ```
@@ -209,6 +227,7 @@ UPSTREAM-LICENSE-PSTACK.txt
 | Orchestrator: `github-and-review.md` | Branch and PR ownership, review evidence, corrections, and final delivery. |
 | Verification | Portable project-local verification skill generation and maintenance. |
 | Blast Radius | Evidence-led impact tracing and validation of key safety assumptions. |
+| Dahlei Plana: `SKILL.md` | Feature brief, copyable agent prompt, and current model recommendation workflow. |
 | `UPSTREAM-LICENSE-PSTACK.txt` | Retained MIT notice for the P stack work that inspired the verification and blast-radius workflows. |
 | `SOURCES.md` | Names the P stack workflows that informed each new skill and summarizes the adaptations. |
 

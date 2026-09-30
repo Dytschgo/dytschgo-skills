@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dahlei Plana"
+  short_description: "Turn feature ideas into agent prompts and model picks"
+  default_prompt: "Use $dahlei-plana to turn this feature idea into a detailed coding-agent prompt and recommend a suitable current model."
