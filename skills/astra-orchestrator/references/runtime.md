@@ -8,6 +8,17 @@ The preferred mappings in SKILL.md use IDs exposed in the authoring session. The
 
 Use `gpt-6-luna` for bounded support and `gpt-6.1-sol` for implementation and technical review. Pass the ID explicitly in the spawn call; changing a role label or launcher prompt does not select a model. If a default is unavailable, record the limitation and honor any explicit session authorization for a suitable replacement. Do not silently downgrade or use an older-generation fallback without explicit user authorization. Continue independent work that the current session can perform; ask for a replacement only when delegation is necessary to complete the assignment. Do not invent worker threads or independent review. Required independent review remains outstanding until performed.
 
+### T3 Code Orchestrator V2
+
+Use this path only when the current T3 session exposes its orchestration MCP tools. Inspect the live tool list and capability response first; tool names, providers, models, and supported operations can vary by release, project, and provider instance. Confirm that the selected target supports child tasks and that its runtime and interaction modes fit the assignment. Keep the preferred model routing from SKILL.md when available, and report the actual provider and model used.
+
+- Use the delegated-task tool for bounded work that should be a child of the current thread, with durable task status and visible lineage. Use async execution for longer work, retain the returned task and child-thread IDs, and retrieve the result through the available status/read/wait tools before accepting it.
+- Use a top-level thread launch or batch thread creation for standalone work that should have its own thread lifecycle rather than delegated-child lineage. Do not assume it shares the parent's transcript or that it can access another project.
+- Make every child assignment self-contained. Include the repository and absolute workspace, relevant `AGENTS.md` and skill paths, the request and accepted decisions, owned files or systems, acceptance criteria, permitted actions, and required evidence. T3 child threads do not automatically receive the parent conversation.
+- For ongoing work, use the exposed thread send/read/wait/interrupt operations according to their live schemas. Check durable task or thread state before retrying after an uncertain response, so a lost tool result does not create duplicate work. Use request IDs when the tool supports them.
+- Verify workspace and branch isolation before concurrent writes. A separate T3 thread alone does not establish filesystem isolation; assign separate worktrees and explicit ownership, or serialize writes. Keep one integration owner and validate the combined revision.
+
+
 With the currently exposed `collaboration` tools:
 
 - Use `spawn_agent` for a concrete independent assignment. Supply a descriptive lowercase task name, exact supported model, supported effort, and a compact assignment message.
