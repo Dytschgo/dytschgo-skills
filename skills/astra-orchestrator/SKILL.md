@@ -17,7 +17,9 @@ These are the user's worker defaults, not claims about universal availability or
 | Sol | `gpt-6.1-sol` | Default implementation, integration, tests, debugging, architecture, security, independent technical review |
 | Astra | Existing primary session | Coordination, conflict resolution, final acceptance |
 
-Read [runtime, isolation, and context](references/runtime.md) before first delegation. It covers actual tool mechanics, model fallbacks, shared filesystems, worktrees, and state synchronization. Do not silently substitute a required model or simulate separate agents in one thread. If critical independent review cannot run, leave that acceptance criterion pending.
+Read [runtime, isolation, and context](references/runtime.md) before first delegation. It covers actual tool mechanics, model fallbacks, shared filesystems, worktrees, and state synchronization.
+
+Use the delegation mechanism exposed by the current runtime. When T3 Code Orchestrator MCP tools are available, read the T3 Code guidance in the runtime reference and use V2 capabilities for durable or cross-provider child work; do not assume those tools or providers are available in every session. Do not silently substitute a required model or simulate separate agents in one thread. If critical independent review cannot run, leave that acceptance criterion pending.
 
 ## Boundaries
 
