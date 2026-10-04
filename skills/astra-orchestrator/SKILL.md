@@ -33,6 +33,8 @@ Workers do not merge their own PRs or push directly to protected/default branche
 
 When the outcome, scope, or a material design decision is still unset, pull [Astra Grilling](../astra-grilling/SKILL.md) and do not assign implementation until the user confirms a shared understanding.
 
+When this thread should continue in a fresh agent, pull [Astra Handoff](../astra-handoff/SKILL.md). Point at specs, issues, and diffs. Do not copy them into the handoff.
+
 1. Establish the intended outcome, repository state, applicable instructions, acceptance criteria, risks, dependencies, and authorized actions. Resolve routine gaps from evidence; ask only about material missing decisions while continuing independent work.
 2. For nontrivial delegated work, keep a compact canonical record and assignment/result contract using [contracts and shared state](references/contracts-and-state.md). Astra owns updates to that record.
 3. Give each worker one outcome, enough context, absolute working directory, write boundaries, permission scope, acceptance evidence, and a limited correction budget. Workers can implement autonomously within those boundaries.

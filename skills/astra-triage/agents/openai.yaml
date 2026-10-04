@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra Triage"
+  short_description: "Move a report through triage before anyone grills it"
+  default_prompt: "Use $astra-triage on this report. Reproduce it before grilling, then post an agent brief if it is ready."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra Code Review"
+  short_description: "Review a diff on standards and on the spec"
+  default_prompt: "Use $astra-code-review to review git diff <fixed-point>...HEAD on standards and on the spec, in parallel."

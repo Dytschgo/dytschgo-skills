@@ -52,6 +52,10 @@ Recommended review focus:
 
 Explicitly say the PR is ready for Astra review. CI pending is not passing; record required, optional, skipped, and failed checks distinctly. A PR being open is not proof it is mergeable or approved.
 
+## Before merge
+
+Pull [Astra Code Review](../../astra-code-review/SKILL.md) before merge. Review `git diff <fixed-point>...HEAD` on the standards axis and the spec axis, in parallel. That review does not replace the before, the after, or the door required above.
+
 ## Independent review
 
 Every implementer self-reviews. Use a fresh Sol (`gpt-6-sol`) thread for standard medium-risk multi-file review when practical and for complex/high-impact review. High-risk independent review is required. A Sol implementer's own review does not replace a separate reviewer thread. Luna (`gpt-6-luna`) can validate simple checklists but does not replace high-impact technical review.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra To Spec"
+  short_description: "Publish the settled conversation as a tracker spec"
+  default_prompt: "Use $astra-to-spec to publish a spec from this conversation. Do not interview me, and do not start the build."

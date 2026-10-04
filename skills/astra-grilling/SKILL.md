@@ -7,6 +7,10 @@ description: Grill a plan, decision, or idea until the design tree is settled. U
 
 Interview until you and the user share an understanding. Map the work as a design tree: every decision branches into the decisions that hang off it. Behavior follows Matt Pocock's grilling skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/productivity/grilling/SKILL.md
 
+If the subject is a bug report, external issue, or pull request that has not been triaged, pull [Astra Triage](../astra-triage/SKILL.md) first. Do not interview until the claim has been reproduced.
+
+If the effort is too big for one pass, and the frontier keeps opening branches this session cannot close, pull [Astra Wayfinder](../astra-wayfinder/SKILL.md) and stop this interview.
+
 ## Rounds
 
 Work the tree in rounds. The frontier is every decision whose prerequisites are already settled: the questions you can ask now without guessing at answers you have not heard. Ask the whole frontier in one round. Number each question and give a recommended answer. Then wait for the user's answers before the next round.
@@ -39,6 +43,7 @@ The session is done when the frontier is empty: every branch visited, nothing le
 
 After that confirmation, pull the skill the settled decision calls for, and only that one:
 
+- A settled decision that should become a tracker spec: [Astra To Spec](../astra-to-spec/SKILL.md).
 - Interface direction or UI still to design or build: [Astra Design](../astra-design/SKILL.md).
 - A feature idea that should become an implementation prompt: [Dahlei Plana](../dahlei-plana/SKILL.md).
 - A build whose shape is now settled and needs coordinated agents: [Astra Orchestrator](../astra-orchestrator/SKILL.md).

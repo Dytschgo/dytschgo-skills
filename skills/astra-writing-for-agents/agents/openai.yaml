@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra Writing for Agents"
+  short_description: "Write a skill or AGENTS.md an agent can follow"
+  default_prompt: "Use $astra-writing-for-agents to draft this skill so an agent can tell when it is done."

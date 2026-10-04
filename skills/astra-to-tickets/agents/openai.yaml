@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra To Tickets"
+  short_description: "Split a spec into tracer-bullet tickets"
+  default_prompt: "Use $astra-to-tickets to split this spec into vertical tickets with blocking edges. Do not implement them."

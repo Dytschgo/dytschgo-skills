@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra Handoff"
+  short_description: "Compact this thread for a fresh agent"
+  default_prompt: "Use $astra-handoff to compact this thread for a fresh agent. Point at artifacts; do not copy them."

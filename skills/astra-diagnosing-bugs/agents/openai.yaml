@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra Diagnosing Bugs"
+  short_description: "Build a tight loop before any hypothesis"
+  default_prompt: "Use $astra-diagnosing-bugs. Do not hypothesize until a tight pass/fail loop goes red on this bug."

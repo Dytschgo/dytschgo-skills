@@ -2,7 +2,7 @@
 
 Reusable agent skills by Dylan Ferraro (Dytschgo) for engineering, interface design, feature planning, coordinated implementation, and verified delivery.
 
-Each skill has its own folder and can be installed independently. The collection contains six Astra skills and Dahlei Plana, a feature-planning skill.
+Each skill has its own folder and can be installed independently. The collection contains fourteen Astra skills and Dahlei Plana, a feature-planning skill.
 
 The short skill descriptions are what Codex sees during skill selection. Each `SKILL.md` keeps shared decisions and routes to task-specific references, so using one workflow does not load the others. This reduces initial and selected-skill context; it does not guarantee an API prompt-cache hit. Prompt caching depends on an unchanged prompt prefix and the model/runtime's cache behavior. See [OpenAI's prompt caching guide](https://developers.openai.com/api/docs/guides/prompt-caching) and [Codex skill loading guidance](https://learn.chatgpt.com/docs/build-skills).
 
@@ -17,8 +17,16 @@ The short skill descriptions are what Codex sees during skill selection. Each `S
 | [Astra Blast Radius](skills/astra-blast-radius/SKILL.md) | Finds consequential effects beyond a diff and tests the key assumption that makes the change safe. | Reviewing a risky change or asking what a small-looking change could break elsewhere. |
 | [Dahlei Plana](skills/dahlei-plana/SKILL.md) | Turns a feature idea into a detailed coding-agent prompt and recommends a current model from xAI, OpenAI, or Anthropic. | Feature planning, prompt preparation, or choosing a model for a specific build. |
 | [Astra Grilling](skills/astra-grilling/SKILL.md) | Interviews an open plan as a design tree, one frontier round at a time, and stops before any action. | Stress-testing a decision, or an unset design before design, planning, implementation, or orchestration. |
+| [Astra To Spec](skills/astra-to-spec/SKILL.md) | Publishes the settled conversation as a tracker spec. No interview. | A confirmed decision that should become an issue before anyone slices or builds it. |
+| [Astra To Tickets](skills/astra-to-tickets/SKILL.md) | Splits a spec into vertical tracer-bullet tickets with blocking edges. | The spec exists and the build needs an order. It does not implement the tickets. |
+| [Astra Code Review](skills/astra-code-review/SKILL.md) | Reviews `git diff <fixed-point>...HEAD` on repo standards and on the originating spec, in parallel. | Before a merge, or a review of a branch since a fixed point. The PR still needs a before, an after, and a door. |
+| [Astra Diagnosing Bugs](skills/astra-diagnosing-bugs/SKILL.md) | Builds a tight pass/fail loop before any hypothesis, then minimises, tests, and locks the fix. | A hard bug or a performance regression. |
+| [Astra Triage](skills/astra-triage/SKILL.md) | Moves an issue or external PR through triage roles, reproduces the claim, then writes an agent brief. | A bug report or incoming request, before anyone grills it. |
+| [Astra Wayfinder](skills/astra-wayfinder/SKILL.md) | Charts an effort too big for one grilling pass as decision tickets, and stops when the route is clear. | The frontier will not close in this session. It does not build the destination. |
+| [Astra Handoff](skills/astra-handoff/SKILL.md) | Compacts the thread for a fresh agent, with suggested skills and pointers instead of copied artifacts. | The thread should move. This is not a list of fix tickets for people. |
+| [Astra Writing for Agents](skills/astra-writing-for-agents/SKILL.md) | Writes a skill or AGENTS.md an agent can follow: pointers, completion checks, positive wording. | Adding or editing a skill, or a doc an agent loads by a pointer. |
 
-Design supplies the interface workflow. Engineering supplies investigation and implementation methods. Orchestrator supplies coordination. Verification establishes a repeatable proof path for a project. Blast Radius examines cross-system effects before a change ships. Dahlei Plana prepares feature prompts and model recommendations. Grilling settles an open design and does not implement. Use them independently or combine them when the task benefits.
+Design supplies the interface workflow. Engineering supplies investigation and implementation methods. Orchestrator supplies coordination. Verification establishes a repeatable proof path for a project. Blast Radius examines cross-system effects before a change ships. Dahlei Plana prepares feature prompts and model recommendations. Grilling settles an open design and does not implement. After that confirmation, To Spec publishes the decision, To Tickets slices it, and Orchestrator or Engineering builds it. Wayfinder charts an effort too big for one grilling pass. Triage reproduces a report before anyone grills it. Diagnosing Bugs builds a loop before a hypothesis. Code Review checks standards and spec before a merge. Handoff compacts a thread for a fresh agent. Writing for Agents is how a new skill or AGENTS.md is written. Use them independently or combine them when the task benefits.
 
 ## Review and verification improvements
 
@@ -60,10 +68,14 @@ npx skills add https://github.com/Dytschgo/dytschgo-skills --skill dahlei-plana
 npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-grilling
 ```
 
-Install all seven globally for Codex:
+```bash
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-to-spec astra-to-tickets astra-code-review astra-diagnosing-bugs astra-triage astra-wayfinder astra-handoff astra-writing-for-agents
+```
+
+Install all fifteen globally for Codex:
 
 ```bash
-npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-design astra-engineering astra-orchestrator astra-verification astra-blast-radius dahlei-plana astra-grilling --agent codex -g
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-design astra-engineering astra-orchestrator astra-verification astra-blast-radius dahlei-plana astra-grilling astra-to-spec astra-to-tickets astra-code-review astra-diagnosing-bugs astra-triage astra-wayfinder astra-handoff astra-writing-for-agents --agent codex -g
 ```
 
 List available skills without installing:
@@ -218,6 +230,31 @@ skills/
   astra-grilling/
     SKILL.md
     agents/openai.yaml
+  astra-to-spec/
+    SKILL.md
+    agents/openai.yaml
+  astra-to-tickets/
+    SKILL.md
+    agents/openai.yaml
+  astra-code-review/
+    SKILL.md
+    agents/openai.yaml
+  astra-diagnosing-bugs/
+    SKILL.md
+    agents/openai.yaml
+    scripts/hitl-loop.template.sh
+  astra-triage/
+    SKILL.md
+    agents/openai.yaml
+  astra-wayfinder/
+    SKILL.md
+    agents/openai.yaml
+  astra-handoff/
+    SKILL.md
+    agents/openai.yaml
+  astra-writing-for-agents/
+    SKILL.md
+    agents/openai.yaml
 SOURCES.md
 UPSTREAM-LICENSE-PSTACK.txt
 ```
@@ -237,6 +274,14 @@ UPSTREAM-LICENSE-PSTACK.txt
 | Blast Radius | Evidence-led impact tracing and validation of key safety assumptions. |
 | Dahlei Plana: `SKILL.md` | Feature brief, copyable agent prompt, and current model recommendation workflow. |
 | Grilling: `SKILL.md` | Design-tree interview that stops until the user confirms a shared understanding. |
+| To Spec: `SKILL.md` | Publishes a settled conversation as a tracker spec. No interview. |
+| To Tickets: `SKILL.md` | Splits a spec into vertical tickets with blocking edges. |
+| Code Review: `SKILL.md` | Two-axis review of `git diff <fixed-point>...HEAD`. |
+| Diagnosing Bugs: `SKILL.md` | Tight loop before a hypothesis. `scripts/hitl-loop.template.sh` is the last-resort human loop. |
+| Triage: `SKILL.md` | Label state machine, reproduce before grilling, agent brief. |
+| Wayfinder: `SKILL.md` | Decision-ticket map for an effort too big for one grilling pass. |
+| Handoff: `SKILL.md` | Thread compact for a fresh agent. Not a list of fix tickets. |
+| Writing for Agents: `SKILL.md` | How to write a skill or AGENTS.md. |
 | `UPSTREAM-LICENSE-PSTACK.txt` | Retained MIT notice for the P stack work that inspired the verification and blast-radius workflows. |
 | `SOURCES.md` | Names the P stack workflows that informed each new skill and summarizes the adaptations. |
 
@@ -248,8 +293,8 @@ All skills preserve the user's scope and existing authorization. Installing a sk
 
 ## Adding more skills
 
-Add each skill under `skills/<skill-name>/` with its `SKILL.md` and required supporting files, then add it to the table above. Include only material you have permission to redistribute, retain applicable attribution and license notices, and remove machine-specific credentials or private project context before publishing.
+Add each skill under `skills/<skill-name>/` with its `SKILL.md` and required supporting files, then add it to the table above. When you are writing that skill, or an `AGENTS.md`, pull [Astra Writing for Agents](skills/astra-writing-for-agents/SKILL.md) before drafting. Include only material you have permission to redistribute, retain applicable attribution and license notices, and remove machine-specific credentials or private project context before publishing.
 
 ## License
 
-[MIT](LICENSE). The bundled UI/UX Pro Max library retains its [upstream MIT notice](skills/astra-design/library/ui-ux-pro-max/LICENSE); see [design source notes](skills/astra-design/SOURCES.md). Astra Verification and Astra Blast Radius were written for this collection using ideas from Cursor's [P stack](https://github.com/cursor/plugins/tree/main/pstack); the specific source flows and adaptations are recorded in [SOURCES.md](SOURCES.md), and its MIT notice is retained in [UPSTREAM-LICENSE-PSTACK.txt](UPSTREAM-LICENSE-PSTACK.txt).
+[MIT](LICENSE). The bundled UI/UX Pro Max library retains its [upstream MIT notice](skills/astra-design/library/ui-ux-pro-max/LICENSE); see [design source notes](skills/astra-design/SOURCES.md). Astra Verification and Astra Blast Radius were written for this collection using ideas from Cursor's [P stack](https://github.com/cursor/plugins/tree/main/pstack); the specific source flows and adaptations are recorded in [SOURCES.md](SOURCES.md), and its MIT notice is retained in [UPSTREAM-LICENSE-PSTACK.txt](UPSTREAM-LICENSE-PSTACK.txt). Astra Grilling and the spec, ticket, review, diagnosis, triage, wayfinder, handoff, and writing skills adapt Matt Pocock's skills at tag v1.3.1 (MIT); each skill names its source file, and [SOURCES.md](SOURCES.md) lists them.
