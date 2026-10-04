@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra Grilling"
+  short_description: "Interview an open design until it is settled"
+  default_prompt: "Use $astra-grilling to grill this plan until we share an understanding. Do not implement until I confirm."

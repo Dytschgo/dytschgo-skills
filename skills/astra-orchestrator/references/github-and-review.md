@@ -20,12 +20,15 @@ Workers must not merge any PR, push directly to default/protected branches, alte
 
 ## PR content and handover
 
-Lead with the concrete problem and resulting behavior. Keep simple PRs short; scale detail to actual risk and repository templates. Include applicable information from this list, without boilerplate sections for empty items:
+Lead with the concrete problem and resulting behavior. Keep simple PRs short; scale detail to actual risk and repository templates. Include applicable information from this list, without boilerplate sections for empty items. The before/after evidence pair and the door are required on every PR; do not omit them when they would otherwise be empty:
 
 - Specific title; task ID where one exists; what changed and why.
 - Implementation approach and affected components/files.
 - Intentional exclusions that clarify material scope boundaries.
 - Tests, build, lint, type checks, and manual validation, including failures and unavailable checks.
+- Before: screenshot, output, or failing test run.
+- After: screenshot, output, or passing test run.
+- Door: one-way or two-way. A two-way door can be walked back; a one-way door cannot, including destructive actions and hard-to-reverse decisions.
 - Material decisions, assumptions, limitations, unresolved issues, and review focus.
 - Risks and rollback/recovery for medium/high risk; meaningful follow-up work.
 
@@ -39,6 +42,9 @@ Branch / base branch / base SHA / head SHA:
 PR title / URL / number:
 Summary / changed files / commits:
 Tests executed / validation results / evidence:
+Before:
+After:
+Door:
 CI status and checked revision:
 Assumptions / known risks / unresolved issues:
 Recommended review focus:

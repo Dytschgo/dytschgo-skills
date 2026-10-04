@@ -10,7 +10,7 @@ Help the user turn a feature they want to build into a clear assignment for a co
 ## Workflow
 
 1. Understand the requested feature and its intended users, outcome, and constraints. If a repository or product context is available, inspect the relevant files before drafting. Do not invent existing architecture, APIs, or requirements.
-2. Resolve gaps from available context. Ask a concise question only when an unknown would materially change the prompt or recommendation. Otherwise state a reasonable assumption inside the prompt so the user can correct it.
+2. Resolve gaps from available context. Ask a concise question only when an unknown would materially change the prompt or recommendation. Otherwise state a reasonable assumption inside the prompt so the user can correct it. When the feature's shape is still an open design decision, pull [Astra Grilling](../astra-grilling/SKILL.md) before drafting the prompt.
 3. Prepare a detailed, self-contained implementation prompt that the user can paste into a coding agent. Tailor the prompt to the feature and known codebase rather than using generic filler. Include, where relevant:
    - goal and user problem;
    - current context and relevant files or systems;

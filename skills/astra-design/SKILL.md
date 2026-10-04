@@ -11,6 +11,8 @@ Make the interface fit its audience, task, brand, and working product. Match the
 
 Inspect relevant repository instructions, source, assets, and the current rendered surface or supplied reference. For a narrow fix, preserve existing identity and behavior. For a new interface or redesign, choose a coherent direction within the user's content, brand, and technical constraints. Ask only when a missing answer would materially change the result.
 
+When the audience, primary task, or visual direction is still an open design decision, pull [Astra Grilling](../astra-grilling/SKILL.md) and do not implement until the user confirms a shared understanding.
+
 For substantial work, decide the audience and primary task, visual idea, composition, type and color roles, content and assets, responsive behavior, and motion. Share material decisions briefly, then implement. The user's brief and established brand take priority over generic style preferences.
 
 ## Load guidance when needed

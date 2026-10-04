@@ -2,7 +2,7 @@
 
 Reusable agent skills by Dylan Ferraro (Dytschgo) for engineering, interface design, feature planning, coordinated implementation, and verified delivery.
 
-Each skill has its own folder and can be installed independently. The collection contains five Astra skills and Dahlei Plana, a feature-planning skill.
+Each skill has its own folder and can be installed independently. The collection contains six Astra skills and Dahlei Plana, a feature-planning skill.
 
 The short skill descriptions are what Codex sees during skill selection. Each `SKILL.md` keeps shared decisions and routes to task-specific references, so using one workflow does not load the others. This reduces initial and selected-skill context; it does not guarantee an API prompt-cache hit. Prompt caching depends on an unchanged prompt prefix and the model/runtime's cache behavior. See [OpenAI's prompt caching guide](https://developers.openai.com/api/docs/guides/prompt-caching) and [Codex skill loading guidance](https://learn.chatgpt.com/docs/build-skills).
 
@@ -16,8 +16,9 @@ The short skill descriptions are what Codex sees during skill selection. Each `S
 | [Astra Verification](skills/astra-verification/SKILL.md) | Creates a project-local verification workflow and maintains its feature map against source and live behavior. | A project lacks a reliable way to prove user-facing behavior, or an existing verification guide may have drifted. |
 | [Astra Blast Radius](skills/astra-blast-radius/SKILL.md) | Finds consequential effects beyond a diff and tests the key assumption that makes the change safe. | Reviewing a risky change or asking what a small-looking change could break elsewhere. |
 | [Dahlei Plana](skills/dahlei-plana/SKILL.md) | Turns a feature idea into a detailed coding-agent prompt and recommends a current model from xAI, OpenAI, or Anthropic. | Feature planning, prompt preparation, or choosing a model for a specific build. |
+| [Astra Grilling](skills/astra-grilling/SKILL.md) | Interviews an open plan as a design tree, one frontier round at a time, and stops before any action. | Stress-testing a decision, or an unset design before design, planning, implementation, or orchestration. |
 
-Design supplies the interface workflow. Engineering supplies investigation and implementation methods. Orchestrator supplies coordination. Verification establishes a repeatable proof path for a project. Blast Radius examines cross-system effects before a change ships. Dahlei Plana prepares feature prompts and model recommendations. Use them independently or combine them when the task benefits.
+Design supplies the interface workflow. Engineering supplies investigation and implementation methods. Orchestrator supplies coordination. Verification establishes a repeatable proof path for a project. Blast Radius examines cross-system effects before a change ships. Dahlei Plana prepares feature prompts and model recommendations. Grilling settles an open design and does not implement. Use them independently or combine them when the task benefits.
 
 ## Review and verification improvements
 
@@ -55,10 +56,14 @@ npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-verific
 npx skills add https://github.com/Dytschgo/dytschgo-skills --skill dahlei-plana
 ```
 
-Install all six globally for Codex:
+```bash
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-grilling
+```
+
+Install all seven globally for Codex:
 
 ```bash
-npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-design astra-engineering astra-orchestrator astra-verification astra-blast-radius dahlei-plana --agent codex -g
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill astra-design astra-engineering astra-orchestrator astra-verification astra-blast-radius dahlei-plana astra-grilling --agent codex -g
 ```
 
 List available skills without installing:
@@ -210,6 +215,9 @@ skills/
   dahlei-plana/
     SKILL.md
     agents/openai.yaml
+  astra-grilling/
+    SKILL.md
+    agents/openai.yaml
 SOURCES.md
 UPSTREAM-LICENSE-PSTACK.txt
 ```
@@ -228,6 +236,7 @@ UPSTREAM-LICENSE-PSTACK.txt
 | Verification | Portable project-local verification skill generation and maintenance. |
 | Blast Radius | Evidence-led impact tracing and validation of key safety assumptions. |
 | Dahlei Plana: `SKILL.md` | Feature brief, copyable agent prompt, and current model recommendation workflow. |
+| Grilling: `SKILL.md` | Design-tree interview that stops until the user confirms a shared understanding. |
 | `UPSTREAM-LICENSE-PSTACK.txt` | Retained MIT notice for the P stack work that inspired the verification and blast-radius workflows. |
 | `SOURCES.md` | Names the P stack workflows that informed each new skill and summarizes the adaptations. |
 

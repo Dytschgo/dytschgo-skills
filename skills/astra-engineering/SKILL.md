@@ -7,6 +7,8 @@ description: Investigate and complete substantial codebase cleanup, performance,
 
 Carry difficult engineering work to a verifiable result. Infer scope and acceptance criteria from the request and repository. An audit or review produces findings; a cleanup, fix, optimization, or takeover includes implementation and verification unless the user limits it to read-only work. Ask only when missing information materially affects correctness, scope, access, or an irreversible action.
 
+When the requested outcome or acceptance criteria are still an open design decision, pull [Astra Grilling](../astra-grilling/SKILL.md) before implementing.
+
 ## Choose the relevant workflow
 
 - For cleanup, slop audits, measured performance, or agent setup and verification, read [code improvement](references/code-improvement.md).
