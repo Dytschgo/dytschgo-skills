@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-skills:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate SKILL.md frontmatter
+        run: |
+          status=0
+          for dir in skills/*/; do
+            slug=$(basename "$dir")
+            file="$dir/SKILL.md"
+            if [ ! -f "$file" ]; then echo "::error file=$dir::missing SKILL.md"; status=1; continue; fi
+            if [ "$(head -n1 "$file")" != "---" ]; then echo "::error file=$file::no frontmatter"; status=1; continue; fi
+            front=$(awk 'NR==1{next} /^---$/{exit} {print}' "$file")
+            name=$(printf '%s\n' "$front" | sed -n 's/^name:[[:space:]]*//p' | head -n1)
+            desc=$(printf '%s\n' "$front" | sed -n 's/^description:[[:space:]]*//p' | head -n1)
+            [ -n "$name" ] || { echo "::error file=$file::missing name"; status=1; }
+            [ -n "$desc" ] || { echo "::error file=$file::missing description"; status=1; }
+            [ -z "$name" ] || [ "$name" = "$slug" ] || { echo "::error file=$file::name '$name' does not match folder '$slug'"; status=1; }
+          done
+          exit $status
