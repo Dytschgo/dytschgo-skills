@@ -49,3 +49,10 @@ test('routing IDs cannot drift into another document', t => {
   write('README.md', 'Old reviewer: gpt-6-sol\n');
   assert.ok(validateRepo(root).some(e => e.includes('IDs belong only')));
 });
+test('YAML comments and non-string plain descriptions are rejected', t => {
+  const { root, write } = fixture(t);
+  for (const description of ['# pending description', 'null', 'true', '42']) {
+    write('skills/example/SKILL.md', `---\nname: example\ndescription: ${description}\n---\n`);
+    assert.ok(validateRepo(root).some(e => e.includes('invalid description')), description);
+  }
+});

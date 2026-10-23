@@ -18,6 +18,8 @@ If the target is ambiguous, inspect repository conventions and existing agent in
 
 ## Discover the project
 
+Choose the environment from the behavior under test. Instruction/skill validation and ordinary script checks can run directly or in normal CI. Websites and browser checks use the normal local/browser workflow; a Windows host alone does not require a Windows VM. Use a designated Windows lab for native Windows apps, installers, or an actual Windows-specific compatibility issue, and the relevant target runner for other platform-specific behavior. Honor explicit project/user isolation requirements and keep those distinct from platform coverage.
+
 Read the relevant repository instructions, README, run scripts, feature routes or commands, test harnesses, and recent changes. Answer from evidence:
 
 - What user-visible surfaces does this project expose?

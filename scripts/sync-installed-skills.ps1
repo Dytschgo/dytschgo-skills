@@ -34,6 +34,13 @@ function Assert-UserPath([string]$Path) {
     return $full
 }
 
+function Get-SHA256([string]$File) {
+    $stream = [IO.File]::OpenRead($File)
+    $algorithm = [Security.Cryptography.SHA256]::Create()
+    try { return [BitConverter]::ToString($algorithm.ComputeHash($stream)).Replace('-', '') }
+    finally { $algorithm.Dispose(); $stream.Dispose() }
+}
+
 function Get-FileMap([string]$Directory) {
     $map = @{}
     if (-not (Test-Path -LiteralPath $Directory)) { return $map }
@@ -43,7 +50,7 @@ function Get-FileMap([string]$Directory) {
         if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw "Linked content needs manual review: $($item.FullName)" }
         if (-not $item.PSIsContainer) {
             $relative = $item.FullName.Substring($Directory.TrimEnd('\', '/').Length + 1).Replace('\', '/')
-            $map[$relative] = (Get-FileHash -LiteralPath $item.FullName -Algorithm SHA256).Hash
+            $map[$relative] = Get-SHA256 $item.FullName
         }
     }
     return $map
@@ -88,7 +95,7 @@ for ($index = 0; $index -lt $roots.Count; $index++) {
         if ($expected.ContainsKey('references/active-profile.md')) { throw 'Source must contain generic skills; select the profile during installation.' }
         if ($selected) {
             if (-not (Test-Path -LiteralPath $profileFile -PathType Leaf)) { throw 'Selected profile is missing from source.' }
-            $expected['references/active-profile.md'] = (Get-FileHash -LiteralPath $profileFile -Algorithm SHA256).Hash
+            $expected['references/active-profile.md'] = Get-SHA256 $profileFile
         }
         $plan += [pscustomobject]@{ rootIndex = $index; name = $pack.Name; source = $pack.FullName; target = $target; profile = [bool]$selected; changed = -not (Test-MapsEqual $expected $current); expected = $expected }
     }
@@ -101,11 +108,36 @@ if (-not $Apply) {
 $run = Join-Path $BackupRoot ((Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N'))
 $null = New-Item -ItemType Directory -Path $run -Force
 $journal = [Collections.Generic.List[object]]::new()
+$recoveryFile = Join-Path $run 'recovery.json'
+foreach ($entry in $plan | Where-Object changed) {
+    $journal.Add([pscustomobject]@{
+        target = $entry.target
+        saved = Join-Path $run ("previous/$($entry.rootIndex)/$($entry.name)")
+        staged = Join-Path $run ("stage/$($entry.rootIndex)/$($entry.name)")
+        existed = [bool](Test-Path -LiteralPath $entry.target)
+        oldMoved = $false
+        installed = $false
+        phase = 'planned'
+    })
+}
+function Save-Recovery([string]$Status) {
+    $state = [pscustomobject]@{ status = $Status; revision = $SourceRevision; source = $SourceRoot; operations = @($journal.ToArray()) }
+    $bytes = [Text.UTF8Encoding]::new($false).GetBytes(($state | ConvertTo-Json -Depth 6))
+    $temporary = Join-Path $run 'recovery.next.json'
+    $stream = [IO.File]::Open($temporary, [IO.FileMode]::Create, [IO.FileAccess]::Write, [IO.FileShare]::None)
+    try { $stream.Write($bytes, 0, $bytes.Length); $stream.Flush($true) } finally { $stream.Dispose() }
+    if ([IO.File]::Exists($recoveryFile)) { [IO.File]::Replace($temporary, $recoveryFile, [NullString]::Value) }
+    else { [IO.File]::Move($temporary, $recoveryFile) }
+}
+Save-Recovery 'prepared'
 try {
     foreach ($entry in $plan | Where-Object changed) {
         $null = Assert-UserPath $entry.target
-        $staged = Join-Path $run ("stage/$($entry.rootIndex)/$($entry.name)")
-        $saved = Join-Path $run ("previous/$($entry.rootIndex)/$($entry.name)")
+        $operation = $journal | Where-Object { $_.target -eq $entry.target } | Select-Object -First 1
+        $staged = $operation.staged
+        $saved = $operation.saved
+        $operation.phase = 'staging'
+        Save-Recovery 'running'
         $null = New-Item -ItemType Directory -Path $staged -Force
         Get-ChildItem -LiteralPath $entry.source -Force | ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination $staged -Recurse -Force }
         if ($entry.profile) {
@@ -114,20 +146,26 @@ try {
             Copy-Item -LiteralPath $profileFile -Destination (Join-Path $referenceDir 'active-profile.md')
         }
         if (-not (Test-MapsEqual $entry.expected (Get-FileMap $staged))) { throw "Staging verification failed: $($entry.name)" }
-        $operation = [pscustomobject]@{ target = $entry.target; saved = $saved; oldMoved = $false; installed = $false }
-        $journal.Add($operation)
         if (Test-Path -LiteralPath $entry.target) {
             $null = New-Item -ItemType Directory -Path (Split-Path -Parent $saved) -Force
+            $operation.phase = 'moving-previous'
+            Save-Recovery 'running'
             Move-Item -LiteralPath $entry.target -Destination $saved
             $operation.oldMoved = $true
+            Save-Recovery 'running'
         }
         $null = New-Item -ItemType Directory -Path (Split-Path -Parent $entry.target) -Force
+        $operation.phase = 'installing'
+        Save-Recovery 'running'
         Move-Item -LiteralPath $staged -Destination $entry.target
         $operation.installed = $true
+        $operation.phase = 'installed'
+        Save-Recovery 'running'
         if (-not (Test-MapsEqual $entry.expected (Get-FileMap $entry.target))) { throw "Installed hash verification failed: $($entry.name)" }
     }
     $manifest = [pscustomobject]@{ applied = $true; revision = $SourceRevision; source = $SourceRoot; backup = $run; entries = @($plan | Select-Object name, target, profile, changed, expected) }
     $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $run 'manifest.json') -Encoding UTF8
+    Save-Recovery 'complete'
     $manifest | Select-Object applied, revision, backup, @{n='updated';e={@($plan | Where-Object changed).Count}}, @{n='verified';e={$plan.Count}} | ConvertTo-Json
 } catch {
     $failure = $_
@@ -142,8 +180,10 @@ try {
                 Move-Item -LiteralPath $operation.target -Destination $failed
             }
             if ($operation.oldMoved) { Move-Item -LiteralPath $operation.saved -Destination $operation.target }
+            $operation.phase = 'rolled-back'
         } catch { $rollbackErrors += $_.Exception.Message }
     }
+    try { Save-Recovery $(if ($rollbackErrors.Count) { 'rollback-needs-review' } else { 'rolled-back' }) } catch { $rollbackErrors += $_.Exception.Message }
     if ($rollbackErrors.Count) { throw "Installation failed: $failure. Rollback needs review: $($rollbackErrors -join '; '). Backups: $run" }
     throw "Installation failed; prior installations restored. $failure. Evidence: $run"
 }

@@ -4,13 +4,13 @@ Read before first delegation. The live tool schemas and higher-priority instruct
 
 ## Model and tool availability
 
-The preferred mappings in SKILL.md use IDs exposed in the authoring session. They are runtime-specific preferences, not promises that every account or client offers those models. Inspect the actual spawn tool and available overrides each session. Never infer availability from a display name or use undocumented model aliases.
+The preferred mappings in [worker routing](routing.md) use IDs exposed in the authoring session. They are runtime-specific preferences, not promises that every account or client offers those models. Inspect the actual spawn tool and available overrides each session. Never infer availability from a display name or use undocumented model aliases.
 
 Use the preferred IDs and replacement rules in [worker routing](routing.md). The live tool schema and catalog determine which providers, models, options, and delegation mechanisms can actually be selected.
 
 ### T3 Code Orchestrator V2
 
-Use this path only when the current T3 session exposes its orchestration MCP tools. Inspect the live tool list and capability response first; tool names, providers, models, and supported operations can vary by release, project, and provider instance. Confirm that the selected target supports child tasks and that its runtime and interaction modes fit the assignment. Keep the preferred model routing from SKILL.md when available, and report the actual provider and model used.
+Use this path only when the current T3 session exposes its orchestration MCP tools. Inspect the live tool list and capability response first; tool names, providers, models, and supported operations can vary by release, project, and provider instance. Confirm that the selected target supports child tasks and that its runtime and interaction modes fit the assignment. Follow the preferred worker-routing reference when available, and report the actual provider and model used.
 
 - Use delegated child tasks for work owned by this thread. Prefer native same-provider subagents only when they support the selected model and no requested or inherited model options need application. Otherwise use T3's delegated-task tool, including cross-provider work and worktree-isolated child work. For longer tasks use async mode, retain the task ID, and verify the returned provider/model/options. Retrieve the result through task status or automatic delivery before accepting it.
 - Launch ordinary top-level threads only when the user explicitly asks for separate conversations. Select their workspace in the launch tool, not with a shell command in the prompt. A request for subagents is a request for child tasks.

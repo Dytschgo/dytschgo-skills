@@ -10,7 +10,8 @@ function scalar(value) {
     if (!value.endsWith("'")) throw new Error('unterminated scalar');
     return value.slice(1, -1).replaceAll("''", "'");
   }
-  if (!value || /:\s|\s#|^[\[\]{},&*!|>@`]/.test(value)) throw new Error('unsupported scalar');
+  if (!value || /:\s|\s#|^[#\[\]{},&*!|>@`%]/.test(value)
+      || /^(?:null|~|true|false|yes|no|on|off|[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[-+]?\d+)?)$/i.test(value)) throw new Error('unsupported scalar');
   return value;
 }
 
@@ -110,7 +111,8 @@ export function validateRepo(root) {
   if (fs.existsSync(routing)) {
     const ids = [...fs.readFileSync(routing, 'utf8').matchAll(/`(gpt-[\w.-]+)`/g)].map(m => m[1]);
     if (ids.length !== 2 || new Set(ids).size !== 2) fail(routing, 'expected two distinct preferred worker IDs');
-    for (const file of files.filter(f => /\.(md|yaml)$/.test(f) && !f.includes(`${path.sep}library${path.sep}`) && f !== routing)) {
+    const orchestratorRoot = path.join(skillRoot, 'astra-orchestrator') + path.sep;
+    for (const file of files.filter(f => /\.(md|yaml)$/.test(f) && (f.startsWith(orchestratorRoot) || f === path.join(root, 'README.md')) && f !== routing)) {
       if (/\bgpt-\d[\w.-]*/i.test(fs.readFileSync(file, 'utf8'))) fail(file, 'worker IDs belong only in routing.md');
     }
   }

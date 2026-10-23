@@ -39,6 +39,10 @@ test('replace only managed skills, preserve backup and remove stale managed file
   assert.equal(fs.existsSync(path.join(root, 'sample', 'obsolete.md')), false);
   assert.equal(fs.readFileSync(path.join(manifest.backup, 'previous', '0', 'sample', 'obsolete.md'), 'utf8'), 'old reference');
   assert.equal(fs.readFileSync(path.join(root, 'sample', 'references', 'active-profile.md'), 'utf8'), '# Selected preferences\n');
+  const recovery = JSON.parse(fs.readFileSync(path.join(manifest.backup, 'recovery.json'), 'utf8'));
+  assert.equal(recovery.status, 'complete');
+  assert.equal(fs.realpathSync.native(recovery.operations[0].target), fs.realpathSync.native(path.join(root, 'sample')));
+  assert.equal(recovery.operations[0].installed, true);
 });
 test('repeat is idempotent and profile activation survives a later update', windows, t => {
   const { source, root, write, run } = setup(t);
@@ -85,4 +89,22 @@ test('trailing separator cannot put backups inside a discovery root', windows, t
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /Backups must be outside/);
   assert.equal(fs.readFileSync(path.join(root, 'sample', 'SKILL.md'), 'utf8'), 'original');
+});
+test('a later rename failure restores earlier replacements and retains recovery mapping', windows, t => {
+  const { base, source, home, root, write } = setup(t);
+  write(path.join(root, 'sample', 'SKILL.md'), 'original sample');
+  write(path.join(root, 'second', 'SKILL.md'), 'original second');
+  write(path.join(source, 'skills', 'second', 'SKILL.md'), '---\nname: second\ndescription: Second fixture.\n---\n');
+  const wrapper = path.join(base, 'rename-failure.ps1');
+  write(wrapper, `param($Installer, $Source, $SelectedHome, $Destination)\n$ErrorActionPreference = 'Stop'\nfunction Move-Item {\n[CmdletBinding()] param($LiteralPath, $Destination)\nif ((Split-Path -Leaf $Destination) -eq 'second' -and $Destination -match 'previous') { throw 'simulated rename failure' }\nMicrosoft.PowerShell.Management\\Move-Item -LiteralPath $LiteralPath -Destination $Destination\n}\n& $Installer -SourceRoot $Source -UserHome $SelectedHome -SkillRoot $Destination -Apply\n`);
+  const result = spawnSync('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', wrapper, script, source, home, root], { encoding: 'utf8' });
+  assert.notEqual(result.status, 0);
+  assert.equal(fs.readFileSync(path.join(root, 'sample', 'SKILL.md'), 'utf8'), 'original sample');
+  assert.equal(fs.readFileSync(path.join(root, 'second', 'SKILL.md'), 'utf8'), 'original second');
+  const backups = path.join(home, 'agent-tools', 'skill-backups');
+  const run = fs.readdirSync(backups)[0];
+  const recovery = JSON.parse(fs.readFileSync(path.join(backups, run, 'recovery.json'), 'utf8'));
+  assert.equal(recovery.status, 'rolled-back');
+  assert.equal(recovery.operations.length, 2);
+  assert.ok(recovery.operations.every(operation => fs.realpathSync.native(path.dirname(operation.target)) === fs.realpathSync.native(root)));
 });

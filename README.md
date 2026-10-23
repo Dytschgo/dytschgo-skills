@@ -208,6 +208,8 @@ To update copies on Windows, use [the synchronization script](scripts/sync-insta
 
 Profile activation adds `references/active-profile.md` to each installed skill. Each entrypoint loads that file only when it exists, so normal installs remain generic. The canonical public-safe profile stays in `profiles/dytschgo.md`; the installer copies it on opt-in and preserves activation on later updates. `-DisableProfile` explicitly returns those installations to generic behavior. Global agent instructions and settings are unchanged. Restart sessions or use the CLI's supported skill reload after installation; running conversations may retain previously loaded instructions.
 
+Each applied run writes `recovery.json` with target, staging, and backup paths before the first move, and flushes progress around replacements. Ordinary failures roll back automatically. If the process is interrupted, inspect that record and the actual paths: restore a saved folder when its target is missing, and preserve any unexpected target for review instead of overwriting it. `moving-previous` or `installing` can mean the move completed just before interruption; filesystem state resolves that uncertainty. Successful runs also retain a per-file hash manifest. Keep backups outside every skill-discovery directory.
+
 ### Maintainer checks
 
 Use Node's built-in tools, with no package installation:
@@ -217,7 +219,7 @@ node scripts/check-skills.mjs
 node --test tests/check-skills.test.mjs
 ```
 
-On Windows, also run `node --test tests/sync-installed-skills.test.mjs`. On Dylan's workstation these checks run through the VM described in `AGENTS.md`. The structural validator checks the collection's frontmatter/metadata conventions, local Markdown references and anchors, and centralized routing. It does not prove agent behavior. [Behavior cases](evals/behavior-cases.json) and the [evaluation protocol](evals/README.md) define separate old/revised trials with retained outputs and scored evidence.
+On Windows, also run `node --test tests/sync-installed-skills.test.mjs`. These lightweight checks run directly or in normal CI; they do not need a Windows test VM. Websites and browser checks likewise use the normal local/browser workflow. Use a designated platform runner when testing native apps, installers, or platform-specific compatibility. The structural validator checks the collection's frontmatter/metadata conventions, local Markdown references and anchors, and centralized routing. It does not prove agent behavior. [Behavior cases](evals/behavior-cases.json) and the [evaluation protocol](evals/README.md) define separate old/revised trials with retained outputs and scored evidence.
 
 ```text
 skills/

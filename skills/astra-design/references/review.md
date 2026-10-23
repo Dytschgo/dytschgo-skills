@@ -19,6 +19,8 @@ Translate natural language directly into the relevant operation. Do not require 
 
 Match evidence to the current deliverable:
 
+Use the normal local/browser or CI workflow for websites and mockups. A Windows VM is relevant to Windows-native surfaces or an actual Windows-specific issue, not a prerequisite for web design. Respect explicit isolation requirements separately from the target-platform choice.
+
 - **Exploration:** render and inspect the options, main action, and requested representative states. Keep application implementation and release checks for their authorized phase.
 - **Local implementation:** exercise the changed interactions and nearby affected states, inspect the selected design comparison, and run relevant existing checks. A reversible presentation-only change can use direct visual evidence instead of new tests for styling constants.
 - **Release:** satisfy repository-required checks and critical affected journeys on the integrated revision, then verify the authorized destination.

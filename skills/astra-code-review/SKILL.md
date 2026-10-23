@@ -1,6 +1,6 @@
 ---
 name: astra-code-review
-description: Review git diff <fixed-point>...HEAD on two axes at once, repo standards and the originating spec. Use before a merge, or when the user asks to review a branch, PR, or work in progress since a fixed point.
+description: Review the diff since a fixed point on two axes at once, repo standards and the originating spec. Use before a merge, or when the user asks to review a branch, PR, or work in progress.
 ---
 
 # Astra Code Review
