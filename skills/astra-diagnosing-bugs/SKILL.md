@@ -5,6 +5,8 @@ description: Diagnose a hard bug or performance regression. Use when something i
 
 # Astra Diagnosing Bugs
 
+If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
+
 A phased diagnosis. Skip a phase only when you say why. Behavior follows Matt Pocock's diagnosing-bugs skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/engineering/diagnosing-bugs/SKILL.md
 
 When you explore the codebase, read `GLOSSARY.md` if it exists, and check ADRs in the area you are touching.

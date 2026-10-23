@@ -5,9 +5,11 @@ description: Investigate and complete substantial codebase cleanup, performance,
 
 # Astra Engineering
 
+If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
+
 Carry difficult engineering work to a verifiable result. Infer scope and acceptance criteria from the request and repository. An audit or review produces findings; a cleanup, fix, optimization, or takeover includes implementation and verification unless the user limits it to read-only work. Ask only when missing information materially affects correctness, scope, access, or an irreversible action.
 
-When the requested outcome or acceptance criteria are still an open design decision, pull [Astra Grilling](../astra-grilling/SKILL.md) before implementing.
+Recover a bounded outcome, accepted changes, delivery boundary, and observable completion criteria from the conversation and repository. Short follow-ups retain that context; optional suggestions stay separate. Resolve routine gaps directly and ask a focused question when a material product decision remains. Use [Astra Grilling](../astra-grilling/SKILL.md) when a deeper interview is requested or needed to settle that decision.
 
 ## Choose the relevant workflow
 

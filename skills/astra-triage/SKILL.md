@@ -5,6 +5,8 @@ description: Move an issue or external PR through triage roles. Use on a bug rep
 
 # Astra Triage
 
+If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
+
 Move issues through a small state machine of triage roles. Behavior follows Matt Pocock's triage skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/engineering/triage/SKILL.md
 
 If this repo treats external pull requests as a request surface, triage covers them too. A PR is an issue with attached code: same roles, same states, same machine, with the deltas marked below. Resolve a bare `#42` to an issue or a PR the way this repo's tracker does.

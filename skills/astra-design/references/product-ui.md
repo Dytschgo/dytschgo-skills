@@ -6,6 +6,8 @@ Map the principal flow with its entry, decision, action, feedback, and recovery.
 
 Choose density from workload. A frequent operator may need compact rows and visible comparison; occasional setup may need explanation and fewer simultaneous choices. Avoid replacing useful data with oversized summary cards or adding charts merely to make a screen resemble a dashboard.
 
+Translate requests such as “cleaner” or “too much text” into changes to the actual task: shorten repeated helper copy, group secondary actions, strengthen row identity, and make primary actions easy to scan. Keep type readable and field labels visible. Use familiar icons with accessible names for recognizable actions; retain visible wording for unfamiliar or consequential choices. Required instructions, error recovery, and meaningful data remain available. A quieter interface must still let the user complete the same work.
+
 ## Interaction contracts
 
 Prefer a native control when it meets the need; use the existing accessible primitive for complex behavior. For a custom control, explicitly cover its keyboard contract, accessible name and state, focus management, and pointer behavior. Focus trapping applies to modal contexts, not every popover.

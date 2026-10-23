@@ -5,6 +5,8 @@ description: Publish the current conversation as a tracker spec. Use when the de
 
 # Astra To Spec
 
+If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
+
 Turn what this conversation already decided into a spec and publish it. Do not interview. Behavior follows Matt Pocock's to-spec skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/engineering/to-spec/SKILL.md
 
 ## Process

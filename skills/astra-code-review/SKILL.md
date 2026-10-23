@@ -5,6 +5,8 @@ description: Review git diff <fixed-point>...HEAD on two axes at once, repo stan
 
 # Astra Code Review
 
+If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
+
 Review the diff between `HEAD` and a fixed point the user supplies, on two axes that stay separate:
 
 - **Standards.** Does the code follow this repo's documented coding standards?

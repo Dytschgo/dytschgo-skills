@@ -4,7 +4,7 @@
 
 Identify what people need to notice, understand, and do. Study the actual domain before choosing a style: a logistics operator needs exceptions and status; a furniture buyer needs material, scale, and useful photography. Translate that difference into structure as well as color.
 
-For a new visual direction, choose a focal element and explain how hierarchy makes it lead. Consider an alternative only when it would resolve a real uncertainty. A small rendered specimen can help compare type, surfaces, or a key interaction; it should advance the actual implementation rather than become a separate mockup project.
+For a new visual direction, choose a focal element and explain how hierarchy makes it lead. When the user requests alternatives, use [exploration and selection](exploration.md): a comparable mockup round is its own useful outcome. During implementation, a small specimen can settle a specific type, surface, or interaction question without reopening an accepted direction.
 
 Keep familiar patterns where they reduce learning. On an expressive surface, spend visual emphasis where the subject is strongest and let quieter areas support it. On an existing product, follow its current decisions unless changing them is part of the task.
 

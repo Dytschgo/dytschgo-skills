@@ -8,6 +8,8 @@ Open with the strongest subject-specific content: a product in use, a concrete h
 
 Compose sections from their content relationships. Vary rhythm where the narrative warrants it; do not alternate section colors or introduce asymmetry mechanically. Keep important content available in the semantic reading order at narrow widths.
 
+For “less AI slop” or shorter marketing copy, inspect each section's purpose. Replace vague claims with supplied product facts, remove repeated explanations and decorative labels, and give the visitor a concrete next action. Keep necessary qualifications and disclosures accurate and accessible. Carry the site's actual brand through the simplification; a preference learned on another project is not a new palette or tone requirement here.
+
 ## Art direction without arbitrary bans
 
 Give the surface a clear visual thesis grounded in the audience and subject. Look for one memorable compositional or material choice, then make type, spacing, images, and interaction support it. Match reference images through their hierarchy, proportions, lettering character, and material treatment, not just a sampled palette.
