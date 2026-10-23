@@ -13,13 +13,13 @@ param(
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 if ($EnableProfile -and $DisableProfile) { throw 'Choose EnableProfile or DisableProfile, not both.' }
-$SourceRoot = [IO.Path]::GetFullPath($SourceRoot)
+$SourceRoot = [IO.Path]::GetFullPath($SourceRoot).TrimEnd('\', '/')
 $UserHome = [IO.Path]::GetFullPath($UserHome).TrimEnd('\', '/')
 if (-not $BackupRoot) { $BackupRoot = Join-Path $UserHome 'agent-tools/skill-backups' }
-$BackupRoot = [IO.Path]::GetFullPath($BackupRoot)
+$BackupRoot = [IO.Path]::GetFullPath($BackupRoot).TrimEnd('\', '/')
 
 function Assert-UserPath([string]$Path) {
-    $full = [IO.Path]::GetFullPath($Path)
+    $full = [IO.Path]::GetFullPath($Path).TrimEnd('\', '/')
     if (-not $full.StartsWith($UserHome + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
         throw "Target must be strictly inside the selected user home: $full"
     }

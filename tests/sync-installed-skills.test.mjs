@@ -15,8 +15,9 @@ function setup(t) {
   write(path.join(source, 'skills', 'sample', 'SKILL.md'), '---\nname: sample\ndescription: An example.\n---\n# Sample\n');
   write(path.join(source, 'profiles', 'dytschgo.md'), '# Selected preferences\n');
   write(path.join(root, 'unrelated', 'SKILL.md'), 'private skill remains');
-  const run = (...args) => spawnSync('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', script, '-SourceRoot', source, '-UserHome', home, '-SkillRoot', root, ...args], { encoding: 'utf8' });
-  return { base, source, home, root, write, run };
+  const runAt = (target, ...args) => spawnSync('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', script, '-SourceRoot', source, '-UserHome', home, '-SkillRoot', target, ...args], { encoding: 'utf8' });
+  const run = (...args) => runAt(root, ...args);
+  return { base, source, home, root, write, run, runAt };
 }
 const windows = { skip: process.platform !== 'win32' };
 test('dry run leaves installations and backup paths untouched', windows, t => {
@@ -76,4 +77,12 @@ test('linked skill folders are rejected without touching their referent', window
   const result = run('-Apply');
   assert.notEqual(result.status, 0);
   assert.equal(fs.readFileSync(path.join(referent, 'SKILL.md'), 'utf8'), 'unique work');
+});
+test('trailing separator cannot put backups inside a discovery root', windows, t => {
+  const { root, write, runAt } = setup(t);
+  write(path.join(root, 'sample', 'SKILL.md'), 'original');
+  const result = runAt(root + path.sep, '-BackupRoot', root, '-Apply');
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /Backups must be outside/);
+  assert.equal(fs.readFileSync(path.join(root, 'sample', 'SKILL.md'), 'utf8'), 'original');
 });
