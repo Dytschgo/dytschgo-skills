@@ -1,0 +1,26 @@
+name: Skill integrity
+
+on:
+  pull_request:
+  push:
+    branches: [main, feat/conversational-workflows]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Validate collection and installer
+        shell: pwsh
+        run: |
+          node --version
+          node scripts/check-skills.mjs
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          node --test tests/check-skills.test.mjs tests/sync-installed-skills.test.mjs
+          exit $LASTEXITCODE
