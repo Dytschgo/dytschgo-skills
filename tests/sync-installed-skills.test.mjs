@@ -135,3 +135,16 @@ test('a later rename failure restores earlier replacements and retains recovery 
   assert.equal(recovery.operations.length, 2);
   assert.ok(recovery.operations.every(operation => fs.realpathSync.native(path.dirname(operation.target)) === fs.realpathSync.native(root)));
 });
+test('a linked source skills directory is rejected before staging', windows, t => {
+  const { source, home, root, write } = setup(t);
+  write(path.join(root, 'sample', 'SKILL.md'), 'original');
+  const realPacks = path.join(home, 'real-packs');
+  fs.renameSync(path.join(source, 'skills'), realPacks);
+  fs.symlinkSync(realPacks, path.join(source, 'skills'), 'junction');
+  const backup = path.join(realPacks, 'sample', 'references', 'backups');
+  const result = spawnSync('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', script, '-SourceRoot', source, '-UserHome', home, '-SkillRoot', root, '-BackupRoot', backup, '-Apply'], { encoding: 'utf8' });
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /Linked target or ancestor/);
+  assert.equal(fs.existsSync(backup), false);
+  assert.equal(fs.readFileSync(path.join(root, 'sample', 'SKILL.md'), 'utf8'), 'original');
+});

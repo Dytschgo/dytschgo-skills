@@ -67,7 +67,7 @@ function Test-MapsEqual($Left, $Right) {
 }
 
 $sourceSkills = Join-Path $SourceRoot 'skills'
-Assert-UnlinkedAncestors $SourceRoot
+Assert-UnlinkedAncestors $sourceSkills
 if (-not (Test-Path -LiteralPath $sourceSkills -PathType Container)) { throw 'Source skills directory is missing.' }
 $packs = @(Get-ChildItem -LiteralPath $sourceSkills -Directory | Sort-Object Name)
 if (-not $packs.Count) { throw 'Source contains no skills.' }
