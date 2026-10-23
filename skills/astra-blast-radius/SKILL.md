@@ -1,9 +1,11 @@
 ---
 name: astra-blast-radius
-description: Trace what a code change could break beyond its direct diff and test the key assumption that makes it safe. Use for risky changes, small diffs with uncertain side effects, or explicit blast-radius reviews.
+description: "Trace what a code change could break beyond its direct diff and test the key assumption that makes it safe. Use for risky changes, small diffs with uncertain side effects, or explicit blast-radius reviews."
 ---
 
 # Astra Blast Radius
+
+If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
 
 Find plausible effects of a change outside the lines it edits. Explain which risks are supported by evidence, which were checked and cleared, and what remains uncertain. This is a focused review; it does not grant permission to edit, merge, deploy, or contact anyone.
 

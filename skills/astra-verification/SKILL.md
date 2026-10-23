@@ -1,9 +1,11 @@
 ---
 name: astra-verification
-description: Create or maintain a repository-specific way to launch an app, exercise its real user paths, and preserve evidence. Use when a project lacks reliable behavior verification or its local verification guide may have drifted.
+description: "Create or maintain a repository-specific way to launch an app, exercise its real user paths, and preserve evidence. Use when a project lacks reliable behavior verification or its local verification guide may have drifted."
 ---
 
 # Astra Verification
+
+If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
 
 Create a repeatable path for an agent to prove the behavior of a real project, then keep that path accurate as the project changes. Work from repository evidence and existing tools. Keep the user's requested scope and existing authorization in force.
 
@@ -16,10 +18,13 @@ If the target is ambiguous, inspect repository conventions and existing agent in
 
 ## Discover the project
 
+Choose the environment from the behavior under test. Instruction/skill validation and ordinary script checks can run directly or in normal CI. Websites and browser checks use the normal local/browser workflow; a Windows host alone does not require a Windows VM. Use a designated Windows lab for native Windows apps, installers, or an actual Windows-specific compatibility issue, and the relevant target runner for other platform-specific behavior. Honor explicit project/user isolation requirements and keep those distinct from platform coverage.
+
 Read the relevant repository instructions, README, run scripts, feature routes or commands, test harnesses, and recent changes. Answer from evidence:
 
 - What user-visible surfaces does this project expose?
 - What exact command starts or builds the target? How is readiness recognized, and how is it stopped?
+- Which checkout and revision does the running URL/process/build actually represent? Recheck after restarts, branch changes, or surprising mismatches. If the relationship cannot be established, qualify the observation rather than treating the preview as proof of this source.
 - What existing harness drives real user paths? Prefer it over introducing another dependency.
 - What observable evidence can be captured: screen state, output, exit code, response, persisted data, logs, or generated files?
 - Can parallel instances be isolated by port, profile, account, or data directory?
@@ -33,7 +38,7 @@ Follow the repository's established agent-skill location and format. If none exi
 Include:
 
 1. **Launch and readiness:** exact commands, prerequisites, ports or environment, readiness signal, and teardown.
-2. **Health check:** a read-only check for the expected process or service, build/version, endpoint, and required local auth state.
+2. **Health check:** a read-only check for the expected process or service, source checkout/revision and its build relationship, endpoint, and required local auth state.
 3. **Drive:** real routes, selectors, commands, or API calls through a user-facing path. Reuse stable accessible names, test IDs, prompt text, and documented command interfaces.
 4. **Proof:** what action to perform, the resulting state to inspect, relevant side effects to verify, and where evidence is saved.
 5. **Cleanup:** stop only instances and resources this run created. Preserve proof artifacts after teardown.

@@ -1,9 +1,11 @@
 ---
 name: astra-triage
-description: Move an issue or external PR through triage roles. Use on a bug report or incoming request before anyone grills it. Reproduce first, then interview, then post an agent brief.
+description: "Move an issue or external PR through triage roles. Use on a bug report or incoming request before anyone grills it. Reproduce first, then interview, then post an agent brief."
 ---
 
 # Astra Triage
+
+If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
 
 Move issues through a small state machine of triage roles. Behavior follows Matt Pocock's triage skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/engineering/triage/SKILL.md
 

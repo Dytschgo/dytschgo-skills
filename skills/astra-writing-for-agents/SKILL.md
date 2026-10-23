@@ -1,9 +1,11 @@
 ---
 name: astra-writing-for-agents
-description: Write or edit a skill, AGENTS.md, or CLAUDE.md so an agent follows it. Use when adding a skill to this collection or changing a doc an agent loads by a pointer.
+description: "Write or edit a skill, AGENTS.md, or CLAUDE.md so an agent follows it. Use when adding a skill to this collection or changing a doc an agent loads by a pointer."
 ---
 
 # Astra Writing for Agents
+
+If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
 
 How to write a document an agent consumes: a skill, an `AGENTS.md` or `CLAUDE.md`, or a doc reached by a pointer. The packaging differs. The writing does not. The agent should take the same process every run, not emit the same output. Behavior follows Matt Pocock's writing-for-agents skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/productivity/writing-for-agents/SKILL.md
 
@@ -55,6 +57,8 @@ Use one when a phrase keeps restating the same idea. "Fast, deterministic, low-o
 Say what to do, not what to avoid. A prohibition drags the forbidden behavior into context and makes it more available. "Write one-line comments" beats "do not write essays". Keep a prohibition only as a hard guardrail you cannot phrase as a target, and pair it with the positive so attention lands on what to do.
 
 ## Prune
+
+When maintaining a working-style profile, keep explicit preferences and repeated user edits distinct from one-off task choices, generated briefs, typos, or frustration. Record scope, evidence strength, and a sanitized dated example. Latest explicit task instructions override defaults. Keep raw histories, secrets, private project facts, and writing-voice evidence out of public workflow profiles. Revisit contradicted preferences rather than accumulating conflicting rules. Profile use is opt-in through user or agent instructions; a familiar name is not authorization to personalize an unrelated task.
 
 - One meaning, one place. Duplication costs maintenance and inflates a line's rank. Repeating a leading word on purpose is not duplication. Repeating the meaning is.
 - The environment is a source of truth too (`package.json` scripts, config, the directory layout, `--help`). A document that restates a one-file lookup is a cache, and it goes stale. Cache only what the agent cannot find by looking: the unwritten convention, the reason, the gotcha no config confesses.

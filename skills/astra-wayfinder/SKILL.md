@@ -1,9 +1,11 @@
 ---
 name: astra-wayfinder
-description: Chart an effort too big for one grilling pass as a map of decision tickets, then resolve one ticket per session until the route is clear. Use when the frontier will not close in this session. Do not build the destination here.
+description: "Chart an effort too big for one grilling pass as a map of decision tickets, then resolve one ticket per session until the route is clear. Use when the frontier will not close in this session. Do not build the destination here."
 ---
 
 # Astra Wayfinder
+
+If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
 
 A loose idea has arrived, too big for one agent session, and the way to the destination is still fog. Chart that way as a shared map of decision tickets, then resolve them until nothing is left to decide before someone does the thing. Behavior follows Matt Pocock's wayfinder skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/engineering/wayfinder/SKILL.md
 

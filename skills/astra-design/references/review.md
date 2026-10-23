@@ -15,6 +15,22 @@
 
 Translate natural language directly into the relevant operation. Do not require a command menu or chain into another skill after completing the requested work. A review alone does not authorize edits.
 
+## Phase and current-app checks
+
+Match evidence to the current deliverable:
+
+Use the normal local/browser or CI workflow for websites and mockups. A Windows VM is relevant to Windows-native surfaces or an actual Windows-specific issue, not a prerequisite for web design. Respect explicit isolation requirements separately from the target-platform choice.
+
+- **Exploration:** render and inspect the options, main action, and requested representative states. Keep application implementation and release checks for their authorized phase.
+- **Local implementation:** exercise the changed interactions and nearby affected states, inspect the selected design comparison, and run relevant existing checks. A reversible presentation-only change can use direct visual evidence instead of new tests for styling constants.
+- **Release:** satisfy repository-required checks and critical affected journeys on the integrated revision, then verify the authorized destination.
+
+A request to iterate fast trims unrelated work. It does not turn a screenshot into interaction evidence or waive checks protecting changed persistence, authorization, or data behavior. Repeat checks when changes, failures, or unresolved concerns justify it.
+
+Before describing a running app as current, establish its checkout, branch/revision, URL, and the relationship of the running server/build to that source. Use the project's available process or build metadata; record only what can be established. After a restart, branch change, or surprising mismatch, check again. If provenance cannot be established, qualify the live observation and avoid claiming it proves the current checkout. Keep launch commands and ports in project-local guidance, not this skill.
+
+For selected-design work, compare composition, reading order, density, type, and key actions against the exact approved artifact. Exercise the controls it promises; visual similarity alone does not prove behavior.
+
 ## Review against evidence
 
 Start from the actual surface, task, and visual brief. For a reference-driven implementation, compare structure, reading order, focal proportions, type character, imagery/material, density, and primary actions. Explain adaptations needed for accessibility or responsive use; do not substitute a new aesthetic and call it fidelity.

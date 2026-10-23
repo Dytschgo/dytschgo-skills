@@ -1,9 +1,11 @@
 ---
 name: astra-handoff
-description: Compact the current conversation into a handoff a fresh agent can continue from. Use when the thread should move. Not the same as filing fix tickets for people.
+description: "Compact the current conversation into a handoff a fresh agent can continue from. Use when the thread should move. Not the same as filing fix tickets for people."
 ---
 
 # Astra Handoff
+
+If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
 
 Write a handoff that lets a fresh agent continue the work. Save it in the operating system's temporary directory, not in the workspace. Behavior follows Matt Pocock's handoff skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/productivity/handoff/SKILL.md
 
@@ -21,6 +23,7 @@ If the user passed an argument, treat it as what the next session is for, and ta
 
 - What the next session is for.
 - Decisions already made, in a few lines, pointing at the artifact that holds the detail.
+- Exact selected design ID/name and artifact, retained behavior, accepted scope and delivery boundary; current checkout/revision/preview relationship when relevant. Carry later steering and superseded choices without reopening settled decisions.
 - What is in progress, and the exact next action.
 - Blockers and anything the next agent must not redo.
 - Suggested skills.

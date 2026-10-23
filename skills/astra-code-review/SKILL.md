@@ -1,9 +1,11 @@
 ---
 name: astra-code-review
-description: Review git diff <fixed-point>...HEAD on two axes at once, repo standards and the originating spec. Use before a merge, or when the user asks to review a branch, PR, or work in progress since a fixed point.
+description: "Review the diff since a fixed point on two axes at once, repo standards and the originating spec. Use before a merge, or when the user asks to review a branch, PR, or work in progress."
 ---
 
 # Astra Code Review
+
+If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
 
 Review the diff between `HEAD` and a fixed point the user supplies, on two axes that stay separate:
 

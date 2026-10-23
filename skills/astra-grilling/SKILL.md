@@ -1,11 +1,15 @@
 ---
 name: astra-grilling
-description: Grill a plan, decision, or idea until the design tree is settled. Use when the user wants to stress-test thinking, says grill, or another skill hits an open design decision; not for implementing, filing tickets, or writing files.
+description: "Grill a plan, decision, or idea until the design tree is settled. Use when the user wants to stress-test thinking, says grill, or another skill hits an open design decision; not for implementing, filing tickets, or writing files."
 ---
 
 # Astra Grilling
 
+If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
+
 Interview until you and the user share an understanding. Map the work as a design tree: every decision branches into the decisions that hang off it. Behavior follows Matt Pocock's grilling skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/productivity/grilling/SKILL.md
+
+Use the full interview when the user invokes Grilling or materially unresolved product choices need it. Routine implementation details, discoverable facts, an accepted design, and requests for visual options do not by themselves require an interview. If another skill referred here for one ambiguity, ask the focused material question and return to that task once settled. An explicit Grilling request retains the design-tree rounds and confirmation below. Honor a request to ask one question at a time.
 
 If the subject is a bug report, external issue, or pull request that has not been triaged, pull [Astra Triage](../astra-triage/SKILL.md) first. Do not interview until the claim has been reproduced.
 

@@ -10,7 +10,7 @@ The short skill descriptions are what Codex sees during skill selection. Each `S
 
 | Skill | What it does | When to use it |
 | --- | --- | --- |
-| [Astra Design](skills/astra-design/SKILL.md) | Unifies art direction, product UI, websites, motion, accessibility, and rendered verification. | New interfaces, redesigns, scoped UI fixes, design reviews, and visual polish. |
+| [Astra Design](skills/astra-design/SKILL.md) | Explores visual alternatives, preserves selected directions, and unifies product UI, websites, motion, and verification. | Comparable mockups, new interfaces, redesigns, scoped UI fixes, design reviews, and visual polish. |
 | [Astra Engineering](skills/astra-engineering/SKILL.md) | Guides deep investigation, useful code changes, and evidence-based verification. | Cleanup, performance, agent DX, PR and issue review, authorized merges, and stalled work. |
 | [Astra Orchestrator](skills/astra-orchestrator/SKILL.md) | Coordinates specialist assignments, shared task state, implementation, independent review, and final acceptance. | Larger engineering tasks that benefit from agents with distinct responsibilities. |
 | [Astra Verification](skills/astra-verification/SKILL.md) | Creates a project-local verification workflow and maintains its feature map against source and live behavior. | A project lacks a reliable way to prove user-facing behavior, or an existing verification guide may have drifted. |
@@ -145,15 +145,7 @@ Use $astra-engineering to audit this module for unnecessary complexity. Give pri
 
 The primary agent owns the task, divides useful independent work, assigns clear boundaries, reviews results, and accepts the finished outcome. Workers return evidence and blockers. Concurrent writers need explicit file ownership or isolated worktrees.
 
-The included routing preferences are:
-
-| Role | Preferred model | Responsibility |
-| --- | --- | --- |
-| Luna | `gpt-6-luna` | Bounded context gathering, extraction, summaries, and simple checks. |
-| Sol | `gpt-6.1-sol` | Default implementation, integration, tests, debugging, and independent technical review. |
-| Astra | The existing primary session | Coordination, scope, conflict resolution, final review, and acceptance. |
-
-GPT-6.1 Sol and Luna replace the previous worker defaults. The exact runtime IDs are `gpt-6.1-sol` and `gpt-6-luna`. Availability depends on the account and runtime. Orchestrator passes the selected ID explicitly when spawning a worker and checks that the runtime supports it. It does not fall back to an older model without explicit user authorization. If delegation is unavailable, suitable work can continue locally, but the agent must not claim that independent review occurred. Skills do not change the primary session's model; Design and Engineering used alone retain that session's model.
+The [worker-routing reference](skills/astra-orchestrator/references/routing.md) is the single source of preferred model IDs and replacement rules. Explicit task choices take precedence. Orchestrator checks the live runtime, passes supported selections and options in tool arguments, and records the actual result. Skills retain the primary session's model. If delegation is unavailable, suitable work can continue locally, but the agent must not claim independent review occurred.
 
 Example:
 
@@ -198,6 +190,38 @@ Use $dahlei-plana to plan a saved-search feature for this app. Inspect the exist
 ```
 
 ## Files and their purpose
+
+### Conversational work and personal defaults
+
+Short follow-ups retain the accepted outcome, selected design, and delivery boundary. Optional suggestions remain separate. Design exploration is a complete deliverable: requested alternatives use comparable content and stable option names, and implementation is compared with the selected artifact. Verification distinguishes mockups, local behavior, and release checks, including the running app's relationship to the source being discussed.
+
+[Dytschgo's working profile](profiles/dytschgo.md) is optional and contains only scoped, sanitized preferences. Select it explicitly in a session or agent instruction; other users and unrelated tasks do not load it. Keep writing voice in a separately selected writing skill. Explicit current instructions override profile defaults.
+
+To update copies on Windows, use [the synchronization script](scripts/sync-installed-skills.ps1). It accepts discovered user skill directories rather than guessing which CLIs are installed. Dry-run is the default; `-Apply` replaces only this collection's skill folders, backs up replaced files outside skill discovery, verifies copied hashes, and records a manifest. Unrelated skills and plugin caches remain untouched. Check each CLI's current discovery documentation before choosing roots.
+
+```powershell
+# Example roots; pass only locations supported by your installed agents.
+./scripts/sync-installed-skills.ps1 -SkillRoot "$env:USERPROFILE/.codex/skills", "$env:USERPROFILE/.claude/skills"
+# Add -Apply after inspecting the plan. Profile activation is a separate opt-in:
+./scripts/sync-installed-skills.ps1 -SkillRoot "$env:USERPROFILE/.codex/skills" -EnableProfile -Apply
+```
+
+Profile activation adds `references/active-profile.md` to each installed skill. Each entrypoint loads that file only when it exists, so normal installs remain generic. The canonical public-safe profile stays in `profiles/dytschgo.md`; the installer copies it on opt-in and preserves activation on later updates. `-DisableProfile` explicitly returns those installations to generic behavior. Global agent instructions and settings are unchanged. Restart sessions or use the CLI's supported skill reload after installation; running conversations may retain previously loaded instructions.
+
+Each applied run writes `recovery.json` with target, staging, and backup paths before the first move, and flushes progress around replacements. Ordinary failures roll back automatically. If the process is interrupted, inspect that record and the actual paths: restore a saved folder when its target is missing, and preserve any unexpected target for review instead of overwriting it. `moving-previous` or `installing` can mean the move completed just before interruption; filesystem state resolves that uncertainty. Successful runs also retain a per-file hash manifest. Keep backups outside every skill-discovery directory.
+
+### Maintainer checks
+
+Use Node's built-in tools, with no package installation:
+
+Collection frontmatter uses unquoted hyphen-case `name` values and double-quoted JSON-compatible `description` strings. UI metadata likewise quotes its interface strings. This explicit subset avoids depending on a partial YAML parser; consumer compatibility is also checked with the built-in skill validator.
+
+```sh
+node scripts/check-skills.mjs
+node --test tests/check-skills.test.mjs
+```
+
+On Windows, also run `node --test tests/sync-installed-skills.test.mjs`. These lightweight checks run directly or in normal CI; they do not need a Windows test VM. Websites and browser checks likewise use the normal local/browser workflow. Use a designated platform runner when testing native apps, installers, or platform-specific compatibility. The structural validator checks the collection's frontmatter/metadata conventions, local Markdown references and anchors, and centralized routing. It does not prove agent behavior. [Behavior cases](evals/behavior-cases.json) and the [evaluation protocol](evals/README.md) define separate old/revised trials with retained outputs and scored evidence.
 
 ```text
 skills/
