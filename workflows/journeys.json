@@ -1,0 +1,380 @@
+{
+  "nodes": [
+    {
+      "id": "triage",
+      "name": "Triage",
+      "slug": "dytschgo-triage",
+      "cat": "FRAME",
+      "output": "A reproduced or qualified request, tracker state, and actionable agent brief.",
+      "stop": "Stop at the triage outcome; implementation is a separate authorized task."
+    },
+    {
+      "id": "grilling",
+      "name": "Grilling",
+      "slug": "dytschgo-grill",
+      "cat": "FRAME",
+      "output": "A shared decision and the appropriate next skill.",
+      "stop": "Full interviews wait for confirmation. Visual options alone do not require a full interview."
+    },
+    {
+      "id": "wayfinder",
+      "name": "Wayfinder",
+      "slug": "dytschgo-wayfinder",
+      "cat": "FRAME",
+      "output": "A destination, dependency map, and resolved decisions.",
+      "stop": "Charting does not build the product. Stop when the route is clear unless the map explicitly includes execution."
+    },
+    {
+      "id": "plana",
+      "name": "Dahlei Plana",
+      "slug": "dytschgo-brief",
+      "cat": "DEFINE",
+      "output": "A brief, copyable agent prompt, and model recommendation when relevant.",
+      "stop": "A prompt-only request stops at the prompt; an explicit build request can continue."
+    },
+    {
+      "id": "spec",
+      "name": "To Spec",
+      "slug": "dytschgo-spec",
+      "cat": "DEFINE",
+      "output": "A published spec, or a local spec when no tracker is available.",
+      "stop": "Check proposed testing seams with the user. Do not split tickets or implement inside this skill."
+    },
+    {
+      "id": "tickets",
+      "name": "To Tickets",
+      "slug": "dytschgo-tickets",
+      "cat": "DEFINE",
+      "output": "Approved ticket breakdown, published in dependency order.",
+      "stop": "Get approval of the breakdown before publishing. This skill does not implement the tickets."
+    },
+    {
+      "id": "design",
+      "name": "Design",
+      "slug": "dytschgo-design",
+      "cat": "BUILD",
+      "output": "Comparable options, a working interface, or review findings\u2014depending on the request.",
+      "stop": "Mockups stop at exploration. Build the exact chosen direction only within the authorized phase."
+    },
+    {
+      "id": "engineering",
+      "name": "Engineering",
+      "slug": "dytschgo-engineering",
+      "cat": "BUILD",
+      "output": "A bounded change with relevant evidence, or findings for a read-only request.",
+      "stop": "Preserve accepted scope and delivery boundary. Ordinary small coding tasks need no heavyweight wrapper."
+    },
+    {
+      "id": "orchestrator",
+      "name": "Orchestrator",
+      "slug": "dytschgo-coordinate",
+      "cat": "BUILD",
+      "output": "Bounded assignments, integrated work, current review evidence, and final acceptance.",
+      "stop": "Honor direct-builder choices. Child delegation is not a new top-level conversation."
+    },
+    {
+      "id": "diagnose",
+      "name": "Diagnosing Bugs",
+      "slug": "dytschgo-debug",
+      "cat": "PROVE",
+      "output": "Supported cause, a fixed symptom, regression evidence, and no leftover debug probes.",
+      "stop": "Without a usable reproduction loop, report the blocker instead of guessing the cause."
+    },
+    {
+      "id": "blast",
+      "name": "Blast Radius",
+      "slug": "dytschgo-impact",
+      "cat": "PROVE",
+      "output": "Concrete downstream risks, cleared assumptions, and remaining checks.",
+      "stop": "A focused review grants no permission to edit or ship. No meaningful downstream risk is a valid result."
+    },
+    {
+      "id": "review",
+      "name": "Code Review",
+      "slug": "dytschgo-review",
+      "cat": "PROVE",
+      "output": "Independent findings on both axes, tied to the reviewed base and head.",
+      "stop": "Pin the base first. Skip and disclose the spec axis if no spec exists. Review is not merge permission."
+    },
+    {
+      "id": "writing",
+      "name": "Writing for Agents",
+      "slug": "dytschgo-agent-docs",
+      "cat": "SUPPORT",
+      "output": "An instruction document with precise pointers and only the needed context.",
+      "stop": "Use for skill, AGENTS.md, CLAUDE.md, or agent-reference edits; it is not a universal prose style."
+    },
+    {
+      "id": "verification",
+      "name": "Verification",
+      "slug": "dytschgo-verify-setup",
+      "cat": "SUPPORT",
+      "output": "A source-grounded launch/drive/proof guide and retained evidence.",
+      "stop": "Use when the guide is missing or drifted. Running normal checks does not require loading this entire skill."
+    },
+    {
+      "id": "handoff",
+      "name": "Handoff",
+      "slug": "dytschgo-handoff",
+      "cat": "SUPPORT",
+      "output": "A temporary handoff file with the next action and suggested skills.",
+      "stop": "After writing the handoff, stop work in this thread. Suggested next skills are task-dependent."
+    },
+    {
+      "id": "retro",
+      "slug": "dytschgo-retro",
+      "name": "Retro",
+      "cat": "SUPPORT",
+      "output": "A self-contained checked HTML report, map, or comparison.",
+      "stop": "Present evidence honestly; no product edits or automatic publication."
+    }
+  ],
+  "routes": [
+    {
+      "id": "web",
+      "name": "New website / UI",
+      "short": "See it, choose it, build it.",
+      "prompt": "Use $dytschgo-design to explore three distinct directions for this website using the supplied brief. Keep content comparable, give each option a stable ID, and render them. Stop at the comparison; do not implement the application yet.",
+      "steps": [
+        [
+          "design",
+          "START",
+          "Explore or build the interface according to your request. Mockups are a complete deliverable."
+        ],
+        [
+          "verification",
+          "IF NEEDED",
+          "Create a local verification guide only if the real app lacks a reliable one."
+        ],
+        [
+          "review",
+          "BEFORE MERGE",
+          "Review the implemented diff when the task reaches merge."
+        ]
+      ],
+      "stop": "For the example prompt: stop at rendered options. Selection and authorization open the application-build phase.",
+      "note": "For a visual request, start with Design. An open aesthetic does not force a Grilling interview.",
+      "extras": [
+        "grilling",
+        "Only if a material product decision needs a deeper interview."
+      ]
+    },
+    {
+      "id": "idea",
+      "name": "Vague product idea",
+      "short": "Settle the important decisions.",
+      "prompt": "Use $dytschgo-grill to stress-test this idea and settle the material product decisions. Ask one question at a time. Once settled, help me choose whether I need visual options, a copyable build prompt, or a published spec.",
+      "steps": [
+        [
+          "grilling",
+          "START",
+          "Interview the unresolved product choices."
+        ],
+        [
+          "plana",
+          "CHOOSE OUTPUT",
+          "Use this branch if the desired result is a copyable implementation prompt."
+        ]
+      ],
+      "stop": "Stop at the chosen planning output. A spec, visual exploration, and coordinated build are alternative next branches, not a required chain.",
+      "note": "Already have a precise feature brief? Start closer to the work; a new project does not automatically need a full interview.",
+      "extras": [
+        "wayfinder",
+        "If the decisions keep expanding beyond one session."
+      ]
+    },
+    {
+      "id": "feature",
+      "name": "Ready feature",
+      "short": "Build against known criteria.",
+      "prompt": "Use $dytschgo-engineering to implement the accepted feature in this repository. Recover the agreed scope, preserve existing behavior, and verify the affected paths. Stop at the reviewed local change; do not push, merge, or deploy.",
+      "steps": [
+        [
+          "engineering",
+          "START",
+          "Implement the bounded, substantial change against known acceptance criteria."
+        ],
+        [
+          "blast",
+          "IF RISKY",
+          "Trace downstream effects if shared state, contracts, or lifecycle assumptions make risk unclear."
+        ],
+        [
+          "review",
+          "IF REQUESTED / MERGING",
+          "Use a fixed base for review; before merge, include standards and spec."
+        ]
+      ],
+      "stop": "Stop at the requested delivery boundary. A routine small coding change can be handled directly without invoking Engineering.",
+      "note": "This is the direct-builder path. Switch to Team to see how requested agent coordination changes the route.",
+      "extras": [
+        "verification",
+        "If the project lacks a reliable launch/drive/proof guide."
+      ]
+    },
+    {
+      "id": "bug",
+      "name": "Broken / slow app",
+      "short": "Reproduce before explaining.",
+      "prompt": "Use $dytschgo-engineering and $dytschgo-debug to fix this problem. First establish and run a tight feedback loop that reproduces the exact symptom. Then find the supported cause, fix it, and verify the original scenario.",
+      "steps": [
+        [
+          "engineering",
+          "OWNER",
+          "Own the requested investigation and fix."
+        ],
+        [
+          "diagnose",
+          "BEFORE A CAUSE",
+          "Build a failing signal, minimize the reproduction, then test hypotheses and fix."
+        ],
+        [
+          "review",
+          "BEFORE MERGE",
+          "Review the resulting fixed-base diff before an authorized merge."
+        ]
+      ],
+      "stop": "Diagnosis cannot claim success without symptom evidence. A merge remains a separate authorized action.",
+      "note": "The Engineering \u2192 Diagnosing Bugs and Diagnosing Bugs \u2192 Code Review links are explicit in the skill text.",
+      "extras": [
+        "triage",
+        "For an untriaged incoming bug report or external issue, qualify the claim first."
+      ]
+    },
+    {
+      "id": "incoming",
+      "name": "Incoming issue / PR",
+      "short": "Check the claim, then route it.",
+      "prompt": "Use $dytschgo-triage on this incoming issue or external PR. Read the full context, check for duplicates and prior rejection, verify the claim, and prepare the appropriate triage result. Do not begin implementation unless it is part of the accepted scope.",
+      "steps": [
+        [
+          "triage",
+          "START",
+          "Reproduce a bug or check whether the attached diff does what it claims."
+        ],
+        [
+          "grilling",
+          "ONLY IF UNCLEAR",
+          "Resolve remaining product decisions after verification has a result."
+        ],
+        [
+          "engineering",
+          "IF ASSIGNED",
+          "Build the ready brief only when implementation is the desired next step."
+        ]
+      ],
+      "stop": "A triage request ends with the triage outcome. Ready-for-agent is a state, not permission to start every downstream action.",
+      "note": "A settled brief may instead go to To Tickets. A request to review your own known branch can start directly at Code Review.",
+      "extras": [
+        "tickets",
+        "When the ready brief needs a sequence of slices before implementation."
+      ]
+    },
+    {
+      "id": "large",
+      "name": "Big multi-session effort",
+      "short": "Map decisions, then slices.",
+      "prompt": "Use $dytschgo-wayfinder to map the decisions blocking this effort. Establish the destination, create the decision dependencies, and identify the next decision to resolve. Do not start the product build.",
+      "steps": [
+        [
+          "wayfinder",
+          "START",
+          "Chart the destination and unresolved decision dependencies."
+        ],
+        [
+          "grilling",
+          "PER DECISION",
+          "Resolve a selected decision ticket; return to the map as needed."
+        ],
+        [
+          "spec",
+          "IF THE DESTINATION",
+          "Publish the settled result as a spec if that is the map\u2019s destination."
+        ],
+        [
+          "tickets",
+          "IF REQUESTED",
+          "Break the settled work into approved, dependency-ordered slices."
+        ]
+      ],
+      "stop": "The map does not automatically start a build. To Tickets also stops at the published frontier.",
+      "note": "Wayfinder and Grilling can loop across sessions. Handoff preserves the map and next action when the thread should move.",
+      "extras": [
+        "handoff",
+        "When continuing in a fresh agent."
+      ]
+    },
+    {
+      "id": "review",
+      "name": "Review my branch",
+      "short": "Two independent review axes.",
+      "prompt": "Use $dytschgo-review to review this branch against the fixed base <BASE_SHA>. Check repository standards and the originating spec <SPEC_PATH_OR_ISSUE>. Report actionable findings on the two axes separately. Do not edit or merge.",
+      "steps": [
+        [
+          "review",
+          "START",
+          "Pin the diff base and head. Review standards and spec separately."
+        ],
+        [
+          "blast",
+          "IF RISKY",
+          "Add a focused downstream-effects review when a key safety assumption remains uncertain."
+        ]
+      ],
+      "stop": "Stop at findings. A read-only review does not authorize fixes, a merge, or deployment.",
+      "note": "Code Review runs the axes as independent parallel reviewers; that is agent delegation inside a skill, not a call to another named skill.",
+      "extras": [
+        "orchestrator",
+        "Its review reference supplies the shared PR contract; reading that reference does not start a coordinator."
+      ]
+    },
+    {
+      "id": "skills",
+      "name": "Skills / agent setup",
+      "short": "Make the instructions work.",
+      "prompt": "Use $dytschgo-agent-docs to improve these agent instructions. Preserve the intended behavior, sharpen triggers and completion criteria, and validate references. Keep the change scoped to the supplied instructions.",
+      "steps": [
+        [
+          "writing",
+          "START",
+          "Edit the skill or agent-loaded document with precise triggers and bounded context."
+        ],
+        [
+          "verification",
+          "IF A GUIDE IS NEEDED",
+          "Create or repair a project-local launch/drive/proof skill when that is the setup gap."
+        ]
+      ],
+      "stop": "An instruction edit ends with its relevant structural and behavioral evidence. It does not require an application build or Windows VM by default.",
+      "note": "Writing for Agents and Verification have no fixed outbound skill-load links in their entrypoints. They remain useful independent entry points.",
+      "extras": [
+        "engineering",
+        "For explicitly requested substantial cleanup or agent setup beyond the instruction document."
+      ]
+    },
+    {
+      "id": "retro",
+      "name": "Explain / review in HTML",
+      "short": "Make the evidence inspectable.",
+      "prompt": "Use $dytschgo-retro to explain the supplied changes and evidence in an interactive retro HTML overview. Separate verified results from expected benefits, inspect the controls at desktop and phone widths, and save the standalone HTML.",
+      "steps": [
+        [
+          "retro",
+          "START",
+          "Organize the supplied evidence into a useful interactive overview."
+        ],
+        [
+          "review",
+          "IF ASSESSMENT IS NEEDED",
+          "For a requested code review, obtain the substantive assessment before presenting its findings."
+        ]
+      ],
+      "stop": "Stop at the checked report. The presentation does not authorize edits or deployment.",
+      "note": "Use existing qualifying evidence when supplied. A change explanation does not automatically require a formal code review.",
+      "extras": [
+        "design",
+        "When the request is to implement product UI rather than present an explanation."
+      ]
+    }
+  ]
+}

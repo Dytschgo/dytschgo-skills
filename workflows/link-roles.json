@@ -1,0 +1,27 @@
+[
+  {
+    "source": "skills/dytschgo-handoff/SKILL.md",
+    "target": "dytschgo-coordinate",
+    "kind": "mention"
+  },
+  {
+    "source": "skills/dytschgo-handoff/SKILL.md",
+    "target": "dytschgo-wayfinder",
+    "kind": "mention"
+  },
+  {
+    "source": "skills/dytschgo-debug/SKILL.md",
+    "target": "dytschgo-engineering",
+    "kind": "mention"
+  },
+  {
+    "source": "skills/dytschgo-spec/SKILL.md",
+    "target": "dytschgo-triage",
+    "kind": "reference"
+  },
+  {
+    "source": "skills/dytschgo-tickets/SKILL.md",
+    "target": "dytschgo-triage",
+    "kind": "reference"
+  }
+]

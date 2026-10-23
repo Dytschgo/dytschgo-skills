@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dytschgo Coordinate"
+  short_description: "Coordinate bounded work with evidence-led review"
+  default_prompt: "Use $dytschgo-coordinate to complete this task within the accepted scope, follow its worker-routing reference and my explicit choices, and verify the integrated result."

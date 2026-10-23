@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dytschgo Design"
+  short_description: "Explore, build, and verify distinctive interfaces"
+  default_prompt: "Use $dytschgo-design for this interface task: provide comparable mockups when I ask for options, or implement the selected direction and verify it when I ask to build."

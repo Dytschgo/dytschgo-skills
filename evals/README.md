@@ -11,3 +11,7 @@ For an old/revised comparison:
 5. An independent evaluator scores each expected observation as pass, fail, or not exercised, citing the output or artifact. Compare the pairs and record regressions as well as improvements. Do not compute a success rate that counts not-exercised criteria as passing.
 
 The structural validator and installer tests exercise deterministic package properties. They do not replace these trials or prove behavior on every provider. Keep public reports limited to sanitized requests and outcomes; raw personal history and installation manifests remain local.
+
+## Initial skill selection
+
+The routing cases start from normal requests and a metadata-only catalog. Use `node scripts/prepare-routing-trial.mjs <case-id> [payload-file]` to prepare an acting-agent payload; evaluator expectations stay in routing-cases.json. Each trial needs a fresh context. Retain selected IDs, first action, finish boundary, model/options, revision, and evidence. Score required/excluded selections and material boundary errors; optional choices may be valid. A selection-only trial does not prove the requested edit, reproduction, render, or deployment occurred. Keep task-execution trials separate.

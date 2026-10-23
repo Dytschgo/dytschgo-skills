@@ -4,6 +4,7 @@ Apply only when Dylan selects this profile in the session or agent instructions,
 
 | Preference | Scope | Evidence strength and sanitized source |
 | --- | --- | --- |
+| Prefer interactive retro HTML overviews for workflow maps, comparisons, change explanations, and reviews when the format makes them clearer. Keep ordinary answers concise and match product UI to its own brief. | Explanations and review presentation | Explicit preference and repeated acceptance of retro console overviews, 24 October 2026. |
 | Keep explanations concise, concrete, and understandable; explain what changed, what remains, and the next useful action. | Task communication | Repeated requests for concrete next steps and plain-language status, September–October 2026. |
 | Show comparable visual alternatives when requested, then preserve the exact chosen direction. | UI exploration | Repeated option comparisons and an explicit correction distinguishing two similarly named concepts, October 2026. |
 | Prefer clear hierarchy, readable type, concise UI text, and recognizable actions. Remove repeated explanations while keeping labels and recovery useful. | UI refinement | Repeated edits to tables, forms, dashboards, and marketing copy, September–October 2026. |

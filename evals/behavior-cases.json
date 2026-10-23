@@ -3,7 +3,7 @@
   "cases": [
     {
       "id": "visual-options",
-      "skill": "astra-design",
+      "skill": "dytschgo-design",
       "context": "A local-only staff dashboard has a queue of cases. Available content is 12 assigned cases, 3 waiting for documents, and a Review case action. No due dates or overdue policy exist. Use synthetic names. The user has not selected a direction.",
       "request": "Give me five genuinely different modern dashboard mockups I can compare. Don't build the app or push anything yet.",
       "expected": [
@@ -15,7 +15,7 @@
     },
     {
       "id": "ambiguous-choice",
-      "skill": "astra-design",
+      "skill": "dytschgo-design",
       "context": "The last comparison contains R1-D / Focus Deck and R1-E / Focus Hero. Neither has been selected. Only standalone mockups exist.",
       "request": "Go with focus, build it locally.",
       "expected": [
@@ -26,7 +26,7 @@
     },
     {
       "id": "accepted-list",
-      "skill": "astra-orchestrator",
+      "skill": "dytschgo-coordinate",
       "context": "The user accepted: 1. Move labels above inputs. 2. Show two cases then a filtered queue link. A telemetry system and a sidebar redesign were explicitly listed as optional later ideas. Local edits are authorized; commits and deployment are not. No delegation is available in this trial.",
       "request": "Do all of them.",
       "expected": [
@@ -37,7 +37,7 @@
     },
     {
       "id": "fast-iteration",
-      "skill": "astra-design",
+      "skill": "dytschgo-design",
       "context": "The selected design is R2-B / Compact Table. The change is presentation-only: row padding and font size. Existing component behavior and data handling stay the same. The fixture is read-only for this trial.",
       "request": "Iterate fast. What would you verify for this change? Don't create tests for every CSS value.",
       "expected": [
@@ -48,7 +48,7 @@
     },
     {
       "id": "wrong-preview",
-      "skill": "astra-verification",
+      "skill": "dytschgo-verify-setup",
       "context": "Target checkout: C:/fixture/current, branch dev, revision new123. Process metadata says http://localhost:3300 comes from C:/fixture/old, branch feature/old, revision old456. The old UI has a Set due date form; the current source has removed it. These fixture facts are already verified.",
       "request": "Tell me where I can set a due date in the current app.",
       "expected": [
@@ -59,7 +59,7 @@
     },
     {
       "id": "clean-interface",
-      "skill": "astra-design",
+      "skill": "dytschgo-design",
       "context": "A form contains persistent Name and Email labels, the Save action, a field-level invalid-email error, a retry control after failures, and three paragraphs repeating that the user should fill out and save the form.",
       "request": "Way too much AI slop. Make it cleaner. Tell me the specific changes first.",
       "expected": [
@@ -70,7 +70,7 @@
     },
     {
       "id": "review-exit",
-      "skill": "astra-orchestrator",
+      "skill": "dytschgo-coordinate",
       "context": "The bounded change is at head h123, base b123. A qualifying independent review covers this exact revision, accepted requirements and risks, with no unresolved findings. Required checks passed on h123. No code, environment or scope has changed. The authorized outcome ends at the reviewed local artifact. The only suggestion left is an optional future animation.",
       "request": "Are we done? What remains?",
       "expected": [
@@ -81,7 +81,7 @@
     },
     {
       "id": "builder-choice",
-      "skill": "astra-orchestrator",
+      "skill": "dytschgo-coordinate",
       "context": "Earlier tasks used a builder swarm. The current task is a reversible layout adjustment with known acceptance criteria. The user has now chosen the primary agent to implement directly.",
       "request": "You're my builder now. Do this one yourself, no subagents for this change.",
       "expected": [
@@ -92,7 +92,7 @@
     },
     {
       "id": "delivery-boundary",
-      "skill": "astra-engineering",
+      "skill": "dytschgo-engineering",
       "context": "The accepted change is ready and verified. The project's established dev workflow deploys the dev branch to a test domain; main deploys production. The user authorized a commit, push and deploy to dev. Production is outside this task. This trial permits a response only, not real external writes.",
       "request": "Push it to dev.",
       "expected": [
@@ -103,7 +103,7 @@
     },
     {
       "id": "profile-boundary",
-      "skill": "astra-design",
+      "skill": "dytschgo-design",
       "context": "A generic user requests a readable, quiet reference page for a public library. No working profile is selected and references/active-profile.md is absent.",
       "request": "Suggest an appropriate layout. This is a static reference page with no animation.",
       "expected": [

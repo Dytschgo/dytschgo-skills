@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dytschgo Agent Docs"
+  short_description: "Write a skill or AGENTS.md an agent can follow"
+  default_prompt: "Use $dytschgo-agent-docs to draft this skill so an agent can tell when it is done."

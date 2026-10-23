@@ -5,6 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 
 const script = fileURLToPath(new URL('../scripts/sync-installed-skills.ps1', import.meta.url));
 function setup(t) {
@@ -20,6 +21,77 @@ function setup(t) {
   return { base, source, home, root, write, run, runAt };
 }
 const windows = { skip: process.platform !== 'win32' };
+
+function legacyFixture(t) {
+  const f = setup(t);
+  const entry = '---\nname: old-sample\ndescription: "Legacy collection skill."\n---\n';
+  const metadata = 'interface:\n  display_name: "Dytschgo legacy fixture"\n';
+  f.write(path.join(f.root, 'old-sample', 'SKILL.md'), entry);
+  f.write(path.join(f.root, 'old-sample', 'agents/openai.yaml'), metadata);
+  const sha = text => createHash('sha256').update(text).digest('hex').toUpperCase();
+  const migrations = { collection: 'Dytschgo/dytschgo-skills', skills: [{ old: 'old-sample', new: 'sample', entrySha256: sha(entry), metadataSha256: sha(metadata) }] };
+  f.write(path.join(f.source, 'migrations/renames.json'), JSON.stringify(migrations));
+  return { ...f, migrations };
+}
+
+test('rename migration is dry-run-first, preserves activation, backs up legacy and is idempotent', windows, t => {
+  const { root, write, run } = legacyFixture(t);
+  write(path.join(root, 'old-sample/references/active-profile.md'), 'old selected profile');
+  const plan = run();
+  assert.equal(plan.status, 0, plan.stderr);
+  assert.equal(JSON.parse(plan.stdout).entries.find(e => e.name === 'old-sample').action, 'retire');
+  assert.ok(fs.existsSync(path.join(root, 'old-sample')));
+  assert.equal(fs.existsSync(path.join(root, 'sample')), false);
+  const applied = run('-Apply');
+  assert.equal(applied.status, 0, applied.stderr);
+  const result = JSON.parse(applied.stdout);
+  assert.equal(result.retired, 1);
+  assert.equal(fs.existsSync(path.join(root, 'old-sample')), false);
+  assert.equal(fs.readFileSync(path.join(root, 'sample/references/active-profile.md'), 'utf8'), '# Selected preferences\n');
+  assert.ok(fs.existsSync(path.join(result.backup, 'previous/0/old-sample/SKILL.md')));
+  const repeat = run('-Apply');
+  assert.equal(repeat.status, 0, repeat.stderr);
+  assert.equal(JSON.parse(repeat.stdout).retired, 0);
+  assert.equal(JSON.parse(repeat.stdout).updated, 0);
+});
+
+test('modified legacy ownership and invalid migration paths fail without writes', windows, t => {
+  const { root, source, home, write, run, migrations } = legacyFixture(t);
+  write(path.join(root, 'old-sample/SKILL.md'), 'personal changes');
+  const modified = run('-Apply');
+  assert.notEqual(modified.status, 0);
+  assert.match(modified.stderr, /ownership differs/);
+  assert.equal(fs.existsSync(path.join(home, 'agent-tools')), false);
+  migrations.skills[0].old = '../outside';
+  write(path.join(source, 'migrations/renames.json'), JSON.stringify(migrations));
+  const traversal = run('-Apply');
+  assert.notEqual(traversal.status, 0);
+  assert.match(traversal.stderr, /Invalid migration name/);
+  assert.equal(fs.readFileSync(path.join(root, 'old-sample/SKILL.md'), 'utf8'), 'personal changes');
+});
+
+test('a retirement failure rolls back newly installed names', windows, t => {
+  const { base, source, home, root, write } = legacyFixture(t);
+  const wrapper = path.join(base, 'retire-failure.ps1');
+  write(wrapper, `param($Installer, $Source, $SelectedHome, $Destination)\n$ErrorActionPreference = 'Stop'\nfunction Move-Item {\n[CmdletBinding()] param($LiteralPath, $Destination)\nif ((Split-Path -Leaf $LiteralPath) -eq 'old-sample') { throw 'simulated retirement failure' }\nMicrosoft.PowerShell.Management\\Move-Item -LiteralPath $LiteralPath -Destination $Destination\n}\n& $Installer -SourceRoot $Source -UserHome $SelectedHome -SkillRoot $Destination -Apply\n`);
+  const result = spawnSync('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', wrapper, script, source, home, root], { encoding: 'utf8' });
+  assert.notEqual(result.status, 0);
+  assert.ok(fs.existsSync(path.join(root, 'old-sample/SKILL.md')));
+  assert.equal(fs.existsSync(path.join(root, 'sample')), false);
+  assert.equal(fs.readFileSync(path.join(root, 'unrelated/SKILL.md'), 'utf8'), 'private skill remains');
+});
+
+test('a new Dytschgo name collision preserves unrelated content', windows, t => {
+  const { source, root, write, run } = setup(t);
+  fs.renameSync(path.join(source, 'skills/sample'), path.join(source, 'skills/dytschgo-new'));
+  write(path.join(source, 'skills/dytschgo-new/SKILL.md'), '---\nname: dytschgo-new\ndescription: "New."\n---\n');
+  write(path.join(root, 'dytschgo-new/SKILL.md'), '---\nname: unrelated\n---\npersonal work');
+  write(path.join(root, 'dytschgo-new/agents/openai.yaml'), 'interface:\n  display_name: "Personal skill"\n');
+  const result = run('-Apply');
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /collision needs review/);
+  assert.match(fs.readFileSync(path.join(root, 'dytschgo-new/SKILL.md'), 'utf8'), /personal work/);
+});
 test('dry run leaves installations and backup paths untouched', windows, t => {
   const { home, root, run } = setup(t);
   const result = run('-EnableProfile');

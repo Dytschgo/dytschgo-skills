@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dytschgo Verify Setup"
+  short_description: "Create and maintain project-specific behavior checks"
+  default_prompt: "Use $dytschgo-verify-setup to create or audit a project-local verification workflow grounded in this repository. Exercise real user paths where feasible, preserve evidence, and report what remains unverified."
