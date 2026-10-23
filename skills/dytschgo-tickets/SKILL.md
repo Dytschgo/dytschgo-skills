@@ -7,7 +7,7 @@ description: "Split a spec, plan, or settled conversation into vertical tracer-b
 
 If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
 
-Break a plan, spec, or conversation into tracer-bullet tickets. Each ticket declares the tickets that block it. Behavior follows Matt Pocock's to-tickets skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/engineering/to-tickets/SKILL.md
+Break a plan, spec, or conversation into tracer-bullet tickets. Each ticket declares the tickets that block it. Preserve the requested local-draft or authorized tracker boundary. Behavior follows Matt Pocock's to-tickets skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/engineering/to-tickets/SKILL.md
 
 ## Process
 
@@ -28,12 +28,12 @@ A wide refactor is the exception. That is one mechanical change, such as renamin
 
 4. Show the breakdown as a numbered list before publishing. For each ticket: title, blocked by, and the end-to-end behavior it makes work. Ask whether the grain is right, whether each edge is a real gate, and whether any ticket should merge or split. Change the list until the user approves it.
 
-5. Publish in dependency order so blockers exist before the tickets that name them. Do not close or edit a parent issue.
+5. Deliver the approved breakdown within the requested boundary, in dependency order so blockers exist before the tickets that name them. Do not close or edit a parent issue.
 
 - Local files: one file per ticket at `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01`, blockers first. Never one combined file.
-- GitHub, Linear, or another tracker this repo already uses: one issue per ticket. Use the tracker's native blocking or sub-issue link when it has one. Otherwise write the blockers in the body. Apply `ready-for-agent` from [Dytschgo Triage](../dytschgo-triage/SKILL.md) unless the user says otherwise. These tickets are agent-ready by construction.
+- GitHub, Linear, or another tracker this repo already uses: one issue per ticket. Use the tracker's native blocking or sub-issue link when it has one. Otherwise write the blockers in the body. Use the `ready-for-agent` label meaning from [Dytschgo Triage](../dytschgo-triage/SKILL.md) unless the user says otherwise: specified enough for an agent to act. These tickets are agent-ready by construction; borrowing that definition does not run Triage's interview, waits, or comment procedure.
 
-If no tracker is documented, use GitHub issues when `gh` can see the current repo, and local files otherwise. Say which you used.
+For draft or local-only requests, use the local ticket files. For external publication, resolve the exact tracker/repository and visibility, including fork context, and use existing authorization for that destination. Tracker access is not authorization. Resolve a material target ambiguity or unanswered required decision before the write; otherwise continue without duplicate confirmation. Use local files if publication is not authorized or no tracker is available, and say which destination you used.
 
 Work the frontier: any ticket whose blockers are all done. A linear chain runs top to bottom. This skill publishes that frontier. It does not implement it.
 
@@ -77,4 +77,4 @@ The end-to-end behavior, from the user's side, not a layer-by-layer plan.
 
 ## Hand off
 
-Do not implement inside this skill. When a person should build the frontier, pull [Dytschgo Engineering](../dytschgo-engineering/SKILL.md). When coordinated agents should build it, pull [Dytschgo Coordinate](../dytschgo-coordinate/SKILL.md).
+Do not implement inside this skill. When one builder should implement the frontier, pull [Dytschgo Engineering](../dytschgo-engineering/SKILL.md). When coordinated agents should build it, pull [Dytschgo Coordinate](../dytschgo-coordinate/SKILL.md).

@@ -1,4 +1,4 @@
 interface:
   display_name: "Dytschgo Engineering"
-  short_description: "Deep cleanup, measured speedups, and verified delivery"
-  default_prompt: "Use $dytschgo-engineering to find and fix the most valuable problems in this codebase, improve verification where needed, and show evidence of the result."
+  short_description: "Substantial builds, cleanup, and verified delivery"
+  default_prompt: "Use $dytschgo-engineering to complete this substantial engineering task or accepted planning handoff, preserve the agreed scope, and show verification evidence."

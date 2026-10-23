@@ -1,14 +1,14 @@
 {
-  "sourceHash": "0e11e274d9421a2d0bdf35e24a2abf0563cadd19885b7af299f56ade6bd822e9",
+  "sourceHash": "c0688e18bb4dbac1971ff93c1d00a5aad670aa9ec31c74a3354cc571a05e0b63",
   "nodes": [
     {
       "id": "triage",
       "name": "Triage",
       "slug": "dytschgo-triage",
       "cat": "FRAME",
-      "output": "A reproduced or qualified request, tracker state, and actionable agent brief.",
-      "stop": "Stop at the triage outcome; implementation is a separate authorized task.",
-      "desc": "Move an issue or external PR through triage roles. Use on a bug report or incoming request before anyone grills it. Reproduce first, then interview, then post an agent brief."
+      "output": "A verified recommendation; tracker state and an actionable brief only when authorized.",
+      "stop": "Verify before recommending a state. Read-only triage stops at its recommendation; tracker changes use existing authorization.",
+      "desc": "Move an issue or external PR through triage roles. Use on a bug report or incoming request before anyone grills it. Verify the claim before recommending its outcome; interview only when needed and apply tracker changes within authorization."
     },
     {
       "id": "grilling",
@@ -17,7 +17,7 @@
       "cat": "FRAME",
       "output": "A shared decision and the appropriate next skill.",
       "stop": "Full interviews wait for confirmation. Visual options alone do not require a full interview.",
-      "desc": "Grill a plan, decision, or idea until the design tree is settled. Use when the user wants to stress-test thinking, says grill, or another skill hits an open design decision; not for implementing, filing tickets, or writing files."
+      "desc": "Stress-test a plan or settle material product decisions through a deeper interview. Use when the user asks to grill or unresolved product choices need that depth; routine implementation choices and requests for visual options stay with their current task."
     },
     {
       "id": "wayfinder",
@@ -35,16 +35,16 @@
       "cat": "DEFINE",
       "output": "A brief, copyable agent prompt, and model recommendation when relevant.",
       "stop": "A prompt-only request stops at the prompt; an explicit build request can continue.",
-      "desc": "Turn a product or software feature idea into a detailed, ready-to-paste implementation prompt and recommend a suitable current model from xAI, OpenAI, or Anthropic. Use when planning a feature or deciding which model should build it."
+      "desc": "Turn a product or software feature idea into a detailed, ready-to-paste implementation prompt and recommend a suitable current model from xAI, OpenAI, or Anthropic. Use when the requested output is a copyable build prompt or a model recommendation, rather than a general planning interview."
     },
     {
       "id": "spec",
       "name": "Spec",
       "slug": "dytschgo-spec",
       "cat": "DEFINE",
-      "output": "A published spec, or a local spec when no tracker is available.",
-      "stop": "Check proposed testing seams with the user. Do not split tickets or implement inside this skill.",
-      "desc": "Publish the current conversation as a tracker spec. Use when the decision is already settled and should become an issue; not for interviewing, splitting tickets, or implementing."
+      "output": "A local draft or authorized tracker spec, matching the requested destination.",
+      "stop": "Reuse settled testing seams; resolve only material unanswered testing decisions before publishing. Do not split tickets or implement inside this skill.",
+      "desc": "Write a settled conversation as a spec, locally for a draft or to an authorized tracker. Use when decisions are settled and a spec is requested; not interviewing, splitting tickets, or implementation."
     },
     {
       "id": "tickets",
@@ -71,7 +71,7 @@
       "cat": "BUILD",
       "output": "A bounded change with relevant evidence, or findings for a read-only request.",
       "stop": "Preserve accepted scope and delivery boundary. Ordinary small coding tasks need no heavyweight wrapper.",
-      "desc": "Investigate and complete substantial codebase cleanup, performance, agent setup, PR triage, or stalled engineering work. Use when requested explicitly; not for routine coding questions."
+      "desc": "Complete substantial implementation, cleanup, performance, agent setup, backlog audits, or stalled work, including authorized planning handoffs. Use for a settled build or engineering investigation; small routine edits stay direct and incoming reports use Triage."
     },
     {
       "id": "orchestrator",
@@ -88,8 +88,8 @@
       "slug": "dytschgo-debug",
       "cat": "PROVE",
       "output": "Supported cause, a fixed symptom, regression evidence, and no leftover debug probes.",
-      "stop": "Without a usable reproduction loop, report the blocker instead of guessing the cause.",
-      "desc": "Diagnose a hard bug or performance regression. Use when something is broken, throwing, failing, or slow. Do not form a hypothesis until a tight pass/fail loop exists."
+      "stop": "If a meaningful symptom-specific loop cannot be built, report the blocker before hypotheses. A slower real-path loop can qualify; local work can finish with a report.",
+      "desc": "Diagnose hard bugs and functional or performance regressions with an unknown, intermittent, or contested cause. Use for uncertain failures and failed fix attempts; verified routine corrections can stay direct. Establish a symptom-specific feedback loop before hypotheses."
     },
     {
       "id": "blast",
@@ -105,9 +105,9 @@
       "name": "Review",
       "slug": "dytschgo-review",
       "cat": "PROVE",
-      "output": "Separate standards/spec findings, with review independence disclosed and matched to risk.",
-      "stop": "Pin the base first. Skip and disclose the spec axis if no spec exists. Review is not merge permission.",
-      "desc": "Review the diff since a fixed point on two axes at once, repo standards and the originating spec. Use before a merge, or when the user asks to review a branch, PR, or work in progress."
+      "output": "Separate standards/spec findings on the requested branch, PR, or WIP, with its actual source scope and review independence recorded.",
+      "stop": "Pin the requested target first. Skip and disclose an unavailable spec axis; read-only findings do not authorize merge or edits.",
+      "desc": "Review a branch, PR, or uncommitted work on separate repository-standards and originating-spec axes. Use for code/change review or before merge; pin the actual requested target and respect read-only scope."
     },
     {
       "id": "writing",
@@ -132,7 +132,7 @@
       "name": "Handoff",
       "slug": "dytschgo-handoff",
       "cat": "SUPPORT",
-      "output": "A temporary handoff file with the next action and suggested skills.",
+      "output": "A redacted handoff with the next action and pointers, delivered in a location or format the next session can access.",
       "stop": "After writing the handoff, stop work in this thread. Suggested next skills are task-dependent.",
       "desc": "Compact the current conversation into a handoff a fresh agent can continue from. Use when the thread should move. Not the same as filing fix tickets for people."
     },
@@ -175,7 +175,7 @@
       "targetFile": "skills/dytschgo-review/SKILL.md",
       "line": 57,
       "column": 6,
-      "when": "Pull Dytschgo Review before merge. Review git diff <fixed-point>...HEAD on the standards axis and the spec axis, in parallel. That review does not replace the before, the after, or the door required above."
+      "when": "Pull Dytschgo Review before merge and follow its requested-target procedure. Pass the captured patch/file evidence and actual source identity for the committed, PR, or requested WIP scopes. Keep standards and spec separate; use independent reviewers according to the risk requirements below. Before a merge, ensure qualifying review covers the integrated committed revision. That review does not replace the before, the after, or the door required above."
     },
     {
       "from": "orchestrator",
@@ -249,13 +249,23 @@
     },
     {
       "from": "engineering",
+      "to": "triage",
+      "kind": "load",
+      "file": "skills/dytschgo-engineering/SKILL.md",
+      "targetFile": "skills/dytschgo-triage/SKILL.md",
+      "line": 17,
+      "column": 181,
+      "when": "- For an authorized backlog audit, merges, or stalled work, read delivery and recovery. For qualifying an incoming issue or external PR, use Dytschgo Triage."
+    },
+    {
+      "from": "engineering",
       "to": "diagnose",
       "kind": "load",
       "file": "skills/dytschgo-engineering/SKILL.md",
       "targetFile": "skills/dytschgo-debug/SKILL.md",
       "line": 27,
-      "column": 24,
-      "when": "Before a bug fix, pull Dytschgo Debug. Do not form a hypothesis until a tight pass/fail loop exists, then state the supported cause and evidence. An unverified mitigation is not a resolved bug. For behavior, preference/default, native, or test-harness changes, read the behavior and verification safeguards. For CI failure classification and acceptance claims, use the delivery evidence guidance."
+      "column": 5,
+      "when": "Use Dytschgo Debug when a failure or regression has an unknown, intermittent, or contested cause, or an attempted fix failed. Within that diagnosis, establish a symptom-specific feedback loop before hypotheses. A routine correction supported by direct evidence can stay focused with relevant verification. An unverified mitigation is not a resolved bug. For behavior, preference/default, native, or test-harness changes, read the behavior and verification safeguards. For CI failure classification and acceptance claims, use the delivery evidence guidance."
     },
     {
       "from": "grilling",
@@ -354,8 +364,8 @@
       "file": "skills/dytschgo-review/SKILL.md",
       "targetFile": "skills/dytschgo-coordinate/references/github-and-review.md",
       "line": 17,
-      "column": 136,
-      "when": "This review does not replace the pull request body. Before a merge, the PR still needs the before, the after, and the door required in GitHub ownership, review, and acceptance."
+      "column": 237,
+      "when": "Before a merge, the PR needs before/after evidence and a reversibility assessment: a two-way door can be undone; a one-way door is destructive or hard to undo. This review does not replace that PR context or grant merge permission. The GitHub ownership and review reference provides optional detail when installed; the requirements above remain usable with Review alone."
     },
     {
       "from": "review",
@@ -363,7 +373,7 @@
       "kind": "load",
       "file": "skills/dytschgo-review/SKILL.md",
       "targetFile": "skills/dytschgo-retro/SKILL.md",
-      "line": 78,
+      "line": 82,
       "column": 64,
       "when": "For a requested HTML overview of the completed assessment, use Dytschgo Retro to present the findings and evidence. This is a presentation step, not a new review round."
     },
@@ -374,8 +384,8 @@
       "file": "skills/dytschgo-spec/SKILL.md",
       "targetFile": "skills/dytschgo-triage/SKILL.md",
       "line": 18,
-      "column": 98,
-      "when": "3. Write the spec from the template and publish it. Mark it ready-for-agent using the roles in Dytschgo Triage. It does not need another triage pass."
+      "column": 168,
+      "when": "3. Write the spec from the template and deliver it within the requested boundary. For an authorized tracker item, mark it ready-for-agent using the label meaning in Dytschgo Triage: specified enough for an agent to act. This is a shared definition, not another triage pass."
     },
     {
       "from": "spec",
@@ -394,8 +404,8 @@
       "file": "skills/dytschgo-tickets/SKILL.md",
       "targetFile": "skills/dytschgo-triage/SKILL.md",
       "line": 34,
-      "column": 224,
-      "when": "- GitHub, Linear, or another tracker this repo already uses: one issue per ticket. Use the tracker's native blocking or sub-issue link when it has one. Otherwise write the blockers in the body. Apply ready-for-agent from Dytschgo Triage unless the user says otherwise. These tickets are agent-ready by construction."
+      "column": 240,
+      "when": "- GitHub, Linear, or another tracker this repo already uses: one issue per ticket. Use the tracker's native blocking or sub-issue link when it has one. Otherwise write the blockers in the body. Use the ready-for-agent label meaning from Dytschgo Triage unless the user says otherwise: specified enough for an agent to act. These tickets are agent-ready by construction; borrowing that definition does not run Triage's interview, waits, or comment procedure."
     },
     {
       "from": "tickets",
@@ -404,8 +414,8 @@
       "file": "skills/dytschgo-tickets/SKILL.md",
       "targetFile": "skills/dytschgo-engineering/SKILL.md",
       "line": 80,
-      "column": 83,
-      "when": "Do not implement inside this skill. When a person should build the frontier, pull Dytschgo Engineering. When coordinated agents should build it, pull Dytschgo Coordinate."
+      "column": 90,
+      "when": "Do not implement inside this skill. When one builder should implement the frontier, pull Dytschgo Engineering. When coordinated agents should build it, pull Dytschgo Coordinate."
     },
     {
       "from": "tickets",
@@ -414,8 +424,8 @@
       "file": "skills/dytschgo-tickets/SKILL.md",
       "targetFile": "skills/dytschgo-coordinate/SKILL.md",
       "line": 80,
-      "column": 187,
-      "when": "Do not implement inside this skill. When a person should build the frontier, pull Dytschgo Engineering. When coordinated agents should build it, pull Dytschgo Coordinate."
+      "column": 194,
+      "when": "Do not implement inside this skill. When one builder should implement the frontier, pull Dytschgo Engineering. When coordinated agents should build it, pull Dytschgo Coordinate."
     },
     {
       "from": "triage",
@@ -423,9 +433,9 @@
       "kind": "load",
       "file": "skills/dytschgo-triage/SKILL.md",
       "targetFile": "skills/dytschgo-grill/SKILL.md",
-      "line": 58,
-      "column": 316,
-      "when": "3. Verify before any grilling. A bug: reproduce it from the reporter's steps. A PR: confirm the diff does what it claims. Check it out and run the relevant tests or commands. Report confirmed (with the code path), failed, or insufficient detail. Insufficient detail is a strong needs-info signal. Do not pull Dytschgo Grill until this step has a result."
+      "line": 56,
+      "column": 357,
+      "when": "2. Verify before recommending. A bug: reproduce it from the reporter's steps. A PR: confirm the diff does what it claims, using a matching source snapshot and relevant safe checks. Report confirmed, failed, or insufficient detail, with evidence. Missing verification is a reason to identify the gap, not recommend implementation readiness. Do not pull Dytschgo Grill until this step has a result."
     },
     {
       "from": "triage",
@@ -445,7 +455,7 @@
       "targetFile": "skills/dytschgo-tickets/SKILL.md",
       "line": 146,
       "column": 52,
-      "when": "A brief marked ready-for-agent can be split with Dytschgo Tickets or built with Dytschgo Engineering. Grilling a bug report that has not been through step 3 is out of order. Pull this skill first."
+      "when": "A brief marked ready-for-agent can be split with Dytschgo Tickets or built with Dytschgo Engineering. Grilling a bug report that has not been through verification is out of order. Pull this skill first."
     },
     {
       "from": "triage",
@@ -455,7 +465,7 @@
       "targetFile": "skills/dytschgo-engineering/SKILL.md",
       "line": 146,
       "column": 115,
-      "when": "A brief marked ready-for-agent can be split with Dytschgo Tickets or built with Dytschgo Engineering. Grilling a bug report that has not been through step 3 is out of order. Pull this skill first."
+      "when": "A brief marked ready-for-agent can be split with Dytschgo Tickets or built with Dytschgo Engineering. Grilling a bug report that has not been through verification is out of order. Pull this skill first."
     },
     {
       "from": "wayfinder",
@@ -593,9 +603,9 @@
     },
     {
       "id": "bug",
-      "name": "Broken / slow app",
+      "name": "Hard / unclear bug",
       "short": "Reproduce before explaining.",
-      "prompt": "Use $dytschgo-engineering and $dytschgo-debug to fix this problem. First establish and run a tight feedback loop that reproduces the exact symptom. Then find the supported cause, fix it, and verify the original scenario.",
+      "prompt": "Use $dytschgo-engineering and $dytschgo-debug to fix this problem. First establish and run a reliable symptom-specific feedback loop that reproduces the exact symptom. Then find the supported cause, fix it, and verify the original scenario.",
       "steps": [
         [
           "engineering",
@@ -614,7 +624,7 @@
         ]
       ],
       "stop": "Diagnosis cannot claim success without symptom evidence. A merge remains a separate authorized action.",
-      "note": "The Engineering → Diagnosing Bugs and Diagnosing Bugs → Code Review links are explicit in the skill text.",
+      "note": "Engineering loads Debug for failures or regressions with an unknown, intermittent, or contested cause, or after a failed fix attempt. Verified routine corrections can stay direct. Review is used before an authorized merge.",
       "extras": [
         "triage",
         "For an untriaged incoming bug report or external issue, qualify the claim first."
@@ -686,13 +696,13 @@
     {
       "id": "review",
       "name": "Review my branch",
-      "short": "Two independent review axes.",
-      "prompt": "Use $dytschgo-review to review this branch against the fixed base <BASE_SHA>. Check repository standards and the originating spec <SPEC_PATH_OR_ISSUE>. Report actionable findings on the two axes separately. Do not edit or merge.",
+      "short": "Review the requested source scope.",
+      "prompt": "Use $dytschgo-review to inspect the branch, PR, or uncommitted work I identify. Record the actual target, include relevant tracked and untracked WIP when requested, and report repository standards and the originating spec separately. Do not edit or merge.",
       "steps": [
         [
           "review",
           "START",
-          "Pin the diff base and head. Review standards and spec separately."
+          "Identify the requested branch, PR, or uncommitted WIP; pin its actual source and keep standards/spec findings distinct."
         ],
         [
           "blast",

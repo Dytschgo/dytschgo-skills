@@ -1,4 +1,4 @@
 interface:
   display_name: "Dytschgo Review"
-  short_description: "Review a diff on standards and on the spec"
-  default_prompt: "Use $dytschgo-review to review git diff <fixed-point>...HEAD on standards and on the spec, in parallel."
+  short_description: "Review branches, PRs, and uncommitted work"
+  default_prompt: "Use $dytschgo-review on the branch, PR, or WIP I name. Pin the actual target and report separate Standards and Spec findings without editing the work."

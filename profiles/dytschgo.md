@@ -1,6 +1,6 @@
 # Dytschgo working preferences
 
-Apply only when Dylan selects this profile in the session or agent instructions, and only to relevant work with this skill collection. Explicit task instructions, current project constraints, brand, and permissions take precedence. This profile grants no new authorization. Other users and unrelated tasks keep their own defaults.
+Active when selected in the session or agent instructions, or installed as `references/active-profile.md` by explicit profile opt-in. Apply only to relevant work with this skill collection. Explicit task instructions, current project constraints, brand, and permissions take precedence. This profile grants no new authorization. Other users and unrelated tasks keep their own defaults.
 
 | Preference | Scope | Evidence strength and sanitized source |
 | --- | --- | --- |

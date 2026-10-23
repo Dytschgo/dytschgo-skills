@@ -1,30 +1,34 @@
 ---
 name: dytschgo-review
-description: "Review the diff since a fixed point on two axes at once, repo standards and the originating spec. Use before a merge, or when the user asks to review a branch, PR, or work in progress."
+description: "Review a branch, PR, or uncommitted work on separate repository-standards and originating-spec axes. Use for code/change review or before merge; pin the actual requested target and respect read-only scope."
 ---
 
 # Dytschgo Review
 
 If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
 
-Review the diff between `HEAD` and a pinned base, on two axes that stay separate:
+Review the requested branch, PR, or uncommitted work on two axes that stay separate:
 
 - **Standards.** Does the code follow this repo's documented coding standards?
 - **Spec.** Does the code implement the originating issue or spec?
 
 Keep the axes separate and report them side by side. A bounded low-risk read-only check can inspect both axes directly; label it as a single-agent review. Use independent reviewers for consequential work, when repository policy requires them, and always for high-risk changes. When independent review is needed, run the axes in parallel when tools permit. Never claim independence for self-review. Behavior follows Matt Pocock's code-review skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/engineering/code-review/SKILL.md
 
-This review does not replace the pull request body. Before a merge, the PR still needs the before, the after, and the door required in [GitHub ownership, review, and acceptance](../dytschgo-coordinate/references/github-and-review.md).
+Before a merge, the PR needs before/after evidence and a reversibility assessment: a two-way door can be undone; a one-way door is destructive or hard to undo. This review does not replace that PR context or grant merge permission. The [GitHub ownership and review reference](../dytschgo-coordinate/references/github-and-review.md) provides optional detail when installed; the requirements above remain usable with Review alone.
 
 ## Process
 
-### 1. Pin the fixed point
+### 1. Identify and pin the requested target
 
-Use the fixed point the user named (a SHA, branch, tag, `main`, `HEAD~5`, or similar). Otherwise inspect the PR base or established repository workflow. When it identifies one unambiguous target, resolve and record that base and the current head without asking the user to repeat it. Ask one focused question when targets compete, especially on stacked branches; do not assume the default branch or the feature branch upstream is the intended base.
+Choose the scopes from the request; do not treat the current checkout as an unrelated PR's head.
 
-Capture one diff command: `git diff <fixed-point>...HEAD` (three dots, so the comparison is against the merge-base). Note commits with `git log <fixed-point>..HEAD --oneline`.
+- **Committed branch:** use the base the user named, or discover one unambiguous target from the PR or repository workflow. Resolve and record both base and head SHAs. Review `git diff <base-sha>...<head-sha>` and note `git log <base-sha>..<head-sha> --oneline`.
+- **Uncommitted WIP:** record `HEAD` and status, inspect `git diff HEAD` for staged and unstaged tracked changes, then list and read relevant untracked files with `git ls-files --others --exclude-standard`. Review tracked and untracked content; do not commit, stage, discard, or execute it merely to obtain a diff.
+- **PR outside this checkout:** resolve the named repository/PR and its actual base/head SHAs. Obtain the host's PR diff or a comparison matching those SHAs; verify that the diff and recorded head agree. Do not replace it with a diff of local `HEAD`.
 
-Confirm the ref resolves (`git rev-parse <fixed-point>`) and the diff is non-empty before spawning anyone. A bad ref or an empty diff fails here.
+If the user wants committed changes and WIP together, keep their scopes and findings distinguishable. Retain the reviewed patch/file evidence and recheck affected findings if the target or working tree changes. Ask one focused question only when material targets compete, including stacked-branch bases. A feature branch's upstream or the remote default branch is not automatically the intended base.
+
+Resolve the relevant refs before review. A bad ref is a blocker for that scope. Report no changes only after checking all requested scopes, including untracked files; an empty committed diff does not rule out WIP. Give reviewers the actual captured diff/file scope rather than an obsolete generic command.
 
 ### 2. Find the spec
 
@@ -63,9 +67,9 @@ Match each smell against the diff. The arrow is how to fix it:
 
 For a direct low-risk review, inspect the same standards and spec criteria below and retain separate findings. For independent review, use distinct reviewers with bounded read-only assignments.
 
-Give the Standards reviewer the diff command, the commit list, the standards files you found, and the smell baseline pasted in full. It has no other copy. Ask it to report, per file or hunk: every place the diff breaks a documented standard, citing the file and the rule, and any baseline smell, named, with the hunk quoted. Documented-standard breaches can be hard. Baseline smells stay judgement calls, and a documented repo standard overrides them. Skip anything tooling enforces. Under 400 words.
+Give the Standards reviewer the captured patch and relevant file contents for every requested scope, recorded base/head SHAs or WIP HEAD/status, standards files, and the smell baseline pasted in full. Include commit lists or reproducible diff commands when applicable; an untracked file or supplied PR patch still needs direct coverage. It has no other copy. Ask it to report, per file or hunk: every place the diff breaks a documented standard, citing the file and the rule, and any baseline smell, named, with the hunk quoted. Documented-standard breaches can be hard. Baseline smells stay judgement calls, and a documented repo standard overrides them. Skip anything tooling enforces. Under 400 words.
 
-Give the Spec reviewer the diff command, the commit list, and the spec path or its contents. Ask it to report: requirements missing or partial, behavior in the diff that was not asked for, and requirements that look implemented but look wrong. Quote the spec line for each finding. Under 400 words.
+Give the Spec reviewer the same captured patch/file scope and recorded source identity, plus the spec path or its contents. Include relevant untracked files and off-checkout PR evidence rather than substituting local HEAD. Ask it to report: requirements missing or partial, behavior in the diff that was not asked for, and requirements that look implemented but look wrong. Quote the spec line for each finding. Under 400 words.
 
 If the spec is missing, skip that axis and say so in the report.
 

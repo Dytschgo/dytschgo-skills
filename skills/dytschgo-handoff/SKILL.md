@@ -7,7 +7,7 @@ description: "Compact the current conversation into a handoff a fresh agent can 
 
 If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
 
-Write a handoff that lets a fresh agent continue the work. Save it in the operating system's temporary directory, not in the workspace. Behavior follows Matt Pocock's handoff skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/productivity/handoff/SKILL.md
+Write a handoff that lets a fresh agent continue the work. For a shared filesystem, save it in the operating system's temporary directory, not in the workspace. If the next agent cannot access that filesystem, also provide the redacted handoff inline or as an artifact accessible to the next session. Behavior follows Matt Pocock's handoff skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/productivity/handoff/SKILL.md
 
 This is not a list of fix tickets for people. It is a compact of this thread.
 
@@ -30,4 +30,4 @@ If the user passed an argument, treat it as what the next session is for, and ta
 
 ## Hand off
 
-Do not keep working the task after the file is written. Tell the user the temp path. [Dytschgo Coordinate](../dytschgo-coordinate/SKILL.md) and [Dytschgo Wayfinder](../dytschgo-wayfinder/SKILL.md) pull this skill when a thread should move.
+After delivering the redacted handoff, stop working this task. Tell the user its accessible path, attachment, or inline location; a temp path alone is insufficient when the next session cannot read that filesystem. [Dytschgo Coordinate](../dytschgo-coordinate/SKILL.md) and [Dytschgo Wayfinder](../dytschgo-wayfinder/SKILL.md) pull this skill when a thread should move.

@@ -25,7 +25,7 @@ The map is one issue labelled `wayfinder:map`. Its tickets are child issues. The
 
 Open tickets are not listed in the body. They are open children, found by query.
 
-Use the tracker this repo already documents. If none is documented, use GitHub issues when `gh` can see the current repo. Otherwise use local markdown: `.scratch/<map-slug>/map.md` plus one file per ticket at `.scratch/<map-slug>/tickets/<NN>-<slug>.md`, with blockers named in the body. Say which you used.
+Preserve the requested draft or publication boundary. For external tracker changes, resolve the exact destination and visibility, including fork context, and use existing authorization; tracker access alone grants none. Ask before the write only for a material unresolved target or required decision. For a local draft, unavailable tracker, or absent publication authorization, use `.scratch/<map-slug>/map.md` plus one file per ticket at `.scratch/<map-slug>/tickets/<NN>-<slug>.md`, with blockers named in the body. Say which destination you used.
 
 ```markdown
 ## Destination

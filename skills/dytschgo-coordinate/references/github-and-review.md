@@ -54,7 +54,7 @@ Explicitly say the PR is ready for coordinator review. CI pending is not passing
 
 ## Before merge
 
-Pull [Dytschgo Review](../../dytschgo-review/SKILL.md) before merge. Review `git diff <fixed-point>...HEAD` on the standards axis and the spec axis, in parallel. That review does not replace the before, the after, or the door required above.
+Pull [Dytschgo Review](../../dytschgo-review/SKILL.md) before merge and follow its requested-target procedure. Pass the captured patch/file evidence and actual source identity for the committed, PR, or requested WIP scopes. Keep standards and spec separate; use independent reviewers according to the risk requirements below. Before a merge, ensure qualifying review covers the integrated committed revision. That review does not replace the before, the after, or the door required above.
 
 ## Independent review
 

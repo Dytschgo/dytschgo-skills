@@ -1,6 +1,6 @@
 ---
 name: dytschgo-debug
-description: "Diagnose a hard bug or performance regression. Use when something is broken, throwing, failing, or slow. Do not form a hypothesis until a tight pass/fail loop exists."
+description: "Diagnose hard bugs and functional or performance regressions with an unknown, intermittent, or contested cause. Use for uncertain failures and failed fix attempts; verified routine corrections can stay direct. Establish a symptom-specific feedback loop before hypotheses."
 ---
 
 # Dytschgo Debug
@@ -32,7 +32,7 @@ Construct a loop in roughly this order:
 9. A differential loop. Same input through old versus new (or two configs), then diff the outputs.
 10. A human-in-the-loop bash script, last resort. If a person must click, drive them with `scripts/hitl-loop.template.sh` in this skill so the loop stays structured. Captured output comes back to you.
 
-Then tighten the loop you have. Make it faster (cache setup, skip unrelated init, narrow the scope). Make the signal sharper (assert the specific symptom, not "did not crash"). Make it deterministic (pin time, seed RNG, isolate the filesystem, freeze the network). A 30-second flaky loop is barely better than no loop. A 2-second deterministic one is tight.
+Then tighten the loop you have. Make it faster (cache setup, skip unrelated init, narrow the scope). Make the signal sharper (assert the specific symptom, not "did not crash"). Make it deterministic (pin time, seed RNG, isolate the filesystem, freeze the network). Prefer a fast reliable loop over a flaky one. Keep the real symptom in view while reducing setup cost; speed alone does not establish reproduction.
 
 For a non-deterministic bug, chase a higher reproduction rate, not a clean one-shot repro. Loop the trigger, parallelise, add stress, narrow timing windows, inject sleeps. A bug that fails half the time is debuggable. One that fails one time in a hundred is not. Raise the rate until it is.
 
@@ -42,7 +42,7 @@ Phase 1 is done when you can name one command you have already run at least once
 
 - **Red-capable.** It drives the actual bug path and asserts the user's exact symptom, so it can go red on this bug and green once fixed. "Runs without erroring" does not count.
 - **Deterministic.** Same verdict every run. For a flake, a pinned high reproduction rate.
-- **Fast.** Seconds, not minutes.
+- **Focused.** Use the shortest reliable real-path loop. Prefer seconds; a deterministic loop of a few minutes qualifies when the symptom cannot be reached faster. Explain the constraint rather than substituting a fast test that misses the bug.
 - **Agent-runnable.** You can run it unattended. A human is in the loop only through `scripts/hitl-loop.template.sh`.
 
 If you catch yourself reading code to build a theory before that command exists, stop. No red-capable command, no Phase 2.
@@ -91,7 +91,7 @@ Done only when all of these are true:
 - The regression test passes, or the missing seam is written down.
 - Every `[DEBUG-...]` line is gone (grep the prefix).
 - Throwaway prototypes are deleted, or moved somewhere clearly marked as debug.
-- The hypothesis that was right is stated in the commit or PR message.
+- The supported cause and evidence are stated in the final report, and in the commit or PR message when that delivery is authorized. A local-only fix can finish without creating either.
 
 ## Hand off
 

@@ -1,6 +1,6 @@
 ---
 name: dytschgo-engineering
-description: "Investigate and complete substantial codebase cleanup, performance, agent setup, PR triage, or stalled engineering work. Use when requested explicitly; not for routine coding questions."
+description: "Complete substantial implementation, cleanup, performance, agent setup, backlog audits, or stalled work, including authorized planning handoffs. Use for a settled build or engineering investigation; small routine edits stay direct and incoming reports use Triage."
 ---
 
 # Dytschgo Engineering
@@ -14,7 +14,7 @@ Recover a bounded outcome, accepted changes, delivery boundary, and observable c
 ## Choose the relevant workflow
 
 - For cleanup, slop audits, measured performance, or agent setup and verification, read [code improvement](references/code-improvement.md).
-- For PR or issue triage, authorized merges, or stalled work, read [delivery and recovery](references/delivery-and-recovery.md).
+- For an authorized backlog audit, merges, or stalled work, read [delivery and recovery](references/delivery-and-recovery.md). For qualifying an incoming issue or external PR, use [Dytschgo Triage](../dytschgo-triage/SKILL.md).
 
 Combine workflows only when they help the requested outcome. Read applicable repository instructions and inspect relevant implementation, callers, history, and existing changes. Prioritize by impact and evidence; find why an abstraction or workaround exists before removing it. Prefer the simplest coherent change that preserves real requirements.
 
@@ -24,7 +24,7 @@ State the outcome and constraints without prescribing every reasoning step. Reso
 
 Choose evidence that proves the claim: reproduce a bug, compare equivalent workloads for speed, or exercise a real startup or user journey for setup and UI changes. Use existing checks first. Add tests when they protect meaningful behavior. For instruction-only edits, validate structure, links, commands, and conflicts; do not run unrelated application suites. Record pre-existing failures and material verification gaps.
 
-Before a bug fix, pull [Dytschgo Debug](../dytschgo-debug/SKILL.md). Do not form a hypothesis until a tight pass/fail loop exists, then state the supported cause and evidence. An unverified mitigation is not a resolved bug. For behavior, preference/default, native, or test-harness changes, read the [behavior and verification safeguards](references/code-improvement.md#behavior-and-verification-safeguards). For CI failure classification and acceptance claims, use the [delivery evidence guidance](references/delivery-and-recovery.md#classify-failures-and-evidence).
+Use [Dytschgo Debug](../dytschgo-debug/SKILL.md) when a failure or regression has an unknown, intermittent, or contested cause, or an attempted fix failed. Within that diagnosis, establish a symptom-specific feedback loop before hypotheses. A routine correction supported by direct evidence can stay focused with relevant verification. An unverified mitigation is not a resolved bug. For behavior, preference/default, native, or test-harness changes, read the [behavior and verification safeguards](references/code-improvement.md#behavior-and-verification-safeguards). For CI failure classification and acceptance claims, use the [delivery evidence guidance](references/delivery-and-recovery.md#classify-failures-and-evidence).
 
 Carry authorized work through the final diff and relevant checks. If repeated attempts add no evidence, inspect the failure more directly or change approach. Do not stop at a plan or partial patch when implementation was requested. Report the result, verification, and limitations without claiming measurements or checks that did not happen.
 

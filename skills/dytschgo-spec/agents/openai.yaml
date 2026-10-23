@@ -1,4 +1,4 @@
 interface:
   display_name: "Dytschgo Spec"
-  short_description: "Publish the settled conversation as a tracker spec"
-  default_prompt: "Use $dytschgo-spec to publish a spec from this conversation. Do not interview me, and do not start the build."
+  short_description: "Write a settled spec as a draft or tracker item"
+  default_prompt: "Use $dytschgo-spec to write the settled decision as the requested local draft or authorized tracker spec. Resolve material open testing decisions before publication; do not start the build."

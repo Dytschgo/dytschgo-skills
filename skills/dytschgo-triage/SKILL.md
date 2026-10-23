@@ -1,6 +1,6 @@
 ---
 name: dytschgo-triage
-description: "Move an issue or external PR through triage roles. Use on a bug report or incoming request before anyone grills it. Reproduce first, then interview, then post an agent brief."
+description: "Move an issue or external PR through triage roles. Use on a bug report or incoming request before anyone grills it. Verify the claim before recommending its outcome; interview only when needed and apply tracker changes within authorization."
 ---
 
 # Dytschgo Triage
@@ -31,7 +31,7 @@ Five state roles:
 
 For a PR, read the same states against the attached code. `ready-for-agent` means a brief is attached and an agent should take the next step on the diff. `ready-for-human` means a person should merge it.
 
-Every triaged item carries exactly one category role and one state role. If state roles conflict, flag that and ask the maintainer before doing anything else.
+Every triaged item carries exactly one category role and one state role. If state roles conflict, flag that and ask the maintainer before changing tracker roles. Independent read-only verification can continue within the requested scope.
 
 These names are canonical. The tracker's label strings may differ. Use the map the repo already documents. If it documents none, use these names as the labels and say that you did.
 
@@ -51,11 +51,11 @@ Show counts and a one-line summary. Let the maintainer pick.
 
 ## Triage one issue or PR
 
-1. **Gather context.** Read the full item: body, comments, labels, author, dates, and for a PR the diff. Parse earlier triage notes so you do not re-ask a settled question. Explore the codebase in its glossary, respecting ADRs in the area. Then two checks. Redundancy: search for an existing implementation of the requested behavior by domain concept, not just the wording, and report where you looked. If you find it, this is an already-implemented `wontfix`. Prior rejection: read `.out-of-scope/*.md` and surface any file that resembles this request.
+1. **Gather context.** Read the full item: body, comments, labels, author, dates, and for a PR the diff. Parse earlier triage notes so you do not re-ask a settled question. Explore the codebase in its glossary, respecting ADRs in the area. Then two checks. Redundancy: search for an existing implementation of the requested behavior by domain concept, not just the wording, and report where you looked. Treat an apparent existing implementation as a candidate; verify equivalent behavior in the next step before recommending already-implemented `wontfix`. Prior rejection: read `.out-of-scope/*.md` and surface any file that resembles this request.
 
-2. **Recommend.** Tell the maintainer the category and state you recommend, why, and a short codebase summary, including whether it is already implemented. Wait for direction.
+2. **Verify before recommending.** A bug: reproduce it from the reporter's steps. A PR: confirm the diff does what it claims, using a matching source snapshot and relevant safe checks. Report confirmed, failed, or insufficient detail, with evidence. Missing verification is a reason to identify the gap, not recommend implementation readiness. Do not pull [Dytschgo Grill](../dytschgo-grill/SKILL.md) until this step has a result.
 
-3. **Verify before any grilling.** A bug: reproduce it from the reporter's steps. A PR: confirm the diff does what it claims. Check it out and run the relevant tests or commands. Report confirmed (with the code path), failed, or insufficient detail. Insufficient detail is a strong `needs-info` signal. Do not pull [Dytschgo Grill](../dytschgo-grill/SKILL.md) until this step has a result.
+3. **Recommend from the evidence.** Tell the maintainer the category and state you recommend, why, and a short codebase summary. A read-only triage request ends with that recommendation. Continue to interviewing or tracker changes only within the requested scope; wait for missing maintainer direction before those writes, while reusing authorization already given.
 
 4. **Grill only if the request still needs fleshing out.** Pull [Dytschgo Grill](../dytschgo-grill/SKILL.md) and interview one frontier round at a time. Where the repo has a glossary or ADRs, use those terms and update them when a decision changes a term. Do not grill a claim you have not tried to reproduce.
 
@@ -143,4 +143,4 @@ If triage notes already exist, read them, check whether the reporter answered, a
 
 ## Hand off
 
-A brief marked `ready-for-agent` can be split with [Dytschgo Tickets](../dytschgo-tickets/SKILL.md) or built with [Dytschgo Engineering](../dytschgo-engineering/SKILL.md). Grilling a bug report that has not been through step 3 is out of order. Pull this skill first.
+A brief marked `ready-for-agent` can be split with [Dytschgo Tickets](../dytschgo-tickets/SKILL.md) or built with [Dytschgo Engineering](../dytschgo-engineering/SKILL.md). Grilling a bug report that has not been through verification is out of order. Pull this skill first.

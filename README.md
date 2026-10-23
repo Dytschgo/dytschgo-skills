@@ -68,7 +68,7 @@ These are example routes, not mandatory pipelines:
 
 - **An open idea:** Grill settles decisions. Spec records them. Tickets splits larger work. Engineering or Coordinate builds when requested.
 - **A website or interface:** Design can explore options or implement the selected direction. You can start here directly.
-- **A bug:** Engineering brings in Debug to reproduce and fix it. Review checks the resulting diff before a merge.
+- **A hard or unclear bug:** Engineering brings in Debug to reproduce and fix it. Review checks the resulting diff before a merge.
 - **An HTML explanation:** Retro presents the supplied work and evidence. A technical assessment is only added when the request needs one.
 
 Each stage stops at your requested outcome. Installing one skill does not automatically install every skill it refers to; add a helper if your workflow needs it, or install the full collection.
@@ -84,11 +84,11 @@ All names start with `dytschgo-`.
 | [design](skills/dytschgo-design/SKILL.md) | UI options, websites, implementation, and visual refinement. |
 | [engineering](skills/dytschgo-engineering/SKILL.md) | Substantial cleanup, performance, implementation, and stalled work. |
 | [debug](skills/dytschgo-debug/SKILL.md) | Reproducing a hard bug and proving the fix. |
-| [review](skills/dytschgo-review/SKILL.md) | Checking a diff against standards and the requested behavior. |
+| [review](skills/dytschgo-review/SKILL.md) | Checking a branch, PR, or uncommitted work against standards and the requested behavior. |
 | [retro](skills/dytschgo-retro/SKILL.md) | Interactive retro HTML explanations, reviews, and maps. |
 | [brief](skills/dytschgo-brief/SKILL.md) | A copyable implementation prompt from a feature idea. |
 | [grill](skills/dytschgo-grill/SKILL.md) | Stress-testing an idea and settling open decisions. |
-| [spec](skills/dytschgo-spec/SKILL.md) | Publishing an already-settled decision as a spec. |
+| [spec](skills/dytschgo-spec/SKILL.md) | Writing an already-settled spec as a draft or authorized tracker item. |
 | [tickets](skills/dytschgo-tickets/SKILL.md) | Splitting work into ordered, verifiable slices. |
 | [coordinate](skills/dytschgo-coordinate/SKILL.md) | Useful agent delegation, integration, and final acceptance. |
 | [triage](skills/dytschgo-triage/SKILL.md) | Qualifying incoming issues and external PRs. |
