@@ -73,10 +73,10 @@ npx skills add https://github.com/Dytschgo/dytschgo-skills --skill dytschgo-gril
 npx skills add https://github.com/Dytschgo/dytschgo-skills --skill dytschgo-spec dytschgo-tickets dytschgo-review dytschgo-debug dytschgo-triage dytschgo-wayfinder dytschgo-handoff dytschgo-agent-docs
 ```
 
-Install all fifteen globally for Codex:
+Install all sixteen globally for Codex:
 
 ```bash
-npx skills add https://github.com/Dytschgo/dytschgo-skills --skill dytschgo-design dytschgo-engineering dytschgo-coordinate dytschgo-verify-setup dytschgo-impact dytschgo-brief dytschgo-grill dytschgo-spec dytschgo-tickets dytschgo-review dytschgo-debug dytschgo-triage dytschgo-wayfinder dytschgo-handoff dytschgo-agent-docs --agent codex -g
+npx skills add https://github.com/Dytschgo/dytschgo-skills --skill dytschgo-design dytschgo-engineering dytschgo-coordinate dytschgo-verify-setup dytschgo-impact dytschgo-brief dytschgo-grill dytschgo-spec dytschgo-tickets dytschgo-review dytschgo-debug dytschgo-triage dytschgo-wayfinder dytschgo-handoff dytschgo-agent-docs dytschgo-retro --agent codex -g
 ```
 
 List available skills without installing:
@@ -89,7 +89,7 @@ For manual installation, copy each desired folder from `skills/` into your agent
 
 ### Existing Dytschgo Engineering installations
 
-This repository was previously named `dytschgo-engineering-skill`. The skill's name remains `dytschgo-engineering`, but its files now live under `skills/dytschgo-engineering/`. Existing local copies are unchanged until updated. If you installed by cloning the old repository directly into your skill directory, use the new installation instructions when updating; the repository root is now a collection, not an individual skill.
+This repository was previously named `astra-engineering-skill`. Its original `astra-engineering` skill is now `dytschgo-engineering`, under `skills/dytschgo-engineering/`. Existing local copies are unchanged until updated. If you installed by cloning the old repository directly into your skill directory, use the new installation instructions when updating; the repository root is now a collection, not an individual skill.
 
 ## Dytschgo Design
 
@@ -326,7 +326,7 @@ Add each skill under `skills/<skill-name>/` with its `SKILL.md` and required sup
 
 ## Dytschgo naming, routes, and retro reports
 
-The collection uses the `dytschgo-*` namespace. The [migration map](migrations/renames.json) records the old names and published ownership fingerprints. Synchronization first installs and verifies the new names, then backs up and retires recognized old folders in the same journaled transaction. Modified legacy entrypoints or metadata stop preflight for review. New-name collisions are not silently adopted. Old names remain documented in this map rather than installed as duplicate discoverable skills.
+The collection uses the `dytschgo-*` namespace. The [migration map](migrations/renames.json) records the old names and published LF-normalized ownership fingerprints. Synchronization first installs and verifies the new names, then backs up and retires recognized old folders in the same journaled transaction. Modified legacy entrypoints or metadata stop preflight for review. Ownership matching accepts LF and CRLF line endings; backup/copy verification remains byte-exact. New-name collisions are not silently adopted. Old names remain documented in this map rather than installed as duplicate discoverable skills.
 
 Open the self-contained [interactive skill atlas](docs/skill-atlas.html) in a browser, or inspect the [machine-readable map](docs/skill-map.json). Generate both with `node scripts/build-atlas.mjs`; `node scripts/build-atlas.mjs --check` rejects stale outputs. Nodes and source links come from the skill Markdown. [Link classifications](workflows/link-roles.json) distinguish shared guidance and inbound mentions; [journeys](workflows/journeys.json) are suggested project routes, not an execution engine. Their human labels do not override skill instructions. The generated fingerprint identifies the input snapshot, while source URLs follow published main.
 

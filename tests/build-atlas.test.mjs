@@ -60,3 +60,24 @@ test('embedded source text cannot close the generated script element', t => {
   assert.ok(result.html.includes('\\u003c/script>'));
   assert.equal((result.html.match(/<\/script>/g) ?? []).length, 1);
 });
+
+test('every referral condition survives while an inbound mention can be classified per occurrence', t => {
+  const { root, write } = fixture(t);
+  write('skills/alpha/references/routes.md', 'Use [Beta](../../beta/SKILL.md) to settle the destination.\nUse [Beta](../../beta/SKILL.md) as the fallback.\n[Beta](../../beta/SKILL.md) calls this skill after an interview.\n');
+  write('workflows/link-roles.json', JSON.stringify([{ source: 'skills/alpha/references/routes.md', target: 'beta', match: 'calls this skill', kind: 'mention' }]));
+  const edges = buildAtlas(root).model.edges.filter(e => e.file.endsWith('routes.md'));
+  assert.equal(edges.length, 2);
+  assert.deepEqual(edges.map(e => e.line), [1, 2]);
+  assert.match(edges[0].when, /destination/);
+  assert.match(edges[1].when, /fallback/);
+});
+
+test('newline variants produce identical generated output and input fingerprints', t => {
+  const { root } = fixture(t);
+  const first = buildAtlas(root);
+  for (const relative of ['skills/alpha/SKILL.md', 'skills/beta/SKILL.md', 'workflows/atlas-template.html', 'workflows/journeys.json', 'workflows/link-roles.json']) {
+    const file = path.join(root, relative);
+    fs.writeFileSync(file, fs.readFileSync(file, 'utf8').replaceAll('\n', '\r\n'));
+  }
+  assert.deepEqual(first, buildAtlas(root));
+});

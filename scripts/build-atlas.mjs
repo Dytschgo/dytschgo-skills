@@ -57,13 +57,13 @@ export function buildAtlas(root) {
         const targetNode = bySlug.get(posix(relative).split('/')[0]);
         if (!targetNode || targetNode.id === owner.id) continue;
         if (!fs.existsSync(target)) throw new Error(`Missing atlas target: ${m[1]}`);
-        const overrideIndex = overrides.findIndex(o => o.source === source && o.target === targetNode.slug);
+        const overrideIndex = overrides.findIndex(o => o.source === source && o.target === targetNode.slug && (!o.match || line.includes(o.match)));
         if (overrideIndex >= 0) usedOverrides.add(overrideIndex);
         const kind = overrideIndex >= 0 ? overrides[overrideIndex].kind : path.basename(target) === 'SKILL.md' ? 'load' : 'reference';
         if (!['load', 'reference', 'mention'].includes(kind)) throw new Error('Invalid link classification');
         if (kind === 'mention') continue;
         const targetFile = posix(path.relative(root, target));
-        if (!edges.some(e => e.file === source && e.targetFile === targetFile)) edges.push({ from: owner.id, to: targetNode.id, kind, file: source, targetFile, line: index + 1, when: plain(line) });
+        edges.push({ from: owner.id, to: targetNode.id, kind, file: source, targetFile, line: index + 1, column: m.index + 1, when: plain(line) });
       }
     }
   }

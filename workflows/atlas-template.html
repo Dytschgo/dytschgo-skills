@@ -64,7 +64,7 @@ function draw(){
 const map=document.querySelector('#map'),svg=document.querySelector('#wires'),rect=map.getBoundingClientRect();
 svg.setAttribute('viewBox','0 0 '+rect.width+' '+rect.height);
 let pairs;
-if(state.mode==='links')pairs=edges.filter(e=>e.from===state.focus||e.to===state.focus);
+if(state.mode==='links')pairs=[...new Map(edges.filter(e=>e.from===state.focus||e.to===state.focus).map(e=>[e.from+'|'+e.to+'|'+e.kind,e])).values()];
 else {const s=steps();pairs=s.slice(1).map((n,i)=>edges.find(e=>e.from===s[i][0]&&e.to===n[0]&&e.kind==='load')||{from:s[i][0],to:n[0],kind:'suggested'});}
 svg.innerHTML='<defs>'+[['load','#6ed5ca'],['suggested','#efbe67'],['reference','#bda0e8']].map(([k,c])=>'<marker id="arrow-'+k+'" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L7 3.5 L0 7 Z" fill="'+c+'"/></marker>').join('')+'</defs>';
 pairs.forEach((e,i)=>{

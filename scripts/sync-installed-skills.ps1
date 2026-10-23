@@ -45,6 +45,16 @@ function Get-SHA256([string]$File) {
     finally { $algorithm.Dispose(); $stream.Dispose() }
 }
 
+function Get-OwnershipSHA256([string]$File) {
+    # Ownership accepts the published LF and Windows-checkout CRLF forms.
+    # Copy, backup and installed-file verification remain byte-exact.
+    $encoding = [Text.UTF8Encoding]::new($false, $true)
+    $text = $encoding.GetString([IO.File]::ReadAllBytes($File)).Replace("`r`n", "`n")
+    $algorithm = [Security.Cryptography.SHA256]::Create()
+    try { return [BitConverter]::ToString($algorithm.ComputeHash($encoding.GetBytes($text))).Replace('-', '') }
+    finally { $algorithm.Dispose() }
+}
+
 function Get-FileMap([string]$Directory) {
     $map = @{}
     if (-not (Test-Path -LiteralPath $Directory)) { return $map }
@@ -108,7 +118,7 @@ for ($index = 0; $index -lt $roots.Count; $index++) {
         $target = Assert-UserPath (Join-Path $roots[$index] $migration.old)
         if (-not (Test-Path -LiteralPath $target)) { continue }
         $current = Get-FileMap $target
-        if (-not $current.ContainsKey('SKILL.md') -or -not $current.ContainsKey('agents/openai.yaml') -or $current['SKILL.md'] -ne $migration.entrySha256 -or $current['agents/openai.yaml'] -ne $migration.metadataSha256) {
+        if (-not $current.ContainsKey('SKILL.md') -or -not $current.ContainsKey('agents/openai.yaml') -or (Get-OwnershipSHA256 (Join-Path $target 'SKILL.md')) -ne $migration.entrySha256 -or (Get-OwnershipSHA256 (Join-Path $target 'agents/openai.yaml')) -ne $migration.metadataSha256) {
             throw "Legacy skill ownership differs; preserve and review before migrating: $target"
         }
         $legacy += [pscustomobject]@{ rootIndex = $index; name = $migration.old; nextName = $migration.new; target = $target; profile = $current.ContainsKey('references/active-profile.md') }

@@ -34,6 +34,20 @@ function legacyFixture(t) {
   return { ...f, migrations };
 }
 
+for (const newline of ['LF', 'CRLF']) {
+  test(`published ${newline} legacy files migrate without weakening modified-content rejection`, windows, t => {
+    const { root, run } = legacyFixture(t);
+    if (newline === 'CRLF') for (const relative of ['SKILL.md', 'agents/openai.yaml']) {
+      const file = path.join(root, 'old-sample', relative);
+      fs.writeFileSync(file, fs.readFileSync(file, 'utf8').replaceAll('\n', '\r\n'));
+    }
+    const result = run('-Apply');
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(JSON.parse(result.stdout).retired, 1);
+    assert.equal(fs.existsSync(path.join(root, 'old-sample')), false);
+  });
+}
+
 test('rename migration is dry-run-first, preserves activation, backs up legacy and is idempotent', windows, t => {
   const { root, write, run } = legacyFixture(t);
   write(path.join(root, 'old-sample/references/active-profile.md'), 'old selected profile');

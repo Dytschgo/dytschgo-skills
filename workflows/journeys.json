@@ -93,7 +93,7 @@
       "name": "Code Review",
       "slug": "dytschgo-review",
       "cat": "PROVE",
-      "output": "Independent findings on both axes, tied to the reviewed base and head.",
+      "output": "Separate standards/spec findings, with review independence disclosed and matched to risk.",
       "stop": "Pin the base first. Skip and disclose the spec axis if no spec exists. Review is not merge permission."
     },
     {
@@ -322,7 +322,7 @@
         ]
       ],
       "stop": "Stop at findings. A read-only review does not authorize fixes, a merge, or deployment.",
-      "note": "Code Review runs the axes as independent parallel reviewers; that is agent delegation inside a skill, not a call to another named skill.",
+      "note": "A low-risk read-only check may inspect both axes directly. Consequential work uses independent reviewers as required. Reviewer agents inside a skill are distinct from loading another skill.",
       "extras": [
         "orchestrator",
         "Its review reference supplies the shared PR contract; reading that reference does not start a coordinator."
