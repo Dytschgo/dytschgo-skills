@@ -1,17 +1,238 @@
 {
   "format": 1,
   "cases": [
-    {"id":"visual-options","context":"A new staff dashboard has a fixed brief and sample case data. No aesthetic direction is selected.","request":"Give me three different dashboard mockups to compare. Stop at the mockups.","expected":{"include":["dytschgo-design"],"exclude":["dytschgo-coordinate","dytschgo-grill"],"boundary":"Rendered options; no application build."}},
-    {"id":"retro-explanation","context":"The user supplies a completed change summary and test evidence. No new technical assessment is requested.","request":"Explain why these changes were made in one of those interactive retro HTML overviews.","expected":{"include":["dytschgo-retro"],"exclude":["dytschgo-review","dytschgo-coordinate"],"boundary":"Evidence presentation; no new review or app implementation."}},
-    {"id":"tiny-edit","context":"A known CSS component needs its padding changed from 12px to 16px. No design exploration or team is requested.","request":"Make this spacing adjustment directly. Keep it small.","expected":{"include":[],"exclude":["dytschgo-engineering","dytschgo-coordinate","dytschgo-grill","dytschgo-wayfinder"],"boundary":"Direct scoped edit and focused verification; Design is optional."}},
-    {"id":"feature-brief","context":"A feature is already described; the user wants an assignment for another agent and has already selected its model.","request":"Turn these notes into a copyable implementation prompt. Don't build it.","expected":{"include":["dytschgo-brief"],"exclude":["dytschgo-engineering","dytschgo-coordinate"],"boundary":"Prompt only; no unnecessary model research."}},
-    {"id":"hard-bug","context":"An existing application fails intermittently when saving a record. There is no known reproduction command yet.","request":"Fix this save failure. Find the actual cause.","expected":{"include":["dytschgo-debug"],"exclude":["dytschgo-grill"],"boundary":"Establish a red-capable signal before hypotheses; Engineering may own the fix."}},
-    {"id":"incoming-issue","context":"An external issue claims a feature is broken. The claim has not been checked.","request":"Triage this incoming issue and tell me the next appropriate action.","expected":{"include":["dytschgo-triage"],"exclude":["dytschgo-grill","dytschgo-coordinate"],"boundary":"Verify the claim before any interview; stop at triage."}},
-    {"id":"review-known-pr","context":"An open PR has one recorded target base branch and a fixed current head. Its diff is a small read-only documentation change. Repository policy permits direct low-risk reviews.","request":"Review this PR. Use its existing context; don't edit or merge.","expected":{"include":["dytschgo-review"],"exclude":["dytschgo-coordinate"],"boundary":"Discover and pin the known base; review findings only."}},
-    {"id":"verification-gap","context":"A project starts locally but has no reliable documented way for a fresh agent to drive its real user paths.","request":"Create a project-local verification skill and prove one real flow.","expected":{"include":["dytschgo-verify-setup"],"exclude":["dytschgo-coordinate","dytschgo-grill"],"boundary":"A source-grounded guide plus one demonstrated flow."}},
-    {"id":"large-decision-map","context":"Several unresolved product and architecture decisions block a multi-month effort.","request":"Map the decisions and their dependencies across sessions. Don't start the build.","expected":{"include":["dytschgo-wayfinder"],"exclude":["dytschgo-engineering","dytschgo-coordinate"],"boundary":"Decision map; Grilling can settle the destination."}},
-    {"id":"team-choice","context":"A settled multi-part feature can use independent workers. The user explicitly asks for coordinated agents.","request":"Coordinate agents for this feature and review the integrated result. Stop at the reviewed local artifact.","expected":{"include":["dytschgo-coordinate"],"exclude":[],"boundary":"Bounded child assignments and local acceptance; no publication."}},
-    {"id":"agent-docs","context":"An existing AGENTS.md repeats conflicting startup steps. The actual working command is known.","request":"Rewrite these agent instructions so the next agent can follow them.","expected":{"include":["dytschgo-agent-docs"],"exclude":["dytschgo-retro","dytschgo-grill"],"boundary":"Scoped agent-document edit and relevant validation."}},
-    {"id":"short-answer","context":"The user asks a single factual arithmetic question; no visual explanation is needed.","request":"What is 17 plus 26? Just the answer.","expected":{"include":[],"exclude":["dytschgo-retro","dytschgo-design","dytschgo-coordinate","dytschgo-grill"],"boundary":"43; no specialist workflow."}}
+    {
+      "id": "visual-options",
+      "context": "A new staff dashboard has a fixed brief and sample case data. No aesthetic direction is selected.",
+      "request": "Give me three different dashboard mockups to compare. Stop at the mockups.",
+      "expected": {
+        "include": [
+          "dytschgo-design"
+        ],
+        "exclude": [
+          "dytschgo-coordinate",
+          "dytschgo-grill"
+        ],
+        "boundary": "Rendered options; no application build."
+      }
+    },
+    {
+      "id": "retro-explanation",
+      "context": "The user supplies a completed change summary and test evidence. No new technical assessment is requested.",
+      "request": "Explain why these changes were made in one of those interactive retro HTML overviews.",
+      "expected": {
+        "include": [
+          "dytschgo-retro"
+        ],
+        "exclude": [
+          "dytschgo-review",
+          "dytschgo-coordinate"
+        ],
+        "boundary": "Evidence presentation; no new review or app implementation."
+      }
+    },
+    {
+      "id": "tiny-edit",
+      "context": "A known CSS component needs its padding changed from 12px to 16px. No design exploration or team is requested.",
+      "request": "Make this spacing adjustment directly. Keep it small.",
+      "expected": {
+        "include": [],
+        "exclude": [
+          "dytschgo-engineering",
+          "dytschgo-coordinate",
+          "dytschgo-grill",
+          "dytschgo-wayfinder"
+        ],
+        "boundary": "Direct scoped edit and focused verification; Design is optional."
+      }
+    },
+    {
+      "id": "feature-brief",
+      "context": "A feature is already described; the user wants an assignment for another agent and has already selected its model.",
+      "request": "Turn these notes into a copyable implementation prompt. Don't build it.",
+      "expected": {
+        "include": [
+          "dytschgo-brief"
+        ],
+        "exclude": [
+          "dytschgo-engineering",
+          "dytschgo-coordinate"
+        ],
+        "boundary": "Prompt only; no unnecessary model research."
+      }
+    },
+    {
+      "id": "hard-bug",
+      "context": "An existing application fails intermittently when saving a record. There is no known reproduction command yet.",
+      "request": "Fix this save failure. Find the actual cause.",
+      "expected": {
+        "include": [
+          "dytschgo-debug"
+        ],
+        "exclude": [
+          "dytschgo-grill"
+        ],
+        "boundary": "Establish a red-capable signal before hypotheses; Engineering may own the fix."
+      }
+    },
+    {
+      "id": "incoming-issue",
+      "context": "An external issue claims a feature is broken. The claim has not been checked.",
+      "request": "Triage this incoming issue and tell me the next appropriate action.",
+      "expected": {
+        "include": [
+          "dytschgo-triage"
+        ],
+        "exclude": [
+          "dytschgo-grill",
+          "dytschgo-coordinate"
+        ],
+        "boundary": "Verify the claim before any interview; stop at triage."
+      }
+    },
+    {
+      "id": "review-known-pr",
+      "context": "An open PR has one recorded target base branch and a fixed current head. Its diff is a small read-only documentation change. Repository policy permits direct low-risk reviews.",
+      "request": "Review this PR. Use its existing context; don't edit or merge.",
+      "expected": {
+        "include": [
+          "dytschgo-review"
+        ],
+        "exclude": [
+          "dytschgo-coordinate"
+        ],
+        "boundary": "Discover and pin the known base; review findings only."
+      }
+    },
+    {
+      "id": "verification-gap",
+      "context": "A project starts locally but has no reliable documented way for a fresh agent to drive its real user paths.",
+      "request": "Create a project-local verification skill and prove one real flow.",
+      "expected": {
+        "include": [
+          "dytschgo-verify-setup"
+        ],
+        "exclude": [
+          "dytschgo-coordinate",
+          "dytschgo-grill"
+        ],
+        "boundary": "A source-grounded guide plus one demonstrated flow."
+      }
+    },
+    {
+      "id": "large-decision-map",
+      "context": "Several unresolved product and architecture decisions block a multi-month effort.",
+      "request": "Map the decisions and their dependencies across sessions. Don't start the build.",
+      "expected": {
+        "include": [
+          "dytschgo-wayfinder"
+        ],
+        "exclude": [
+          "dytschgo-engineering",
+          "dytschgo-coordinate"
+        ],
+        "boundary": "Decision map; Grilling can settle the destination."
+      }
+    },
+    {
+      "id": "team-choice",
+      "context": "A settled multi-part feature can use independent workers. The user explicitly asks for coordinated agents.",
+      "request": "Coordinate agents for this feature and review the integrated result. Stop at the reviewed local artifact.",
+      "expected": {
+        "include": [
+          "dytschgo-coordinate"
+        ],
+        "exclude": [],
+        "boundary": "Bounded child assignments and local acceptance; no publication."
+      }
+    },
+    {
+      "id": "agent-docs",
+      "context": "An existing AGENTS.md repeats conflicting startup steps. The actual working command is known.",
+      "request": "Rewrite these agent instructions so the next agent can follow them.",
+      "expected": {
+        "include": [
+          "dytschgo-agent-docs"
+        ],
+        "exclude": [
+          "dytschgo-retro",
+          "dytschgo-grill"
+        ],
+        "boundary": "Scoped agent-document edit and relevant validation."
+      }
+    },
+    {
+      "id": "short-answer",
+      "context": "The user asks a single factual arithmetic question; no visual explanation is needed.",
+      "request": "What is 17 plus 26? Just the answer.",
+      "expected": {
+        "include": [],
+        "exclude": [
+          "dytschgo-retro",
+          "dytschgo-design",
+          "dytschgo-coordinate",
+          "dytschgo-grill"
+        ],
+        "boundary": "43; no specialist workflow."
+      }
+    },
+    {
+      "id": "settled-implementation",
+      "context": "A planning skill produced an accepted substantial ticket with clear requirements. One builder is requested, and local implementation is authorized.",
+      "request": "Implement ticket 03 from the accepted plan and verify it. Stop locally.",
+      "expected": {
+        "include": [
+          "dytschgo-engineering"
+        ],
+        "exclude": [
+          "dytschgo-triage",
+          "dytschgo-coordinate"
+        ],
+        "boundary": "Authorized implementation handoff; no incoming-item role workflow or team."
+      }
+    },
+    {
+      "id": "external-pr-triage",
+      "context": "An incoming external PR has an unverified claim. The user requests read-only triage, not backlog execution.",
+      "request": "Triage this external PR and recommend what to do. Do not post or merge.",
+      "expected": {
+        "include": [
+          "dytschgo-triage"
+        ],
+        "exclude": [
+          "dytschgo-engineering",
+          "dytschgo-coordinate"
+        ],
+        "boundary": "Verify before recommending; stop before tracker writes."
+      }
+    },
+    {
+      "id": "routine-import",
+      "context": "A single compiler error identifies an accidentally removed import in a known file; direct source inspection confirms it. Local correction and the existing compiler check are authorized.",
+      "request": "Restore the missing import and check it. Keep the fix small.",
+      "expected": {
+        "include": [],
+        "exclude": [
+          "dytschgo-debug",
+          "dytschgo-grill",
+          "dytschgo-coordinate"
+        ],
+        "boundary": "Direct verified correction; no full diagnosis or product interview."
+      }
+    },
+    {
+      "id": "minor-label",
+      "context": "A button needs clearer wording within an accepted interface. No product decision or feature-planning output is missing.",
+      "request": "Change the button label from Proceed to Save.",
+      "expected": {
+        "include": [],
+        "exclude": [
+          "dytschgo-grill",
+          "dytschgo-brief",
+          "dytschgo-coordinate"
+        ],
+        "boundary": "Scoped label change; Design is optional."
+      }
+    }
   ]
 }

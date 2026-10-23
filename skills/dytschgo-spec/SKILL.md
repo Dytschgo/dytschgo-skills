@@ -1,25 +1,25 @@
 ---
 name: dytschgo-spec
-description: "Publish the current conversation as a tracker spec. Use when the decision is already settled and should become an issue; not for interviewing, splitting tickets, or implementing."
+description: "Write a settled conversation as a spec, locally for a draft or to an authorized tracker. Use when decisions are settled and a spec is requested; not interviewing, splitting tickets, or implementation."
 ---
 
 # Dytschgo Spec
 
 If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
 
-Turn what this conversation already decided into a spec and publish it. Do not interview. Behavior follows Matt Pocock's to-spec skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/engineering/to-spec/SKILL.md
+Turn what this conversation already decided into the requested spec. Preserve its draft or publication boundary. Do not restart the product interview. Behavior follows Matt Pocock's to-spec skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/engineering/to-spec/SKILL.md
 
 ## Process
 
 1. Explore the repo if you have not already. Use the project's glossary when one exists, and respect ADRs in the area you are touching.
 
-2. Sketch the seams where this will be tested. Prefer a seam that already exists, and the highest seam that can still see the behavior. Propose a new seam only at the highest point that works. Fewer seams are better; one is the ideal. Check with the user that those seams match what they expect. That check is about the seams, not a fresh interview about the feature.
+2. Sketch the seams where this will be tested. Prefer a seam that already exists, and the highest seam that can still see the behavior. Propose a new seam only at the highest point that works. Fewer seams are better; one is the ideal. Reuse accepted testing decisions and discover existing seams. Ask one focused question only if a material testing decision remains unresolved, and wait for that answer before publishing. This does not require a new confirmation for already-settled decisions.
 
-3. Write the spec from the template and publish it. Mark it `ready-for-agent` using the roles in [Dytschgo Triage](../dytschgo-triage/SKILL.md). It does not need another triage pass.
+3. Write the spec from the template and deliver it within the requested boundary. For an authorized tracker item, mark it `ready-for-agent` using the label meaning in [Dytschgo Triage](../dytschgo-triage/SKILL.md): specified enough for an agent to act. This is a shared definition, not another triage pass.
 
 ## Where to publish
 
-Use the issue tracker this repo already documents. If none is documented, publish a GitHub issue on the current repo when `gh` can see it. Otherwise write `.scratch/<feature-slug>/spec.md` and say that you did. Do not invent a setup workflow.
+For a draft or local-only request, write `.scratch/<feature-slug>/spec.md` and report its path. For publication, resolve the exact tracker/repository and visibility from the request, project conventions, and remote context, including forks. Use existing authorization for that destination; access through `gh` alone is not publication authorization. Ask one focused question before the write only if a material target or required decision remains unresolved. Otherwise proceed without duplicate confirmation. If publication is not authorized or no tracker is available, use the local artifact rather than inventing a setup workflow.
 
 ## Spec
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "Dytschgo Triage"
-  short_description: "Move a report through triage before anyone grills it"
-  default_prompt: "Use $dytschgo-triage on this report. Reproduce it before grilling, then post an agent brief if it is ready."
+  short_description: "Verify incoming reports before recommending outcomes"
+  default_prompt: "Use $dytschgo-triage to verify this incoming report and recommend the next state from evidence. Keep tracker writes within the authorization already given."

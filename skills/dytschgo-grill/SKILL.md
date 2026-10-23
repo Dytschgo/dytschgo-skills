@@ -1,6 +1,6 @@
 ---
 name: dytschgo-grill
-description: "Grill a plan, decision, or idea until the design tree is settled. Use when the user wants to stress-test thinking, says grill, or another skill hits an open design decision; not for implementing, filing tickets, or writing files."
+description: "Stress-test a plan or settle material product decisions through a deeper interview. Use when the user asks to grill or unresolved product choices need that depth; routine implementation choices and requests for visual options stay with their current task."
 ---
 
 # Dytschgo Grill

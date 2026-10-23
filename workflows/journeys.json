@@ -6,7 +6,7 @@
       "slug": "dytschgo-triage",
       "cat": "FRAME",
       "output": "A reproduced or qualified request, tracker state, and actionable agent brief.",
-      "stop": "Stop at the triage outcome; implementation is a separate authorized task."
+      "stop": "Verify before recommending a state. Read-only triage stops at its recommendation; tracker changes use existing authorization."
     },
     {
       "id": "grilling",
@@ -37,7 +37,7 @@
       "name": "To Spec",
       "slug": "dytschgo-spec",
       "cat": "DEFINE",
-      "output": "A published spec, or a local spec when no tracker is available.",
+      "output": "A local draft or authorized tracker spec, matching the requested destination.",
       "stop": "Check proposed testing seams with the user. Do not split tickets or implement inside this skill."
     },
     {
@@ -78,7 +78,7 @@
       "slug": "dytschgo-debug",
       "cat": "PROVE",
       "output": "Supported cause, a fixed symptom, regression evidence, and no leftover debug probes.",
-      "stop": "Without a usable reproduction loop, report the blocker instead of guessing the cause."
+      "stop": "If a meaningful symptom-specific loop cannot be built, report the blocker before hypotheses. A slower real-path loop can qualify; local work can finish with a report."
     },
     {
       "id": "blast",
@@ -93,7 +93,7 @@
       "name": "Code Review",
       "slug": "dytschgo-review",
       "cat": "PROVE",
-      "output": "Separate standards/spec findings, with review independence disclosed and matched to risk.",
+      "output": "Separate standards/spec findings on the requested branch, PR, or WIP, with its actual source scope and review independence recorded.",
       "stop": "Pin the base first. Skip and disclose the spec axis if no spec exists. Review is not merge permission."
     },
     {
@@ -117,7 +117,7 @@
       "name": "Handoff",
       "slug": "dytschgo-handoff",
       "cat": "SUPPORT",
-      "output": "A temporary handoff file with the next action and suggested skills.",
+      "output": "A redacted handoff with the next action and pointers, delivered in a location or format the next session can access.",
       "stop": "After writing the handoff, stop work in this thread. Suggested next skills are task-dependent."
     },
     {
@@ -214,7 +214,7 @@
     },
     {
       "id": "bug",
-      "name": "Broken / slow app",
+      "name": "Hard / unclear bug",
       "short": "Reproduce before explaining.",
       "prompt": "Use $dytschgo-engineering and $dytschgo-debug to fix this problem. First establish and run a tight feedback loop that reproduces the exact symptom. Then find the supported cause, fix it, and verify the original scenario.",
       "steps": [
@@ -235,7 +235,7 @@
         ]
       ],
       "stop": "Diagnosis cannot claim success without symptom evidence. A merge remains a separate authorized action.",
-      "note": "The Engineering \u2192 Diagnosing Bugs and Diagnosing Bugs \u2192 Code Review links are explicit in the skill text.",
+      "note": "Engineering loads Debug for uncertain, intermittent, regressive, or contested failures. Verified routine corrections can stay direct. Review is used before an authorized merge.",
       "extras": [
         "triage",
         "For an untriaged incoming bug report or external issue, qualify the claim first."
@@ -307,13 +307,13 @@
     {
       "id": "review",
       "name": "Review my branch",
-      "short": "Two independent review axes.",
-      "prompt": "Use $dytschgo-review to review this branch against the fixed base <BASE_SHA>. Check repository standards and the originating spec <SPEC_PATH_OR_ISSUE>. Report actionable findings on the two axes separately. Do not edit or merge.",
+      "short": "Review the requested source scope.",
+      "prompt": "Use $dytschgo-review to inspect the branch, PR, or uncommitted work I identify. Record the actual target, include relevant tracked and untracked WIP when requested, and report findings only. Do not edit or merge.",
       "steps": [
         [
           "review",
           "START",
-          "Pin the diff base and head. Review standards and spec separately."
+          "Identify the requested branch, PR, or uncommitted WIP; pin its actual source and keep standards/spec findings distinct."
         ],
         [
           "blast",

@@ -1,4 +1,4 @@
 interface:
   display_name: "Dytschgo Debug"
-  short_description: "Build a tight loop before any hypothesis"
-  default_prompt: "Use $dytschgo-debug. Do not hypothesize until a tight pass/fail loop goes red on this bug."
+  short_description: "Diagnose uncertain bugs with a reliable feedback loop"
+  default_prompt: "Use $dytschgo-debug to diagnose this uncertain failure. Establish a reliable symptom-specific loop, find the supported cause, and verify the authorized fix."

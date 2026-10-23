@@ -111,6 +111,91 @@
         "Do not personalize for Dylan or load a profile based only on its presence elsewhere in the repository.",
         "Do not introduce financial branding, a model swarm or an unrequested multi-option build."
       ]
+    },
+    {
+      "id": "review-wip",
+      "skill": "dytschgo-review",
+      "context": "The requested scope is uncommitted WIP: a staged change, an unstaged tracked change, and a new untracked source file. The committed branch diff is empty. A specification is provided.",
+      "request": "Review my uncommitted work against the supplied spec. Do not edit or commit.",
+      "expected": [
+        "Inspect staged and unstaged tracked changes plus relevant untracked content.",
+        "Do not fail because the committed diff is empty.",
+        "Keep findings tied to the captured WIP scope; no Git mutations."
+      ]
+    },
+    {
+      "id": "review-off-checkout",
+      "skill": "dytschgo-review",
+      "context": "The target is a named PR in a known repository, base base123 and head pr456, with a supplied matching host diff. Local HEAD is unrelated local789.",
+      "request": "Review the named PR using the supplied host diff and recorded refs.",
+      "expected": [
+        "Use the target PR diff and base/head, not local HEAD.",
+        "Record source scope and distinguish any absent evidence."
+      ]
+    },
+    {
+      "id": "debug-real-slow-loop",
+      "skill": "dytschgo-debug",
+      "context": "A supplied execution record shows a deterministic 90-second end-to-end command has already reproduced the exact checkout failure. A two-second unit test does not exercise that path. No new command execution is allowed in this trial.",
+      "request": "Does this feedback loop qualify for diagnosis? Tell me the next step only.",
+      "expected": [
+        "Accept the real deterministic symptom-specific loop despite its duration.",
+        "Prefer reducing its overhead without substituting the unrelated fast test.",
+        "Do not claim a new execution occurred."
+      ]
+    },
+    {
+      "id": "triage-before-state",
+      "skill": "dytschgo-triage",
+      "context": "An incoming bug report has not been verified. The user authorized source reads and a safe local reproduction, but no tracker writes.",
+      "request": "Triage the report and recommend its next state.",
+      "expected": [
+        "Verify or identify concrete missing evidence before recommending readiness.",
+        "Stop at read-only findings; no posting, labeling or closing."
+      ]
+    },
+    {
+      "id": "spec-local-draft",
+      "skill": "dytschgo-spec",
+      "context": "Decisions and testing seams are settled. A public fork has an upstream remote and gh access. The requested output is a local draft only.",
+      "request": "Draft this spec locally; do not publish it.",
+      "expected": [
+        "Deliver the local spec artifact only.",
+        "Do not treat gh access or upstream visibility as publication authorization.",
+        "Do not repeat confirmation for settled testing decisions."
+      ]
+    },
+    {
+      "id": "spec-pending-decision",
+      "skill": "dytschgo-spec",
+      "context": "Publication to a named tracker is authorized, but one material testing-seam decision is explicitly awaiting the user.",
+      "request": "Prepare the spec for the authorized publication.",
+      "expected": [
+        "Prepare independent parts and ask the focused unresolved question.",
+        "Do not publish while that required answer is pending.",
+        "Do not request duplicate general publication permission."
+      ]
+    },
+    {
+      "id": "tickets-shared-label",
+      "skill": "dytschgo-tickets",
+      "context": "The breakdown is already approved. Local ticket files are the authorized destination; ready-for-agent is used as metadata.",
+      "request": "Write the approved ticket files in dependency order.",
+      "expected": [
+        "Use the ready-for-agent definition without invoking a new Triage or Grill workflow.",
+        "Keep local scope and the approved breakdown."
+      ]
+    },
+    {
+      "id": "profile-installed-selection",
+      "skill": "dytschgo-design",
+      "context": "references/active-profile.md was installed by explicit profile opt-in. It prefers clear hierarchy, concise copy, and useful retro explanations; the current task requests a quiet product screen without animation.",
+      "request": "Refine this product screen within its existing identity.",
+      "expected": [
+        "Treat the installed active profile as selected.",
+        "Apply only relevant defaults; honor current product constraints.",
+        "Do not turn the product into a retro report or ask for repeated profile activation."
+      ]
     }
   ]
 }
