@@ -4,6 +4,8 @@ Read when planning nontrivial delegated work or preparing a worker assignment. K
 
 ## Canonical working record
 
+For short work, recover a compact brief from the conversation: one outcome, accepted items, selected artifact, current source/preview, delivery boundary, and a few observable completion criteria. Do not require the user to fill in the full template. “Do all of them” means the accepted list, not every optional idea in the history. Resolve which list is meant from context; ask only if multiple plausible lists materially change scope. Record later additions or superseded choices explicitly and notify affected workers. Keep follow-up ideas separate from the current finish line.
+
 ```text
 Task ID / record revision / updated at:
 Request and intended outcome:
@@ -15,6 +17,8 @@ Authorized actions (source, target, conditions):
 Risk classification and impact:
 Rollback/recovery approach when applicable:
 Phase:
+Selected design ID/name / artifact / requested combination, if applicable:
+Running app provenance (checkout, revision, URL, build relationship), if applicable:
 Plan / packages / dependencies / integration order:
 Task and thread table:
   ID | parent | objective | model | directory/branch | owned files/systems |
