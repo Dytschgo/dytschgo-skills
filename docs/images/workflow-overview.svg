@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="548" viewBox="0 0 1000 548" role="img" aria-labelledby="title desc">
+<title id="title">Dytschgo: three ways into the workflow</title>
+<desc id="desc">For an open idea, use Grill, then Spec and Tickets if needed, followed by Engineering or Coordinate when building is requested. For interface work, start directly with Design and explore or build with rendered evidence. For a bug, Engineering uses Debug; Review checks the fix before a merge, and Retro optionally presents the evidence in HTML. These are illustrative conditional routes.</desc>
+<defs><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#183142" stroke-width=".6"/></pattern><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L9 4.5L0 9Z" fill="#80d7cb"/></marker><marker id="amber" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L9 4.5L0 9Z" fill="#efbf70"/></marker></defs>
+<rect x="1" y="1" width="998" height="546" rx="12" fill="#0b1926" stroke="#355266" stroke-width="2"/>
+<rect x="2" y="2" width="996" height="544" rx="11" fill="url(#grid)"/>
+<g font-family="Consolas, Menlo, monospace">
+<text x="28" y="38" fill="#b1c9d6" font-size="15" letter-spacing="2">DYTSCHGO / COMMON ROUTES</text>
+<rect x="916" y="25" width="7" height="7" fill="#80d7cb"/><rect x="933" y="25" width="7" height="7" fill="#efbf70"/><rect x="950" y="25" width="7" height="7" fill="#45677d"/>
+<path d="M28 54H972" stroke="#355266"/>
+<g fill="#b1c9d6" font-size="14" letter-spacing="1"><text x="28" y="85">01 / SETTLE AN IDEA — USE THE STAGES YOU NEED</text><text x="28" y="217">02 / CREATE AN INTERFACE — START HERE DIRECTLY</text><text x="28" y="349">03 / FIX A BUG — REPRODUCE BEFORE NAMING A CAUSE</text></g>
+<g fill="#112b3b" stroke="#55798b" stroke-width="1.5">
+<rect x="28" y="102" width="206" height="68" rx="5"/><rect x="274" y="102" width="206" height="68" rx="5"/><rect x="520" y="102" width="206" height="68" rx="5"/><rect x="766" y="102" width="206" height="68" rx="5"/>
+<rect x="28" y="234" width="206" height="68" rx="5"/>
+<rect x="28" y="366" width="206" height="68" rx="5"/><rect x="274" y="366" width="206" height="68" rx="5"/><rect x="520" y="366" width="206" height="68" rx="5"/>
+</g>
+<g fill="#142b32" stroke="#d0a45e" stroke-width="1.5"><rect x="274" y="234" width="206" height="68" rx="5"/><rect x="520" y="234" width="206" height="68" rx="5"/><rect x="766" y="366" width="206" height="68" rx="5" stroke-dasharray="5 4"/></g>
+<g fill="#edf5f8" font-size="22" text-anchor="middle">
+<text x="131" y="144">Grill</text><text x="377" y="144">Spec</text><text x="623" y="144">Tickets</text>
+<text x="869" y="129" font-size="18">Engineering</text><text x="869" y="152" font-size="18">or Coordinate</text>
+<text x="131" y="276">Design</text><text x="377" y="262" font-size="19">Explore</text><text x="377" y="285" font-size="19">or build</text><text x="623" y="262" font-size="19">Rendered</text><text x="623" y="285" font-size="19">evidence</text>
+<text x="131" y="408" font-size="20">Engineering</text><text x="377" y="408">Debug</text><text x="623" y="408">Review</text><text x="869" y="408" fill="#ffdb9c">Retro</text>
+</g>
+<g stroke="#80d7cb" stroke-width="2" fill="none" marker-end="url(#arrow)"><path d="M234 136H270"/><path d="M480 136H516"/><path d="M726 136H762"/><path d="M234 400H270"/><path d="M480 400H516"/></g>
+<g stroke="#efbf70" stroke-width="2" fill="none" marker-end="url(#amber)"><path d="M234 268H270"/><path d="M480 268H516"/><path d="M726 400H762" stroke-dasharray="4 4"/></g>
+<g font-size="13" fill="#b1c9d6" text-anchor="middle"><text x="623" y="455">before a merge</text><text x="869" y="455">if HTML is requested</text><text x="869" y="201">when asked to build</text><text x="869" y="264">Outputs follow</text><text x="869" y="284">your requested phase.</text></g>
+<path d="M28 479H972" stroke="#355266"/>
+<text x="28" y="505" fill="#b1c9d6" font-size="14">Possible next steps, not an automatic pipeline. Stop at the requested outcome.</text>
+<text x="28" y="529" fill="#80d7cb" font-size="13">SKILL PREFIX: dytschgo-   /   Full conditional map: interactive route atlas</text>
+</g></svg>
