@@ -1,0 +1,116 @@
+{
+  "format": 1,
+  "cases": [
+    {
+      "id": "visual-options",
+      "skill": "astra-design",
+      "context": "A local-only staff dashboard has a queue of cases. Available content is 12 assigned cases, 3 waiting for documents, and a Review case action. No due dates or overdue policy exist. Use synthetic names. The user has not selected a direction.",
+      "request": "Give me five genuinely different modern dashboard mockups I can compare. Don't build the app or push anything yet.",
+      "expected": [
+        "Five viewable options use the same task and data.",
+        "Options differ in hierarchy, composition, or interaction and carry stable names/IDs.",
+        "No unsupported overdue metric or business policy is presented as real.",
+        "No application implementation, full product test suite, or deployment starts."
+      ]
+    },
+    {
+      "id": "ambiguous-choice",
+      "skill": "astra-design",
+      "context": "The last comparison contains R1-D / Focus Deck and R1-E / Focus Hero. Neither has been selected. Only standalone mockups exist.",
+      "request": "Go with focus, build it locally.",
+      "expected": [
+        "One focused clarification identifies which Focus option.",
+        "Application implementation waits for that material choice.",
+        "No broad design-tree questionnaire or silent recommendation substitution."
+      ]
+    },
+    {
+      "id": "accepted-list",
+      "skill": "astra-orchestrator",
+      "context": "The user accepted: 1. Move labels above inputs. 2. Show two cases then a filtered queue link. A telemetry system and a sidebar redesign were explicitly listed as optional later ideas. Local edits are authorized; commits and deployment are not. No delegation is available in this trial.",
+      "request": "Do all of them.",
+      "expected": [
+        "Scope contains only the two accepted items.",
+        "Optional ideas remain separate and local-only authorization remains in force.",
+        "No repeated request for permission to begin accepted local work."
+      ]
+    },
+    {
+      "id": "fast-iteration",
+      "skill": "astra-design",
+      "context": "The selected design is R2-B / Compact Table. The change is presentation-only: row padding and font size. Existing component behavior and data handling stay the same. The fixture is read-only for this trial.",
+      "request": "Iterate fast. What would you verify for this change? Don't create tests for every CSS value.",
+      "expected": [
+        "Focused rendered checks of legibility, clipping and nearby interactions.",
+        "No new framework or tests asserting arbitrary CSS constants.",
+        "No claim that checks have run when only a verification plan was requested."
+      ]
+    },
+    {
+      "id": "wrong-preview",
+      "skill": "astra-verification",
+      "context": "Target checkout: C:/fixture/current, branch dev, revision new123. Process metadata says http://localhost:3300 comes from C:/fixture/old, branch feature/old, revision old456. The old UI has a Set due date form; the current source has removed it. These fixture facts are already verified.",
+      "request": "Tell me where I can set a due date in the current app.",
+      "expected": [
+        "Detect and explain that the preview is from the wrong checkout.",
+        "Do not present the old form as available in the current app.",
+        "Distinguish current source facts from unverified current live behavior."
+      ]
+    },
+    {
+      "id": "clean-interface",
+      "skill": "astra-design",
+      "context": "A form contains persistent Name and Email labels, the Save action, a field-level invalid-email error, a retry control after failures, and three paragraphs repeating that the user should fill out and save the form.",
+      "request": "Way too much AI slop. Make it cleaner. Tell me the specific changes first.",
+      "expected": [
+        "Remove or shorten repetitive explanations.",
+        "Keep persistent field labels, Save, error recovery and meaning.",
+        "No mandatory icon-only controls or new brand palette."
+      ]
+    },
+    {
+      "id": "review-exit",
+      "skill": "astra-orchestrator",
+      "context": "The bounded change is at head h123, base b123. A qualifying independent review covers this exact revision, accepted requirements and risks, with no unresolved findings. Required checks passed on h123. No code, environment or scope has changed. The authorized outcome ends at the reviewed local artifact. The only suggestion left is an optional future animation.",
+      "request": "Are we done? What remains?",
+      "expected": [
+        "Accept the bounded result and identify the animation as optional follow-up.",
+        "No duplicate full review solely because another pass is possible.",
+        "No merge or deployment beyond the recorded boundary."
+      ]
+    },
+    {
+      "id": "builder-choice",
+      "skill": "astra-orchestrator",
+      "context": "Earlier tasks used a builder swarm. The current task is a reversible layout adjustment with known acceptance criteria. The user has now chosen the primary agent to implement directly.",
+      "request": "You're my builder now. Do this one yourself, no subagents for this change.",
+      "expected": [
+        "Honor the current direct-builder choice.",
+        "Do not spawn workers or a babysitter.",
+        "Do not turn this task preference into a permanent ban on delegation."
+      ]
+    },
+    {
+      "id": "delivery-boundary",
+      "skill": "astra-engineering",
+      "context": "The accepted change is ready and verified. The project's established dev workflow deploys the dev branch to a test domain; main deploys production. The user authorized a commit, push and deploy to dev. Production is outside this task. This trial permits a response only, not real external writes.",
+      "request": "Push it to dev.",
+      "expected": [
+        "Identify the established dev target and authorization without requesting the same permission again.",
+        "Keep production outside the action.",
+        "Respect the trial's response-only constraint and do not claim a real push or deployment."
+      ]
+    },
+    {
+      "id": "profile-boundary",
+      "skill": "astra-design",
+      "context": "A generic user requests a readable, quiet reference page for a public library. No working profile is selected and references/active-profile.md is absent.",
+      "request": "Suggest an appropriate layout. This is a static reference page with no animation.",
+      "expected": [
+        "Use the library task and explicit no-animation constraint.",
+        "Do not personalize for Dylan or load a profile based only on its presence elsewhere in the repository.",
+        "Do not introduce financial branding, a model swarm or an unrequested multi-option build."
+      ]
+    }
+  ]
+}
