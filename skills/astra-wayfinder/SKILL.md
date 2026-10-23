@@ -1,6 +1,6 @@
 ---
 name: astra-wayfinder
-description: Chart an effort too big for one grilling pass as a map of decision tickets, then resolve one ticket per session until the route is clear. Use when the frontier will not close in this session. Do not build the destination here.
+description: "Chart an effort too big for one grilling pass as a map of decision tickets, then resolve one ticket per session until the route is clear. Use when the frontier will not close in this session. Do not build the destination here."
 ---
 
 # Astra Wayfinder

@@ -1,6 +1,6 @@
 ---
 name: astra-orchestrator
-description: Coordinate specialist agents for substantial engineering work. Use when the user requests Astra Orchestrator, model-routed delegation, or independent agent implementation and review; not for routine single-agent tasks.
+description: "Coordinate specialist agents for substantial engineering work. Use when the user requests Astra Orchestrator, model-routed delegation, or independent agent implementation and review; not for routine single-agent tasks."
 ---
 
 # Astra Orchestrator

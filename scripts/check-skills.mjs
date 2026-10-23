@@ -2,8 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-// This repository deliberately uses single-line name/description frontmatter and
-// quoted interface strings. This is a validator for that format, not a YAML parser.
+// This collection uses single-line names and JSON-compatible double-quoted
+// descriptions/interface strings. Validate that format rather than emulate YAML.
 function scalar(value) {
   if (value.startsWith('"')) return JSON.parse(value);
   if (value.startsWith("'")) {
@@ -73,6 +73,7 @@ export function validateRepo(root) {
     for (const line of front[1].split(/\r?\n/)) {
       const pair = line.match(/^(name|description): (.+)$/);
       if (!pair || fields[pair[1]] !== undefined) { fail(file, 'expected unique name/description fields'); continue; }
+      if (pair[1] === 'description' && !pair[2].startsWith('"')) { fail(file, 'invalid description scalar: use a double-quoted string'); continue; }
       try { fields[pair[1]] = scalar(pair[2]); } catch { fail(file, `invalid ${pair[1]} scalar`); }
     }
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(fields.name ?? '') || fields.name !== skill.name || fields.name.length > 64) fail(file, 'name must match folder in hyphen-case');

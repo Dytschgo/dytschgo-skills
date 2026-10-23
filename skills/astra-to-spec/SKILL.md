@@ -1,6 +1,6 @@
 ---
 name: astra-to-spec
-description: Publish the current conversation as a tracker spec. Use when the decision is already settled and should become an issue; not for interviewing, splitting tickets, or implementing.
+description: "Publish the current conversation as a tracker spec. Use when the decision is already settled and should become an issue; not for interviewing, splitting tickets, or implementing."
 ---
 
 # Astra To Spec

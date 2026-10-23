@@ -1,6 +1,6 @@
 ---
 name: astra-writing-for-agents
-description: Write or edit a skill, AGENTS.md, or CLAUDE.md so an agent follows it. Use when adding a skill to this collection or changing a doc an agent loads by a pointer.
+description: "Write or edit a skill, AGENTS.md, or CLAUDE.md so an agent follows it. Use when adding a skill to this collection or changing a doc an agent loads by a pointer."
 ---
 
 # Astra Writing for Agents

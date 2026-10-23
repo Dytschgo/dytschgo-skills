@@ -3,7 +3,7 @@ name: Skill integrity
 on:
   pull_request:
   push:
-    branches: [main, feat/conversational-workflows]
+    branches: [main]
   workflow_dispatch:
 
 permissions:

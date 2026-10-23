@@ -1,6 +1,6 @@
 ---
 name: astra-engineering
-description: Investigate and complete substantial codebase cleanup, performance, agent setup, PR triage, or stalled engineering work. Use when requested explicitly; not for routine coding questions.
+description: "Investigate and complete substantial codebase cleanup, performance, agent setup, PR triage, or stalled engineering work. Use when requested explicitly; not for routine coding questions."
 ---
 
 # Astra Engineering

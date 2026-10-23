@@ -10,7 +10,7 @@ const script = fileURLToPath(new URL('../scripts/sync-installed-skills.ps1', imp
 function setup(t) {
   const base = fs.mkdtempSync(path.join(os.tmpdir(), 'skill-sync-'));
   t.after(() => { assert.equal(path.dirname(base), path.resolve(os.tmpdir())); fs.rmSync(base, { recursive: true, force: true }); });
-  const source = path.join(base, 'source'), home = path.join(base, 'home'), root = path.join(home, '.test', 'skills');
+  const home = path.join(base, 'home'), source = path.join(home, 'source'), root = path.join(home, '.test', 'skills');
   const write = (file, content) => { fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, content); };
   write(path.join(source, 'skills', 'sample', 'SKILL.md'), '---\nname: sample\ndescription: An example.\n---\n# Sample\n');
   write(path.join(source, 'profiles', 'dytschgo.md'), '# Selected preferences\n');
@@ -88,6 +88,16 @@ test('trailing separator cannot put backups inside a discovery root', windows, t
   const result = runAt(root + path.sep, '-BackupRoot', root, '-Apply');
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /Backups must be outside/);
+  assert.equal(fs.readFileSync(path.join(root, 'sample', 'SKILL.md'), 'utf8'), 'original');
+});
+test('backups inside source skills are rejected before any writes', windows, t => {
+  const { source, root, write, run } = setup(t);
+  write(path.join(root, 'sample', 'SKILL.md'), 'original');
+  const backup = path.join(source, 'skills', 'sample', 'references', 'backups');
+  const result = run('-BackupRoot', backup, '-Apply');
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /Source and backup roots must not overlap/);
+  assert.equal(fs.existsSync(backup), false);
   assert.equal(fs.readFileSync(path.join(root, 'sample', 'SKILL.md'), 'utf8'), 'original');
 });
 test('a later rename failure restores earlier replacements and retains recovery mapping', windows, t => {

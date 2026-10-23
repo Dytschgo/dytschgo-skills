@@ -1,6 +1,6 @@
 ---
 name: astra-diagnosing-bugs
-description: Diagnose a hard bug or performance regression. Use when something is broken, throwing, failing, or slow. Do not form a hypothesis until a tight pass/fail loop exists.
+description: "Diagnose a hard bug or performance regression. Use when something is broken, throwing, failing, or slow. Do not form a hypothesis until a tight pass/fail loop exists."
 ---
 
 # Astra Diagnosing Bugs

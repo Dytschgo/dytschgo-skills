@@ -1,6 +1,6 @@
 ---
 name: dahlei-plana
-description: Turn a product or software feature idea into a detailed, ready-to-paste implementation prompt and recommend a suitable current model from xAI, OpenAI, or Anthropic. Use when planning a feature or deciding which model should build it.
+description: "Turn a product or software feature idea into a detailed, ready-to-paste implementation prompt and recommend a suitable current model from xAI, OpenAI, or Anthropic. Use when planning a feature or deciding which model should build it."
 ---
 
 # Dahlei Plana

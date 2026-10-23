@@ -1,6 +1,6 @@
 ---
 name: astra-grilling
-description: Grill a plan, decision, or idea until the design tree is settled. Use when the user wants to stress-test thinking, says grill, or another skill hits an open design decision; not for implementing, filing tickets, or writing files.
+description: "Grill a plan, decision, or idea until the design tree is settled. Use when the user wants to stress-test thinking, says grill, or another skill hits an open design decision; not for implementing, filing tickets, or writing files."
 ---
 
 # Astra Grilling

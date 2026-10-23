@@ -214,6 +214,8 @@ Each applied run writes `recovery.json` with target, staging, and backup paths b
 
 Use Node's built-in tools, with no package installation:
 
+Collection frontmatter uses unquoted hyphen-case `name` values and double-quoted JSON-compatible `description` strings. UI metadata likewise quotes its interface strings. This explicit subset avoids depending on a partial YAML parser; consumer compatibility is also checked with the built-in skill validator.
+
 ```sh
 node scripts/check-skills.mjs
 node --test tests/check-skills.test.mjs

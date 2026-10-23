@@ -1,6 +1,6 @@
 ---
 name: astra-handoff
-description: Compact the current conversation into a handoff a fresh agent can continue from. Use when the thread should move. Not the same as filing fix tickets for people.
+description: "Compact the current conversation into a handoff a fresh agent can continue from. Use when the thread should move. Not the same as filing fix tickets for people."
 ---
 
 # Astra Handoff

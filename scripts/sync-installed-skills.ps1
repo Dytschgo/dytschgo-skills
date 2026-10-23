@@ -70,6 +70,7 @@ $profileFile = Join-Path $SourceRoot 'profiles/dytschgo.md'
 $roots = @($SkillRoot | ForEach-Object { Assert-UserPath $_ } | Sort-Object -Unique)
 if (-not $roots.Count) { throw 'No target roots supplied.' }
 $BackupRoot = Assert-UserPath $BackupRoot
+if ($BackupRoot -eq $SourceRoot -or $BackupRoot.StartsWith($SourceRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase) -or $SourceRoot.StartsWith($BackupRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Source and backup roots must not overlap.' }
 foreach ($root in $roots) {
     if ($root -eq $SourceRoot -or $root.StartsWith($SourceRoot.TrimEnd('\', '/') + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase) -or $SourceRoot.StartsWith($root.TrimEnd('\', '/') + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Source and installation roots must not overlap.' }
     if ($root -eq $BackupRoot -or $BackupRoot.StartsWith($root.TrimEnd('\', '/') + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Backups must be outside skill discovery roots.' }

@@ -1,6 +1,6 @@
 ---
 name: astra-verification
-description: Create or maintain a repository-specific way to launch an app, exercise its real user paths, and preserve evidence. Use when a project lacks reliable behavior verification or its local verification guide may have drifted.
+description: "Create or maintain a repository-specific way to launch an app, exercise its real user paths, and preserve evidence. Use when a project lacks reliable behavior verification or its local verification guide may have drifted."
 ---
 
 # Astra Verification

@@ -1,6 +1,6 @@
 ---
 name: astra-blast-radius
-description: Trace what a code change could break beyond its direct diff and test the key assumption that makes it safe. Use for risky changes, small diffs with uncertain side effects, or explicit blast-radius reviews.
+description: "Trace what a code change could break beyond its direct diff and test the key assumption that makes it safe. Use for risky changes, small diffs with uncertain side effects, or explicit blast-radius reviews."
 ---
 
 # Astra Blast Radius

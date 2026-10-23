@@ -1,6 +1,6 @@
 ---
 name: astra-triage
-description: Move an issue or external PR through triage roles. Use on a bug report or incoming request before anyone grills it. Reproduce first, then interview, then post an agent brief.
+description: "Move an issue or external PR through triage roles. Use on a bug report or incoming request before anyone grills it. Reproduce first, then interview, then post an agent brief."
 ---
 
 # Astra Triage

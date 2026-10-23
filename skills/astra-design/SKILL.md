@@ -1,6 +1,6 @@
 ---
 name: astra-design
-description: Explore, design, build, or review websites and product interfaces. Use for visual options and mockups, UI creation, redesign, refinement, responsive fixes, accessibility, or motion; not for backend-only work or standalone images and documents.
+description: "Explore, design, build, or review websites and product interfaces. Use for visual options and mockups, UI creation, redesign, refinement, responsive fixes, accessibility, or motion; not for backend-only work or standalone images and documents."
 ---
 
 # Astra Design

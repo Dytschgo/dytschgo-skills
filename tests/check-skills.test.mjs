@@ -9,7 +9,7 @@ function fixture(t) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'skill-validator-'));
   t.after(() => { assert.equal(path.dirname(root), path.resolve(os.tmpdir())); fs.rmSync(root, { recursive: true, force: true }); });
   const write = (name, text) => { const file = path.join(root, name); fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, text); };
-  write('skills/example/SKILL.md', '---\nname: example\ndescription: A focused example skill.\n---\n# Example\n\n[Reference](references/guide.md#use-it)\n');
+  write('skills/example/SKILL.md', '---\nname: example\ndescription: "A focused example skill."\n---\n# Example\n\n[Reference](references/guide.md#use-it)\n');
   write('skills/example/agents/openai.yaml', 'interface:\n  display_name: "Example"\n  short_description: "A focused and useful example skill"\n  default_prompt: "Use $example to complete the task."\n');
   write('skills/example/references/guide.md', '# Guide\n\n## Use it\n\n```md\n[not a real link](missing.md)\n```\n');
   return { root, write };
@@ -51,7 +51,7 @@ test('routing IDs cannot drift into another document', t => {
 });
 test('YAML comments and non-string plain descriptions are rejected', t => {
   const { root, write } = fixture(t);
-  for (const description of ['# pending description', 'null', 'true', '42']) {
+  for (const description of ['# pending description', 'null', 'true', '42', '0x10', '- An example skill.', '2026-10-23']) {
     write('skills/example/SKILL.md', `---\nname: example\ndescription: ${description}\n---\n`);
     assert.ok(validateRepo(root).some(e => e.includes('invalid description')), description);
   }

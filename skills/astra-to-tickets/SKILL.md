@@ -1,6 +1,6 @@
 ---
 name: astra-to-tickets
-description: Split a spec, plan, or settled conversation into vertical tracer-bullet tickets with blocking edges. Use when the work is specified and needs a build order; not for interviewing the design or implementing the tickets.
+description: "Split a spec, plan, or settled conversation into vertical tracer-bullet tickets with blocking edges. Use when the work is specified and needs a build order; not for interviewing the design or implementing the tickets."
 ---
 
 # Astra To Tickets
