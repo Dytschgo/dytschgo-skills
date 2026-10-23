@@ -5,7 +5,7 @@
       "name": "Triage",
       "slug": "dytschgo-triage",
       "cat": "FRAME",
-      "output": "A reproduced or qualified request, tracker state, and actionable agent brief.",
+      "output": "A verified recommendation; tracker state and an actionable brief only when authorized.",
       "stop": "Verify before recommending a state. Read-only triage stops at its recommendation; tracker changes use existing authorization."
     },
     {
@@ -38,7 +38,7 @@
       "slug": "dytschgo-spec",
       "cat": "DEFINE",
       "output": "A local draft or authorized tracker spec, matching the requested destination.",
-      "stop": "Check proposed testing seams with the user. Do not split tickets or implement inside this skill."
+      "stop": "Reuse settled testing seams; resolve only material unanswered testing decisions before publishing. Do not split tickets or implement inside this skill."
     },
     {
       "id": "tickets",
@@ -94,7 +94,7 @@
       "slug": "dytschgo-review",
       "cat": "PROVE",
       "output": "Separate standards/spec findings on the requested branch, PR, or WIP, with its actual source scope and review independence recorded.",
-      "stop": "Pin the base first. Skip and disclose the spec axis if no spec exists. Review is not merge permission."
+      "stop": "Pin the requested target first. Skip and disclose an unavailable spec axis; read-only findings do not authorize merge or edits."
     },
     {
       "id": "writing",
@@ -216,7 +216,7 @@
       "id": "bug",
       "name": "Hard / unclear bug",
       "short": "Reproduce before explaining.",
-      "prompt": "Use $dytschgo-engineering and $dytschgo-debug to fix this problem. First establish and run a tight feedback loop that reproduces the exact symptom. Then find the supported cause, fix it, and verify the original scenario.",
+      "prompt": "Use $dytschgo-engineering and $dytschgo-debug to fix this problem. First establish and run a reliable symptom-specific feedback loop that reproduces the exact symptom. Then find the supported cause, fix it, and verify the original scenario.",
       "steps": [
         [
           "engineering",
@@ -308,7 +308,7 @@
       "id": "review",
       "name": "Review my branch",
       "short": "Review the requested source scope.",
-      "prompt": "Use $dytschgo-review to inspect the branch, PR, or uncommitted work I identify. Record the actual target, include relevant tracked and untracked WIP when requested, and report findings only. Do not edit or merge.",
+      "prompt": "Use $dytschgo-review to inspect the branch, PR, or uncommitted work I identify. Record the actual target, include relevant tracked and untracked WIP when requested, and report repository standards and the originating spec separately. Do not edit or merge.",
       "steps": [
         [
           "review",

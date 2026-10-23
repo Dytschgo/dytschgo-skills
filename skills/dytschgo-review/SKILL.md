@@ -1,6 +1,6 @@
 ---
 name: dytschgo-review
-description: "Review the diff since a fixed point on two axes at once, repo standards and the originating spec. Use before a merge, or when the user asks to review a branch, PR, or work in progress."
+description: "Review a branch, PR, or uncommitted work on separate repository-standards and originating-spec axes. Use for code/change review or before merge; pin the actual requested target and respect read-only scope."
 ---
 
 # Dytschgo Review
@@ -67,9 +67,9 @@ Match each smell against the diff. The arrow is how to fix it:
 
 For a direct low-risk review, inspect the same standards and spec criteria below and retain separate findings. For independent review, use distinct reviewers with bounded read-only assignments.
 
-Give the Standards reviewer the diff command, the commit list, the standards files you found, and the smell baseline pasted in full. It has no other copy. Ask it to report, per file or hunk: every place the diff breaks a documented standard, citing the file and the rule, and any baseline smell, named, with the hunk quoted. Documented-standard breaches can be hard. Baseline smells stay judgement calls, and a documented repo standard overrides them. Skip anything tooling enforces. Under 400 words.
+Give the Standards reviewer the captured patch and relevant file contents for every requested scope, recorded base/head SHAs or WIP HEAD/status, standards files, and the smell baseline pasted in full. Include commit lists or reproducible diff commands when applicable; an untracked file or supplied PR patch still needs direct coverage. It has no other copy. Ask it to report, per file or hunk: every place the diff breaks a documented standard, citing the file and the rule, and any baseline smell, named, with the hunk quoted. Documented-standard breaches can be hard. Baseline smells stay judgement calls, and a documented repo standard overrides them. Skip anything tooling enforces. Under 400 words.
 
-Give the Spec reviewer the diff command, the commit list, and the spec path or its contents. Ask it to report: requirements missing or partial, behavior in the diff that was not asked for, and requirements that look implemented but look wrong. Quote the spec line for each finding. Under 400 words.
+Give the Spec reviewer the same captured patch/file scope and recorded source identity, plus the spec path or its contents. Include relevant untracked files and off-checkout PR evidence rather than substituting local HEAD. Ask it to report: requirements missing or partial, behavior in the diff that was not asked for, and requirements that look implemented but look wrong. Quote the spec line for each finding. Under 400 words.
 
 If the spec is missing, skip that axis and say so in the report.
 

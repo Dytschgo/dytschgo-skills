@@ -1,6 +1,6 @@
 ---
 name: dytschgo-debug
-description: "Diagnose a hard bug or regression whose cause is unknown, intermittent, or contested. Use for uncertain failures and failed fix attempts; verified routine corrections can stay direct. Establish a symptom-specific feedback loop before hypotheses."
+description: "Diagnose hard bugs and functional or performance regressions with an unknown, intermittent, or contested cause. Use for uncertain failures and failed fix attempts; verified routine corrections can stay direct. Establish a symptom-specific feedback loop before hypotheses."
 ---
 
 # Dytschgo Debug

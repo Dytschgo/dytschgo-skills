@@ -233,6 +233,20 @@
         ],
         "boundary": "Scoped label change; Design is optional."
       }
+    },
+    {
+      "id": "performance-regression",
+      "context": "A page became slow after an unknown change. The old and new request durations can be measured, but the bottleneck and cause are not known.",
+      "request": "Diagnose this performance regression and find the supported cause.",
+      "expected": {
+        "include": [
+          "dytschgo-debug"
+        ],
+        "exclude": [
+          "dytschgo-grill"
+        ],
+        "boundary": "A representative symptom-specific measurement loop before performance hypotheses; no speculative speedup claim."
+      }
     }
   ]
 }

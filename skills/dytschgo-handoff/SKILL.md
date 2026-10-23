@@ -30,4 +30,4 @@ If the user passed an argument, treat it as what the next session is for, and ta
 
 ## Hand off
 
-Do not keep working the task after the file is written. Tell the user the temp path. [Dytschgo Coordinate](../dytschgo-coordinate/SKILL.md) and [Dytschgo Wayfinder](../dytschgo-wayfinder/SKILL.md) pull this skill when a thread should move.
+After delivering the redacted handoff, stop working this task. Tell the user its accessible path, attachment, or inline location; a temp path alone is insufficient when the next session cannot read that filesystem. [Dytschgo Coordinate](../dytschgo-coordinate/SKILL.md) and [Dytschgo Wayfinder](../dytschgo-wayfinder/SKILL.md) pull this skill when a thread should move.

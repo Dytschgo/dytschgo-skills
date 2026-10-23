@@ -51,7 +51,7 @@ Show counts and a one-line summary. Let the maintainer pick.
 
 ## Triage one issue or PR
 
-1. **Gather context.** Read the full item: body, comments, labels, author, dates, and for a PR the diff. Parse earlier triage notes so you do not re-ask a settled question. Explore the codebase in its glossary, respecting ADRs in the area. Then two checks. Redundancy: search for an existing implementation of the requested behavior by domain concept, not just the wording, and report where you looked. If you find it, this is an already-implemented `wontfix`. Prior rejection: read `.out-of-scope/*.md` and surface any file that resembles this request.
+1. **Gather context.** Read the full item: body, comments, labels, author, dates, and for a PR the diff. Parse earlier triage notes so you do not re-ask a settled question. Explore the codebase in its glossary, respecting ADRs in the area. Then two checks. Redundancy: search for an existing implementation of the requested behavior by domain concept, not just the wording, and report where you looked. Treat an apparent existing implementation as a candidate; verify equivalent behavior in the next step before recommending already-implemented `wontfix`. Prior rejection: read `.out-of-scope/*.md` and surface any file that resembles this request.
 
 2. **Verify before recommending.** A bug: reproduce it from the reporter's steps. A PR: confirm the diff does what it claims, using a matching source snapshot and relevant safe checks. Report confirmed, failed, or insufficient detail, with evidence. Missing verification is a reason to identify the gap, not recommend implementation readiness. Do not pull [Dytschgo Grill](../dytschgo-grill/SKILL.md) until this step has a result.
 

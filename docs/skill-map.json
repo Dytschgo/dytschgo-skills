@@ -1,12 +1,12 @@
 {
-  "sourceHash": "df68256d250dd30bd6a584332d2b117c650aef4f8d8d7b5add0e5363feafbd6d",
+  "sourceHash": "c6303f2cf9a1ee03abea1d8e9e8dbea12a643be025dc0f196418afc99e122650",
   "nodes": [
     {
       "id": "triage",
       "name": "Triage",
       "slug": "dytschgo-triage",
       "cat": "FRAME",
-      "output": "A reproduced or qualified request, tracker state, and actionable agent brief.",
+      "output": "A verified recommendation; tracker state and an actionable brief only when authorized.",
       "stop": "Verify before recommending a state. Read-only triage stops at its recommendation; tracker changes use existing authorization.",
       "desc": "Move an issue or external PR through triage roles. Use on a bug report or incoming request before anyone grills it. Verify the claim before recommending its outcome; interview only when needed and apply tracker changes within authorization."
     },
@@ -43,7 +43,7 @@
       "slug": "dytschgo-spec",
       "cat": "DEFINE",
       "output": "A local draft or authorized tracker spec, matching the requested destination.",
-      "stop": "Check proposed testing seams with the user. Do not split tickets or implement inside this skill.",
+      "stop": "Reuse settled testing seams; resolve only material unanswered testing decisions before publishing. Do not split tickets or implement inside this skill.",
       "desc": "Write a settled conversation as a spec, locally for a draft or to an authorized tracker. Use when decisions are settled and a spec is requested; not interviewing, splitting tickets, or implementation."
     },
     {
@@ -89,7 +89,7 @@
       "cat": "PROVE",
       "output": "Supported cause, a fixed symptom, regression evidence, and no leftover debug probes.",
       "stop": "If a meaningful symptom-specific loop cannot be built, report the blocker before hypotheses. A slower real-path loop can qualify; local work can finish with a report.",
-      "desc": "Diagnose a hard bug or regression whose cause is unknown, intermittent, or contested. Use for uncertain failures and failed fix attempts; verified routine corrections can stay direct. Establish a symptom-specific feedback loop before hypotheses."
+      "desc": "Diagnose hard bugs and functional or performance regressions with an unknown, intermittent, or contested cause. Use for uncertain failures and failed fix attempts; verified routine corrections can stay direct. Establish a symptom-specific feedback loop before hypotheses."
     },
     {
       "id": "blast",
@@ -106,8 +106,8 @@
       "slug": "dytschgo-review",
       "cat": "PROVE",
       "output": "Separate standards/spec findings on the requested branch, PR, or WIP, with its actual source scope and review independence recorded.",
-      "stop": "Pin the base first. Skip and disclose the spec axis if no spec exists. Review is not merge permission.",
-      "desc": "Review the diff since a fixed point on two axes at once, repo standards and the originating spec. Use before a merge, or when the user asks to review a branch, PR, or work in progress."
+      "stop": "Pin the requested target first. Skip and disclose an unavailable spec axis; read-only findings do not authorize merge or edits.",
+      "desc": "Review a branch, PR, or uncommitted work on separate repository-standards and originating-spec axes. Use for code/change review or before merge; pin the actual requested target and respect read-only scope."
     },
     {
       "id": "writing",
@@ -175,7 +175,7 @@
       "targetFile": "skills/dytschgo-review/SKILL.md",
       "line": 57,
       "column": 6,
-      "when": "Pull Dytschgo Review before merge. Review git diff <fixed-point>...HEAD on the standards axis and the spec axis, in parallel. That review does not replace the before, the after, or the door required above."
+      "when": "Pull Dytschgo Review before merge and follow its requested-target procedure. Pass the captured patch/file evidence and actual source identity for the committed, PR, or requested WIP scopes. Keep standards and spec separate; use independent reviewers according to the risk requirements below. Before a merge, ensure qualifying review covers the integrated committed revision. That review does not replace the before, the after, or the door required above."
     },
     {
       "from": "orchestrator",
@@ -265,7 +265,7 @@
       "targetFile": "skills/dytschgo-debug/SKILL.md",
       "line": 27,
       "column": 5,
-      "when": "Use Dytschgo Debug when a failure has an unknown, intermittent, regressive, or contested cause, or an attempted fix failed. Within that diagnosis, establish a symptom-specific feedback loop before hypotheses. A routine correction supported by direct evidence can stay focused with relevant verification. An unverified mitigation is not a resolved bug. For behavior, preference/default, native, or test-harness changes, read the behavior and verification safeguards. For CI failure classification and acceptance claims, use the delivery evidence guidance."
+      "when": "Use Dytschgo Debug when a failure or regression has an unknown, intermittent, or contested cause, or an attempted fix failed. Within that diagnosis, establish a symptom-specific feedback loop before hypotheses. A routine correction supported by direct evidence can stay focused with relevant verification. An unverified mitigation is not a resolved bug. For behavior, preference/default, native, or test-harness changes, read the behavior and verification safeguards. For CI failure classification and acceptance claims, use the delivery evidence guidance."
     },
     {
       "from": "grilling",
@@ -605,7 +605,7 @@
       "id": "bug",
       "name": "Hard / unclear bug",
       "short": "Reproduce before explaining.",
-      "prompt": "Use $dytschgo-engineering and $dytschgo-debug to fix this problem. First establish and run a tight feedback loop that reproduces the exact symptom. Then find the supported cause, fix it, and verify the original scenario.",
+      "prompt": "Use $dytschgo-engineering and $dytschgo-debug to fix this problem. First establish and run a reliable symptom-specific feedback loop that reproduces the exact symptom. Then find the supported cause, fix it, and verify the original scenario.",
       "steps": [
         [
           "engineering",
@@ -697,7 +697,7 @@
       "id": "review",
       "name": "Review my branch",
       "short": "Review the requested source scope.",
-      "prompt": "Use $dytschgo-review to inspect the branch, PR, or uncommitted work I identify. Record the actual target, include relevant tracked and untracked WIP when requested, and report findings only. Do not edit or merge.",
+      "prompt": "Use $dytschgo-review to inspect the branch, PR, or uncommitted work I identify. Record the actual target, include relevant tracked and untracked WIP when requested, and report repository standards and the originating spec separately. Do not edit or merge.",
       "steps": [
         [
           "review",
