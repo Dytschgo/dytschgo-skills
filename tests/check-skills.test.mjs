@@ -45,7 +45,7 @@ test('duplicate or malformed frontmatter fails', t => {
 });
 test('routing IDs cannot drift into another document', t => {
   const { root, write } = fixture(t);
-  write('skills/astra-orchestrator/references/routing.md', '`gpt-6-luna` and `gpt-6.1-sol`\n');
+  write('skills/dytschgo-coordinate/references/routing.md', '`gpt-6-luna` and `gpt-6.1-sol`\n');
   write('README.md', 'Old reviewer: gpt-6-sol\n');
   assert.ok(validateRepo(root).some(e => e.includes('IDs belong only')));
 });

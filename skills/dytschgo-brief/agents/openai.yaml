@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dytschgo Brief"
+  short_description: "Turn feature ideas into agent prompts and model picks"
+  default_prompt: "Use $dytschgo-brief to turn this feature idea into a detailed coding-agent prompt and recommend a suitable current model."

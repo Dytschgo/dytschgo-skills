@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dytschgo Debug"
+  short_description: "Build a tight loop before any hypothesis"
+  default_prompt: "Use $dytschgo-debug. Do not hypothesize until a tight pass/fail loop goes red on this bug."

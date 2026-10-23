@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dytschgo Retro"
+  short_description: "Explain work with interactive retro HTML overviews"
+  default_prompt: "Use $dytschgo-retro to turn the supplied evidence into an interactive retro HTML overview with clear findings, working controls, and a saved standalone artifact."

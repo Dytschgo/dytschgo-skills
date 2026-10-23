@@ -108,11 +108,11 @@ export function validateRepo(root) {
       if (fragment && target.endsWith('.md') && !anchors(fs.readFileSync(target, 'utf8')).has(decodeURIComponent(fragment))) fail(file, `missing heading ${href}`);
     }
   }
-  const routing = path.join(skillRoot, 'astra-orchestrator', 'references', 'routing.md');
+  const routing = path.join(skillRoot, 'dytschgo-coordinate', 'references', 'routing.md');
   if (fs.existsSync(routing)) {
     const ids = [...fs.readFileSync(routing, 'utf8').matchAll(/`(gpt-[\w.-]+)`/g)].map(m => m[1]);
     if (ids.length !== 2 || new Set(ids).size !== 2) fail(routing, 'expected two distinct preferred worker IDs');
-    const orchestratorRoot = path.join(skillRoot, 'astra-orchestrator') + path.sep;
+    const orchestratorRoot = path.join(skillRoot, 'dytschgo-coordinate') + path.sep;
     for (const file of files.filter(f => /\.(md|yaml)$/.test(f) && (f.startsWith(orchestratorRoot) || f === path.join(root, 'README.md')) && f !== routing)) {
       if (/\bgpt-\d[\w.-]*/i.test(fs.readFileSync(file, 'utf8'))) fail(file, 'worker IDs belong only in routing.md');
     }

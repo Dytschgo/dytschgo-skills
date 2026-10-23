@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dytschgo Grill"
+  short_description: "Interview an open design until it is settled"
+  default_prompt: "Use $dytschgo-grill to grill this plan until we share an understanding. Do not implement until I confirm."

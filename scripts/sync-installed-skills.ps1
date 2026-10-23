@@ -45,6 +45,16 @@ function Get-SHA256([string]$File) {
     finally { $algorithm.Dispose(); $stream.Dispose() }
 }
 
+function Get-OwnershipSHA256([string]$File) {
+    # Ownership accepts the published LF and Windows-checkout CRLF forms.
+    # Copy, backup and installed-file verification remain byte-exact.
+    $encoding = [Text.UTF8Encoding]::new($false, $true)
+    $text = $encoding.GetString([IO.File]::ReadAllBytes($File)).Replace("`r`n", "`n")
+    $algorithm = [Security.Cryptography.SHA256]::Create()
+    try { return [BitConverter]::ToString($algorithm.ComputeHash($encoding.GetBytes($text))).Replace('-', '') }
+    finally { $algorithm.Dispose() }
+}
+
 function Get-FileMap([string]$Directory) {
     $map = @{}
     if (-not (Test-Path -LiteralPath $Directory)) { return $map }
@@ -86,6 +96,34 @@ foreach ($root in $roots) {
 }
 
 # Complete preflight before creating directories or moving any installation.
+$migrationFile = Join-Path $SourceRoot 'migrations/renames.json'
+$migrations = @()
+if (Test-Path -LiteralPath $migrationFile -PathType Leaf) {
+    $migrationData = Get-Content -LiteralPath $migrationFile -Raw | ConvertFrom-Json
+    if ($migrationData.collection -ne 'Dytschgo/dytschgo-skills') { throw 'Unrecognized migration collection.' }
+    $migrations = @($migrationData.skills)
+    $seenNames = @{}
+    foreach ($migration in $migrations) {
+        if ($migration.old -notmatch '^[a-z0-9]+(-[a-z0-9]+)*$' -or $migration.new -notmatch '^[a-z0-9]+(-[a-z0-9]+)*$' -or $migration.old -eq $migration.new) { throw 'Invalid migration name.' }
+        if ($seenNames.ContainsKey($migration.old) -or $seenNames.ContainsKey($migration.new)) { throw 'Overlapping migration names.' }
+        $seenNames[$migration.old] = $true
+        $seenNames[$migration.new] = $true
+        if ($migration.entrySha256 -notmatch '^[A-F0-9]{64}$' -or $migration.metadataSha256 -notmatch '^[A-F0-9]{64}$') { throw 'Invalid legacy ownership hashes.' }
+        if (-not ($packs.Name -contains $migration.new) -or ($packs.Name -contains $migration.old)) { throw 'Migration must retire a legacy name into an existing source skill.' }
+    }
+}
+$legacy = @()
+for ($index = 0; $index -lt $roots.Count; $index++) {
+    foreach ($migration in $migrations) {
+        $target = Assert-UserPath (Join-Path $roots[$index] $migration.old)
+        if (-not (Test-Path -LiteralPath $target)) { continue }
+        $current = Get-FileMap $target
+        if (-not $current.ContainsKey('SKILL.md') -or -not $current.ContainsKey('agents/openai.yaml') -or (Get-OwnershipSHA256 (Join-Path $target 'SKILL.md')) -ne $migration.entrySha256 -or (Get-OwnershipSHA256 (Join-Path $target 'agents/openai.yaml')) -ne $migration.metadataSha256) {
+            throw "Legacy skill ownership differs; preserve and review before migrating: $target"
+        }
+        $legacy += [pscustomobject]@{ rootIndex = $index; name = $migration.old; nextName = $migration.new; target = $target; profile = $current.ContainsKey('references/active-profile.md') }
+    }
+}
 $plan = @()
 for ($index = 0; $index -lt $roots.Count; $index++) {
     foreach ($pack in $packs) {
@@ -96,18 +134,27 @@ for ($index = 0; $index -lt $roots.Count; $index++) {
         if ($front -notmatch ('(?m)^name: ' + [regex]::Escape($pack.Name) + '\r?$')) { throw "Skill name differs from folder: $($pack.Name)" }
         $target = Assert-UserPath (Join-Path $roots[$index] $pack.Name)
         $current = Get-FileMap $target
-        $selected = $EnableProfile -or (-not $DisableProfile -and $current.ContainsKey('references/active-profile.md'))
+        $priorProfile = @($legacy | Where-Object { $_.rootIndex -eq $index -and $_.nextName -eq $pack.Name -and $_.profile }).Count -gt 0
+        $selected = $EnableProfile -or (-not $DisableProfile -and ($current.ContainsKey('references/active-profile.md') -or $priorProfile))
+        if ($current.Count -and $pack.Name.StartsWith('dytschgo-')) {
+            $targetEntry = Get-Content -LiteralPath (Join-Path $target 'SKILL.md') -Raw
+            $targetMetadata = Get-Content -LiteralPath (Join-Path $target 'agents/openai.yaml') -Raw
+            if ($targetEntry -notmatch ('(?m)^name: ' + [regex]::Escape($pack.Name) + '\r?$') -or $targetMetadata -notmatch '(?m)^  display_name: "Dytschgo ') { throw "New-name collision needs review: $target" }
+        }
         $expected = Get-FileMap $pack.FullName
         if ($expected.ContainsKey('references/active-profile.md')) { throw 'Source must contain generic skills; select the profile during installation.' }
         if ($selected) {
             if (-not (Test-Path -LiteralPath $profileFile -PathType Leaf)) { throw 'Selected profile is missing from source.' }
             $expected['references/active-profile.md'] = Get-SHA256 $profileFile
         }
-        $plan += [pscustomobject]@{ rootIndex = $index; name = $pack.Name; source = $pack.FullName; target = $target; profile = [bool]$selected; changed = -not (Test-MapsEqual $expected $current); expected = $expected }
+        $plan += [pscustomobject]@{ action = 'install'; rootIndex = $index; name = $pack.Name; source = $pack.FullName; target = $target; profile = [bool]$selected; changed = -not (Test-MapsEqual $expected $current); expected = $expected }
     }
 }
+foreach ($entry in $legacy) {
+    $plan += [pscustomobject]@{ action = 'retire'; rootIndex = $entry.rootIndex; name = $entry.name; source = $null; target = $entry.target; profile = $entry.profile; changed = $true; expected = @{} }
+}
 if (-not $Apply) {
-    [pscustomobject]@{ applied = $false; revision = $SourceRevision; backupRoot = $BackupRoot; entries = @($plan | Select-Object name, target, profile, changed) } | ConvertTo-Json -Depth 5
+    [pscustomobject]@{ applied = $false; revision = $SourceRevision; backupRoot = $BackupRoot; entries = @($plan | Select-Object action, name, target, profile, changed) } | ConvertTo-Json -Depth 5
     return
 }
 
@@ -117,6 +164,7 @@ $journal = [Collections.Generic.List[object]]::new()
 $recoveryFile = Join-Path $run 'recovery.json'
 foreach ($entry in $plan | Where-Object changed) {
     $journal.Add([pscustomobject]@{
+        action = $entry.action
         target = $entry.target
         saved = Join-Path $run ("previous/$($entry.rootIndex)/$($entry.name)")
         staged = Join-Path $run ("stage/$($entry.rootIndex)/$($entry.name)")
@@ -142,6 +190,16 @@ try {
         $operation = $journal | Where-Object { $_.target -eq $entry.target } | Select-Object -First 1
         $staged = $operation.staged
         $saved = $operation.saved
+        if ($entry.action -eq 'retire') {
+            $null = New-Item -ItemType Directory -Path (Split-Path -Parent $saved) -Force
+            $operation.phase = 'moving-previous'
+            Save-Recovery 'running'
+            Move-Item -LiteralPath $entry.target -Destination $saved
+            $operation.oldMoved = $true
+            $operation.phase = 'retired'
+            Save-Recovery 'running'
+            continue
+        }
         $operation.phase = 'staging'
         Save-Recovery 'running'
         $null = New-Item -ItemType Directory -Path $staged -Force
@@ -169,10 +227,10 @@ try {
         Save-Recovery 'running'
         if (-not (Test-MapsEqual $entry.expected (Get-FileMap $entry.target))) { throw "Installed hash verification failed: $($entry.name)" }
     }
-    $manifest = [pscustomobject]@{ applied = $true; revision = $SourceRevision; source = $SourceRoot; backup = $run; entries = @($plan | Select-Object name, target, profile, changed, expected) }
+    $manifest = [pscustomobject]@{ applied = $true; revision = $SourceRevision; source = $SourceRoot; backup = $run; entries = @($plan | Select-Object action, name, target, profile, changed, expected) }
     $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $run 'manifest.json') -Encoding UTF8
     Save-Recovery 'complete'
-    $manifest | Select-Object applied, revision, backup, @{n='updated';e={@($plan | Where-Object changed).Count}}, @{n='verified';e={$plan.Count}} | ConvertTo-Json
+    $manifest | Select-Object applied, revision, backup, @{n='updated';e={@($plan | Where-Object { $_.changed -and $_.action -eq 'install' }).Count}}, @{n='retired';e={@($plan | Where-Object { $_.action -eq 'retire' }).Count}}, @{n='verified';e={@($plan | Where-Object { $_.action -eq 'install' }).Count}} | ConvertTo-Json
 } catch {
     $failure = $_
     $rollbackErrors = @()

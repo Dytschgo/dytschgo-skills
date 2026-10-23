@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dytschgo Wayfinder"
+  short_description: "Map an effort too big for one grilling pass"
+  default_prompt: "Use $dytschgo-wayfinder to chart this as decision tickets and stop when the route is clear. Do not build it."
