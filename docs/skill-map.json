@@ -1,5 +1,5 @@
 {
-  "sourceHash": "c6303f2cf9a1ee03abea1d8e9e8dbea12a643be025dc0f196418afc99e122650",
+  "sourceHash": "c0688e18bb4dbac1971ff93c1d00a5aad670aa9ec31c74a3354cc571a05e0b63",
   "nodes": [
     {
       "id": "triage",
@@ -624,7 +624,7 @@
         ]
       ],
       "stop": "Diagnosis cannot claim success without symptom evidence. A merge remains a separate authorized action.",
-      "note": "Engineering loads Debug for uncertain, intermittent, regressive, or contested failures. Verified routine corrections can stay direct. Review is used before an authorized merge.",
+      "note": "Engineering loads Debug for failures or regressions with an unknown, intermittent, or contested cause, or after a failed fix attempt. Verified routine corrections can stay direct. Review is used before an authorized merge.",
       "extras": [
         "triage",
         "For an untriaged incoming bug report or external issue, qualify the claim first."

@@ -235,7 +235,7 @@
         ]
       ],
       "stop": "Diagnosis cannot claim success without symptom evidence. A merge remains a separate authorized action.",
-      "note": "Engineering loads Debug for uncertain, intermittent, regressive, or contested failures. Verified routine corrections can stay direct. Review is used before an authorized merge.",
+      "note": "Engineering loads Debug for failures or regressions with an unknown, intermittent, or contested cause, or after a failed fix attempt. Verified routine corrections can stay direct. Review is used before an authorized merge.",
       "extras": [
         "triage",
         "For an untriaged incoming bug report or external issue, qualify the claim first."
