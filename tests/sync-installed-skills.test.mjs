@@ -100,6 +100,23 @@ test('backups inside source skills are rejected before any writes', windows, t =
   assert.equal(fs.existsSync(backup), false);
   assert.equal(fs.readFileSync(path.join(root, 'sample', 'SKILL.md'), 'utf8'), 'original');
 });
+test('a linked source ancestor cannot hide source/backup overlap', windows, t => {
+  const { source, home, root, write } = setup(t);
+  write(path.join(root, 'sample', 'SKILL.md'), 'original');
+  const realParent = path.join(home, 'real-parent');
+  fs.mkdirSync(realParent);
+  const realSource = path.join(realParent, 'source');
+  fs.renameSync(source, realSource);
+  const aliasParent = path.join(home, 'source-alias');
+  fs.symlinkSync(realParent, aliasParent, 'junction');
+  const aliasedSource = path.join(aliasParent, 'source');
+  const backup = path.join(realSource, 'skills', 'sample', 'references', 'backups');
+  const result = spawnSync('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', script, '-SourceRoot', aliasedSource, '-UserHome', home, '-SkillRoot', root, '-BackupRoot', backup, '-Apply'], { encoding: 'utf8' });
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /Linked target or ancestor/);
+  assert.equal(fs.existsSync(backup), false);
+  assert.equal(fs.readFileSync(path.join(root, 'sample', 'SKILL.md'), 'utf8'), 'original');
+});
 test('a later rename failure restores earlier replacements and retains recovery mapping', windows, t => {
   const { base, source, home, root, write } = setup(t);
   write(path.join(root, 'sample', 'SKILL.md'), 'original sample');

@@ -18,19 +18,23 @@ $UserHome = [IO.Path]::GetFullPath($UserHome).TrimEnd('\', '/')
 if (-not $BackupRoot) { $BackupRoot = Join-Path $UserHome 'agent-tools/skill-backups' }
 $BackupRoot = [IO.Path]::GetFullPath($BackupRoot).TrimEnd('\', '/')
 
-function Assert-UserPath([string]$Path) {
-    $full = [IO.Path]::GetFullPath($Path).TrimEnd('\', '/')
-    if (-not $full.StartsWith($UserHome + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
-        throw "Target must be strictly inside the selected user home: $full"
-    }
-    $cursor = $full
-    while ($cursor -and $cursor.Length -ge $UserHome.Length) {
+function Assert-UnlinkedAncestors([string]$Path) {
+    $cursor = $Path
+    while ($cursor) {
         if (Test-Path -LiteralPath $cursor) {
             $item = Get-Item -LiteralPath $cursor -Force
             if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw "Linked target or ancestor needs manual review: $cursor" }
         }
         $cursor = Split-Path -Parent $cursor
     }
+}
+
+function Assert-UserPath([string]$Path) {
+    $full = [IO.Path]::GetFullPath($Path).TrimEnd('\', '/')
+    if (-not $full.StartsWith($UserHome + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
+        throw "Target must be strictly inside the selected user home: $full"
+    }
+    Assert-UnlinkedAncestors $full
     return $full
 }
 
@@ -63,6 +67,7 @@ function Test-MapsEqual($Left, $Right) {
 }
 
 $sourceSkills = Join-Path $SourceRoot 'skills'
+Assert-UnlinkedAncestors $SourceRoot
 if (-not (Test-Path -LiteralPath $sourceSkills -PathType Container)) { throw 'Source skills directory is missing.' }
 $packs = @(Get-ChildItem -LiteralPath $sourceSkills -Directory | Sort-Object Name)
 if (-not $packs.Count) { throw 'Source contains no skills.' }
