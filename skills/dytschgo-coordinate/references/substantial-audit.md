@@ -49,7 +49,7 @@ Propose a build order with dependencies only when useful to the request. Keep pr
 
 ## Coordinate and recover proportionately
 
-For delegated audits, use bounded slices, explicit resource ownership, isolated mutable state and a canonical registry of task IDs, source identities, attempts, output paths, coverage and acceptance. Choose concurrency and effort for the work; extra agents, maximum effort and persistent monitors are not defaults.
+For delegated audits, use bounded slices, explicit resource ownership, isolated mutable state and a canonical registry of task IDs, source identities, attempts, output paths, coverage and acceptance. Set concurrency to the independent work available; extra agents and persistent monitors are not defaults.
 
 When a worker appears stalled, inspect actual task state and recent artifacts before retrying. Confirm its current output location and whether the old writer has stopped. Preserve usable results, bound retries, and follow the runtime's authorized model-replacement policy. Rate limits are blockers to handle, not reasons for an unbounded restart loop.
 
