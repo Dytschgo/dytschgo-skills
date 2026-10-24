@@ -58,6 +58,17 @@ Use $dytschgo-retro to explain these changes and their evidence
 in a simple interactive HTML overview.
 ```
 
+For a broader product audit:
+
+```text
+Use $dytschgo-design to audit these screens and the full checkout flow.
+Track checked and blocked states, preserve the current visual style,
+and stop at findings. Use $dytschgo-retro to show the evidence,
+improvement options and decisions I need to make.
+```
+
+Design, Verify Setup and Coordinate include a shared audit guide for substantial reviews. It tracks coverage and challenges important findings. Retro includes a matching report template. These tools do not turn small edits into audits or start an agent team automatically.
+
 No application dependency or import is needed. Skills are instructions your agent loads when relevant. They use the tools and permissions your agent already has.
 
 ## How they connect

@@ -27,6 +27,8 @@ Workers do not merge their own PRs or push directly to protected/default branche
 
 ## Run the task
 
+For an authorized substantial UI/workflow audit, read the [audit guide](references/substantial-audit.md) for process mapping, coverage, finding challenges and recovery. It does not make routine engineering work an audit or authorize a team or monitor.
+
 Recover the intended outcome from the conversation and available artifacts. Resolve routine gaps from evidence; ask a focused question for a material decision that changes the result. If the user wants visual choices, use [Dytschgo Design](../dytschgo-design/SKILL.md) to explore them. Pull [Dytschgo Grill](../dytschgo-grill/SKILL.md) for a requested deeper interview or product decisions that need it, rather than making every short follow-up restart planning.
 
 When this thread should continue in a fresh agent, pull [Dytschgo Handoff](../dytschgo-handoff/SKILL.md). Point at specs, issues, and diffs. Do not copy them into the handoff.

@@ -33,6 +33,8 @@ Do not ask the user to supply facts discoverable in the repository. If the app d
 
 ## Create a project-local guide
 
+When creating or maintaining verification coverage for a requested substantial UI/workflow audit, read the [audit guide](references/substantial-audit.md). Use its process/check/evidence records for the requested features; creating a verification guide alone does not authorize a whole-product audit.
+
 Follow the repository's established agent-skill location and format. If none exists, use `.agents/skills/verify-<app>/` for a compatible skills layout and explain the choice. Avoid adding a large generic framework. Write instructions for an agent arriving cold, with commands and selectors grounded in this checkout.
 
 Include:
