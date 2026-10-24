@@ -48,6 +48,7 @@ Run the lightweight checks locally or in normal CI:
 
 ```sh
 node scripts/check-skills.mjs
+node scripts/build-audit-references.mjs --check
 node scripts/build-atlas.mjs --check
 node --test tests/*.test.mjs
 ```
@@ -57,6 +58,8 @@ Installer tests exercise PowerShell on Windows and skip on other platforms. This
 Structural and installer tests do not prove model behavior. Use the [behavior evaluation protocol](../evals/README.md), [routing cases](../evals/routing-cases.json), and [retained trial summary](../evals/results/20261024.md) for that separate evidence. Prepare metadata-only selection trials with `node scripts/prepare-routing-trial.mjs <case-id>`; keep evaluator expectations out of acting-agent payloads.
 
 ## Generated atlas
+
+The shared substantial-audit guide is maintained in `workflows/substantial-audit.md`. After editing it, run `node scripts/build-audit-references.mjs`, then rebuild the atlas. This packages identical local references in Design, Verify Setup and Coordinate so single-skill installations retain the guide. CI checks these copies for drift.
 
 ```sh
 node scripts/build-atlas.mjs

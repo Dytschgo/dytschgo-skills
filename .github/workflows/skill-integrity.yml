@@ -22,6 +22,8 @@ jobs:
           node --version
           node scripts/check-skills.mjs
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          node scripts/build-audit-references.mjs --check
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
           node scripts/build-atlas.mjs --check
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           node --test tests/*.test.mjs

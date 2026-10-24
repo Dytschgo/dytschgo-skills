@@ -17,6 +17,8 @@ For a requested code review that has not been performed, use [Dytschgo Review](.
 
 ## Build the overview
 
+For a substantial audit report, adapt the [decision-focused report template](assets/audit-report-template.md). It separates defects, improvement options, coverage limits and owner decisions, retaining finding IDs and challenge verdicts. Use supplied evidence; the template does not start another audit or authorize implementation.
+
 Read [presentation and delivery](references/presentation.md) for the renderer and checks. Adapt [the console shell](assets/console-shell.html) when useful; replace its demonstration data with supported content. Keep system fonts, inline CSS/JavaScript, and no required network dependencies.
 
 Use a restrained retro console: monospace labels, amber/cyan accents, clear panel hierarchy, and subtle static texture. Preserve readable body text. Choose controls that help inspect real information: project-start selectors, before/after details, filters, skill inspectors, or evidence disclosures. Keep the main takeaway visible without clicking. A simple explanation can stay short.

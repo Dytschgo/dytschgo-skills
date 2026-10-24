@@ -31,6 +31,7 @@ Read only the reference relevant to the next decision:
 | Marketing, portfolios, case studies, reading surfaces | [Websites and content](references/websites.md) |
 | Animation, scroll stories, cinematic or complex interactions | [Motion](references/motion.md) |
 | Critique, polish, responsive or performance work; final checks | [Review and verification](references/review.md) |
+| Requested multi-screen or end-to-end workflow audit | [Substantial audit guide](references/substantial-audit.md) |
 | A specific design or stack question needs catalog research | [Optional design lookup](references/design-lookup.md) |
 
 Do not load the full catalog for ordinary work or create a new design system for a narrow fix.

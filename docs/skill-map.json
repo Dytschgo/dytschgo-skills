@@ -1,5 +1,5 @@
 {
-  "sourceHash": "b99be899f6f41f9331b4507ab965ea64383529288b29b421b77697db453728b5",
+  "sourceHash": "f8925f1ab4cd429be11cd05e287ec4b55c9e8d1a2cfa4208f01331cb00a1b2d6",
   "nodes": [
     {
       "id": "triage",
@@ -183,7 +183,7 @@
       "kind": "load",
       "file": "skills/dytschgo-coordinate/SKILL.md",
       "targetFile": "skills/dytschgo-design/SKILL.md",
-      "line": 30,
+      "line": 32,
       "column": 223,
       "when": "Recover the intended outcome from the conversation and available artifacts. Resolve routine gaps from evidence; ask a focused question for a material decision that changes the result. If the user wants visual choices, use Dytschgo Design to explore them. Pull Dytschgo Grill for a requested deeper interview or product decisions that need it, rather than making every short follow-up restart planning."
     },
@@ -193,7 +193,7 @@
       "kind": "load",
       "file": "skills/dytschgo-coordinate/SKILL.md",
       "targetFile": "skills/dytschgo-grill/SKILL.md",
-      "line": 30,
+      "line": 32,
       "column": 292,
       "when": "Recover the intended outcome from the conversation and available artifacts. Resolve routine gaps from evidence; ask a focused question for a material decision that changes the result. If the user wants visual choices, use Dytschgo Design to explore them. Pull Dytschgo Grill for a requested deeper interview or product decisions that need it, rather than making every short follow-up restart planning."
     },
@@ -203,7 +203,7 @@
       "kind": "load",
       "file": "skills/dytschgo-coordinate/SKILL.md",
       "targetFile": "skills/dytschgo-handoff/SKILL.md",
-      "line": 32,
+      "line": 34,
       "column": 57,
       "when": "When this thread should continue in a fresh agent, pull Dytschgo Handoff. Point at specs, issues, and diffs. Do not copy them into the handoff."
     },
