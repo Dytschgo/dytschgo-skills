@@ -77,6 +77,12 @@ Passing the gate makes a PR ready. It does not grant merge. [Dytschgo Ship](../.
 
 Use one verdict. Ship and Babysit finish unmerged unless an existing explicit user instruction continues through [Merge when authorized](../../dytschgo-engineering/references/delivery-and-recovery.md#merge-when-authorized). Honor that instruction even when given in the original request.
 
+## Existing merge authority
+
+Honor the user's explicit merge instructions already given for this PR. A verified action by that requesting user to enable auto-merge on this PR also establishes merge authority, unless later instructions revoke it. An enabled flag alone, a bot action, or a repository default does not establish that grant. Keep verified user-authorized auto-merge intact.
+
+Without merge authority, disable existing auto-merge before repair pushes and report the change. If an unauthorized automatic merge cannot be prevented, report Blocked and do not push; use the ask gate to resolve the missing authority. Observation-only runs report this state without changing settings or pushing.
+
 ## Ask gate
 
 During an authorized run, ask the user only when:

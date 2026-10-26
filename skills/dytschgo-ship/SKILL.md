@@ -16,7 +16,7 @@ A ship request is standing permission, for this task only, to:
 - run the proof methods [Dytschgo Verify Setup](../dytschgo-verify-setup/SKILL.md) and [Dytschgo Impact](../dytschgo-impact/SKILL.md) need, including local app launch and browser checks within project constraints and existing authorization;
 - watch the PR with [Dytschgo Babysit](../dytschgo-babysit/SKILL.md), push in-scope fixes, and post factual replies in that task PR's review threads, using the [agent attribution](../dytschgo-coordinate/references/github-and-review.md#attribution-for-agent-comments).
 
-Ship alone grants no merge, auto-merge, merge queue, default-branch push, protection bypass, deploy, closure of other people's PRs, or communication outside the task PR. Preserve explicit task restrictions and project ask-first requirements unless existing user authorization covers the action. Without explicit merge authorization, turn off existing auto-merge and report it; if it cannot be stopped, report that before pushing.
+Ship alone grants no merge, auto-merge, merge queue, default-branch push, protection bypass, deploy, closure of other people's PRs, or communication outside the task PR. Preserve explicit task restrictions and project ask-first requirements unless existing user authorization covers the action. Apply the shared [existing merge authority](../dytschgo-coordinate/references/github-and-review.md#existing-merge-authority) rule before repair pushes.
 
 ## The run
 
@@ -25,7 +25,7 @@ Ship alone grants no merge, auto-merge, merge queue, default-branch push, protec
 3. **Review.** Run [Dytschgo Review](../dytschgo-review/SKILL.md) on the committed diff in loop mode. Fix blockers and should-fix items that are in scope. Pull [Dytschgo Council](../dytschgo-council/SKILL.md) only when the user asks for a council or the change is high risk and the providers exist.
 4. **File.** Push the branch and open the PR with [Dytschgo File PR](../dytschgo-file-pr/SKILL.md): problem first, before/after, door.
 5. **Watch.** Hand the PR to Babysit until the merge gate passes or something needs the user.
-6. **Stop.** Check the [merge gate](../dytschgo-coordinate/references/github-and-review.md#merge-gate) against the live PR head. Do not merge.
+6. **Delivery boundary.** Check the [merge gate](../dytschgo-coordinate/references/github-and-review.md#merge-gate) against the live PR head. Stop unmerged unless an existing explicit merge grant continues through the authorized merge procedure outside Ship.
 
 Proof and review must cover the final head. A conflict fix or behavior change after review reopens the affected proof.
 
@@ -35,6 +35,4 @@ Keep working without check-ins. Ask only when one of the [ask-gate](../dytschgo-
 
 ## Report
 
-At Ship's boundary, use the shared [PR verdicts](../dytschgo-coordinate/references/github-and-review.md#pr-verdicts). Include the PR link, head SHA, proof, review outcome, checks, door, remaining risk, and "Not merged."
-
-If an authorized merge follows, report its verified outcome after the merge procedure instead of ending the task at this intermediate verdict.
+When ending unmerged, use the shared [PR verdicts](../dytschgo-coordinate/references/github-and-review.md#pr-verdicts). Include the PR link, head SHA, proof, review outcome, checks, door, remaining risk, and "Not merged." If an authorized merge follows, report its verified outcome after the merge procedure instead of ending at this intermediate verdict.

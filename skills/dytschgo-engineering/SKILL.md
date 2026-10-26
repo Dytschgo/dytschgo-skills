@@ -1,6 +1,6 @@
 ---
 name: dytschgo-engineering
-description: "Carry substantial implementation, cleanup, performance, or stalled work to a verified result. Use when the user says 'build it', 'clean this up', 'make it faster', or 'take over this PR'; small edits stay direct."
+description: "Carry substantial implementation, cleanup, performance, agent setup, backlog audits, or stalled work to a verified result. Use for those engineering outcomes; small edits stay direct."
 ---
 
 # Dytschgo Engineering

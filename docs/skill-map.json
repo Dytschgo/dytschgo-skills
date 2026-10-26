@@ -1,5 +1,5 @@
 {
-  "sourceHash": "30e31b21fff2c3b8962a16db65b01a545f5ff6716d589600de74b9580fd5a875",
+  "sourceHash": "558c6decf349e1d52c2242e8530139dcd2ab034c66fe2e7e7fb018afae438b21",
   "nodes": [
     {
       "id": "triage",
@@ -71,7 +71,7 @@
       "cat": "BUILD",
       "output": "A bounded change with relevant evidence, or findings for a read-only request.",
       "stop": "Preserve accepted scope and delivery boundary. Ordinary small coding tasks need no heavyweight wrapper.",
-      "desc": "Carry substantial implementation, cleanup, performance, or stalled work to a verified result. Use when the user says 'build it', 'clean this up', 'make it faster', or 'take over this PR'; small edits stay direct."
+      "desc": "Carry substantial implementation, cleanup, performance, agent setup, backlog audits, or stalled work to a verified result. Use for those engineering outcomes; small edits stay direct."
     },
     {
       "id": "orchestrator",
@@ -199,7 +199,7 @@
       "kind": "reference",
       "file": "skills/dytschgo-babysit/SKILL.md",
       "targetFile": "skills/dytschgo-coordinate/references/runtime.md",
-      "line": 18,
+      "line": 20,
       "column": 249,
       "when": "Read the full current PR state before the first wait and after every resume, including after a question. Process existing findings first. Keep exactly one watcher per PR, owned by its coordinating thread; delegated children never watch. Follow the runtime watcher guidance and its limits. Finish each iteration with a shared verdict or a supported event wait."
     },
@@ -209,9 +209,19 @@
       "kind": "reference",
       "file": "skills/dytschgo-babysit/SKILL.md",
       "targetFile": "skills/dytschgo-coordinate/references/github-and-review.md",
-      "line": 26,
+      "line": 28,
       "column": 14,
       "when": "5. Apply the merge gate and PR verdicts. Stop at Ready or Blocked. For outstanding checks or reviews, report Waiting and use a supported watcher when available; otherwise report the coverage limit and return."
+    },
+    {
+      "from": "babysit",
+      "to": "orchestrator",
+      "kind": "reference",
+      "file": "skills/dytschgo-babysit/SKILL.md",
+      "targetFile": "skills/dytschgo-coordinate/references/github-and-review.md",
+      "line": 36,
+      "column": 81,
+      "when": "Babysitting alone grants no merge, auto-merge, or merge queue. Apply the shared existing merge authority rule before repair pushes. If already authorized, hand off to Merge when authorized outside Babysit; do not ask again. Three failed fixes on the same check means Blocked with evidence."
     },
     {
       "from": "babysit",
@@ -219,9 +229,9 @@
       "kind": "reference",
       "file": "skills/dytschgo-babysit/SKILL.md",
       "targetFile": "skills/dytschgo-engineering/references/delivery-and-recovery.md",
-      "line": 32,
-      "column": 99,
-      "when": "Babysitting alone grants no merge, auto-merge, or merge queue. If already authorized, hand off to Merge when authorized outside Babysit; do not ask again. Without merge authorization, stop existing auto-merge before repair pushes or report that it cannot be stopped. Three failed fixes on the same check means Blocked with evidence."
+      "line": 36,
+      "column": 251,
+      "when": "Babysitting alone grants no merge, auto-merge, or merge queue. Apply the shared existing merge authority rule before repair pushes. If already authorized, hand off to Merge when authorized outside Babysit; do not ask again. Three failed fixes on the same check means Blocked with evidence."
     },
     {
       "from": "plana",
@@ -289,7 +299,7 @@
       "kind": "load",
       "file": "skills/dytschgo-coordinate/references/github-and-review.md",
       "targetFile": "skills/dytschgo-review/SKILL.md",
-      "line": 98,
+      "line": 104,
       "column": 6,
       "when": "Pull Dytschgo Review before merge and follow its requested-target procedure. Pass the captured patch/file evidence and actual source identity for the committed, PR, or requested WIP scopes. Keep standards and spec separate; use independent reviewers according to the risk requirements below. Before a merge, ensure qualifying review covers the integrated committed revision. That review does not replace the before, the after, or the door required above."
     },
@@ -635,6 +645,16 @@
     },
     {
       "from": "ship",
+      "to": "orchestrator",
+      "kind": "reference",
+      "file": "skills/dytschgo-ship/SKILL.md",
+      "targetFile": "skills/dytschgo-coordinate/references/github-and-review.md",
+      "line": 19,
+      "column": 313,
+      "when": "Ship alone grants no merge, auto-merge, merge queue, default-branch push, protection bypass, deploy, closure of other people's PRs, or communication outside the task PR. Preserve explicit task restrictions and project ask-first requirements unless existing user authorization covers the action. Apply the shared existing merge authority rule before repair pushes."
+    },
+    {
+      "from": "ship",
       "to": "engineering",
       "kind": "load",
       "file": "skills/dytschgo-ship/SKILL.md",
@@ -690,8 +710,8 @@
       "file": "skills/dytschgo-ship/SKILL.md",
       "targetFile": "skills/dytschgo-coordinate/references/github-and-review.md",
       "line": 28,
-      "column": 24,
-      "when": "6. Stop. Check the merge gate against the live PR head. Do not merge."
+      "column": 37,
+      "when": "6. Delivery boundary. Check the merge gate against the live PR head. Stop unmerged unless an existing explicit merge grant continues through the authorized merge procedure outside Ship."
     },
     {
       "from": "ship",
@@ -710,8 +730,8 @@
       "file": "skills/dytschgo-ship/SKILL.md",
       "targetFile": "skills/dytschgo-coordinate/references/github-and-review.md",
       "line": 38,
-      "column": 36,
-      "when": "At Ship's boundary, use the shared PR verdicts. Include the PR link, head SHA, proof, review outcome, checks, door, remaining risk, and \"Not merged.\""
+      "column": 38,
+      "when": "When ending unmerged, use the shared PR verdicts. Include the PR link, head SHA, proof, review outcome, checks, door, remaining risk, and \"Not merged.\" If an authorized merge follows, report its verified outcome after the merge procedure instead of ending at this intermediate verdict."
     },
     {
       "from": "spec",

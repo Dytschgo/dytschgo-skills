@@ -88,3 +88,21 @@ test('malformed eval cases produce validation errors', t => {
     assert.ok(validateRepo(root).some(e => e.includes('invalid eval cases')));
   }
 });
+
+test('eval case IDs are unique within each dataset and routing requires both lists', t => {
+  const { root, write } = fixture(t);
+  const behavior = { id: 'same', skill: 'example' };
+  const routing = { id: 'same', expected: { include: ['example'], exclude: [] } };
+  write('evals/behavior-cases.json', JSON.stringify({ cases: [behavior] }));
+  write('evals/routing-cases.json', JSON.stringify({ cases: [routing] }));
+  assert.deepEqual(validateRepo(root), []);
+  for (const [kind, item] of [['behavior', behavior], ['routing', routing]]) {
+    write(`evals/${kind}-cases.json`, JSON.stringify({ cases: [item, item] }));
+    assert.ok(validateRepo(root).some(e => e.includes('duplicate case id same')));
+    write(`evals/${kind}-cases.json`, JSON.stringify({ cases: [item] }));
+  }
+  for (const item of [{ id: 'no-expected' }, { id: 'no-exclude', expected: { include: [] } }, { expected: { include: [], exclude: [] } }]) {
+    write('evals/routing-cases.json', JSON.stringify({ cases: [item] }));
+    assert.ok(validateRepo(root).some(e => e.includes('invalid eval cases')));
+  }
+});

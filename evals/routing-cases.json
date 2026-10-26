@@ -316,6 +316,34 @@
         ],
         "boundary": "Acknowledge the boundary; no shipping workflow or external actions."
       }
+    },
+    {
+      "id": "engineering-backlog-audit",
+      "context": "The user requests a read-only audit of open PRs and issues in the known repository, with recommendations and no tracker mutations.",
+      "request": "Audit our open PR backlog and tell me what needs action.",
+      "expected": {
+        "include": [
+          "dytschgo-engineering"
+        ],
+        "exclude": [
+          "dytschgo-ship"
+        ],
+        "boundary": "Evidence-based audit and recommendations only; no fixes, closure, or merge."
+      }
+    },
+    {
+      "id": "engineering-agent-setup",
+      "context": "The repository needs substantial agent setup and verification beyond editing a single instruction file. Local work is authorized.",
+      "request": "Set up our repository agent workflow and verify it works.",
+      "expected": {
+        "include": [
+          "dytschgo-engineering"
+        ],
+        "exclude": [
+          "dytschgo-ship"
+        ],
+        "boundary": "Complete the local setup and relevant verification; no automatic publishing or merge."
+      }
     }
   ]
 }
