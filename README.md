@@ -1,6 +1,6 @@
 # Dytschgo Skills
 
-16 reusable workflows for coding agents: plan a feature, build an interface, fix a bug, review a change, or explain the result.
+20 reusable workflows for coding agents: plan a feature, build an interface, fix a bug, review a change, or explain the result.
 
 Install the whole collection or choose the skills you need. They work with agents that support [Agent Skills](https://agentskills.io), including Codex, Claude Code, Cursor, and Gemini CLI.
 
@@ -8,7 +8,7 @@ Install the whole collection or choose the skills you need. They work with agent
 
 You need [Node.js 22.20+](https://nodejs.org/) and a compatible coding agent. Run these commands in your terminal.
 
-**Install all 16 skills:**
+**Install all 20 skills:**
 
 ```sh
 npx skills add Dytschgo/dytschgo-skills --skill '*' -g
@@ -80,6 +80,8 @@ These are example routes, not mandatory pipelines:
 - **An open idea:** Grill settles decisions. Spec records them. Tickets splits larger work. Engineering or Coordinate builds when requested.
 - **A website or interface:** Design can explore options or implement the selected direction. You can start here directly.
 - **A hard or unclear bug:** Engineering brings in Debug to reproduce and fix it. Review checks the resulting diff before a merge.
+- **Ship a change:** say "ship it". Ship builds, proves, runs a Review loop, opens a problem-first PR with File PR, and watches it with Babysit. It stops at the merge gate; you merge.
+- **A second, third, and fourth opinion:** say "council". Council runs three read-only reviewers from three providers and records their scores.
 - **An HTML explanation:** Retro presents the supplied work and evidence. A technical assessment is only added when the request needs one.
 
 Each stage stops at your requested outcome. Installing one skill does not automatically install every skill it refers to; add a helper if your workflow needs it, or install the full collection.
@@ -90,24 +92,28 @@ For every skill and conditional connection, download [the interactive route atla
 
 All names start with `dytschgo-`.
 
-| Skill | Use it for |
-| --- | --- |
-| [design](skills/dytschgo-design/SKILL.md) | UI options, websites, implementation, and visual refinement. |
-| [engineering](skills/dytschgo-engineering/SKILL.md) | Substantial cleanup, performance, implementation, and stalled work. |
-| [debug](skills/dytschgo-debug/SKILL.md) | Reproducing a hard bug and proving the fix. |
-| [review](skills/dytschgo-review/SKILL.md) | Checking a branch, PR, or uncommitted work against standards and the requested behavior. |
-| [retro](skills/dytschgo-retro/SKILL.md) | Interactive retro HTML explanations, reviews, and maps. |
-| [brief](skills/dytschgo-brief/SKILL.md) | A copyable implementation prompt from a feature idea. |
-| [grill](skills/dytschgo-grill/SKILL.md) | Stress-testing an idea and settling open decisions. |
-| [spec](skills/dytschgo-spec/SKILL.md) | Writing an already-settled spec as a draft or authorized tracker item. |
-| [tickets](skills/dytschgo-tickets/SKILL.md) | Splitting work into ordered, verifiable slices. |
-| [coordinate](skills/dytschgo-coordinate/SKILL.md) | Useful agent delegation, integration, and final acceptance. |
-| [triage](skills/dytschgo-triage/SKILL.md) | Qualifying incoming issues and external PRs. |
-| [impact](skills/dytschgo-impact/SKILL.md) | Checking what a change could break beyond its diff. |
-| [verify-setup](skills/dytschgo-verify-setup/SKILL.md) | Creating or repairing a project's verification guide. |
-| [wayfinder](skills/dytschgo-wayfinder/SKILL.md) | Mapping decisions across a large, multi-session effort. |
-| [handoff](skills/dytschgo-handoff/SKILL.md) | Moving work to a fresh agent without losing decisions. |
-| [agent-docs](skills/dytschgo-agent-docs/SKILL.md) | Writing skills, AGENTS.md, and other agent instructions. |
+| Skill | Say | Use it for |
+| --- | --- | --- |
+| [design](skills/dytschgo-design/SKILL.md) | show me options · mock this up · redesign | UI options, websites, implementation, and visual refinement. |
+| [engineering](skills/dytschgo-engineering/SKILL.md) | build it · clean this up · make it faster | Substantial cleanup, performance, implementation, and stalled work. |
+| [ship](skills/dytschgo-ship/SKILL.md) | ship it · full stop · take this to a PR | A reviewed, green PR, stopped before merge. |
+| [babysit](skills/dytschgo-babysit/SKILL.md) | babysit this PR · keep it green | Watching one PR through CI and review. |
+| [file-pr](skills/dytschgo-file-pr/SKILL.md) | open a PR · write the PR description | Problem-first PR bodies with before/after and the door. |
+| [debug](skills/dytschgo-debug/SKILL.md) | debug this · why is this flaky | Reproducing a hard bug and proving the fix. |
+| [review](skills/dytschgo-review/SKILL.md) | review this · review loop | Checking a branch, PR, or WIP against standards and the requested behavior. |
+| [council](skills/dytschgo-council/SKILL.md) | council | Three-provider review with scored rounds. |
+| [retro](skills/dytschgo-retro/SKILL.md) | make a retro · explain this in HTML | Interactive retro HTML explanations, reviews, and maps. |
+| [brief](skills/dytschgo-brief/SKILL.md) | write me a prompt · which model | A copyable implementation prompt from a feature idea. |
+| [grill](skills/dytschgo-grill/SKILL.md) | grill me · poke holes in this | Stress-testing an idea and settling open decisions. |
+| [spec](skills/dytschgo-spec/SKILL.md) | write the spec | Writing an already-settled spec as a draft or authorized tracker item. |
+| [tickets](skills/dytschgo-tickets/SKILL.md) | break this into tickets | Splitting work into ordered, verifiable slices. |
+| [coordinate](skills/dytschgo-coordinate/SKILL.md) | coordinate this · use agents | Useful agent delegation, integration, and final acceptance. |
+| [triage](skills/dytschgo-triage/SKILL.md) | triage this · is this a real bug | Qualifying incoming issues and external PRs. |
+| [impact](skills/dytschgo-impact/SKILL.md) | blast radius · what could this break | Checking what a change could break beyond its diff. |
+| [verify-setup](skills/dytschgo-verify-setup/SKILL.md) | set up verification | Creating or repairing a project's verification guide. |
+| [wayfinder](skills/dytschgo-wayfinder/SKILL.md) | map this out | Mapping decisions across a large, multi-session effort. |
+| [handoff](skills/dytschgo-handoff/SKILL.md) | hand this off · new thread | Moving work to a fresh agent without losing decisions. |
+| [agent-docs](skills/dytschgo-agent-docs/SKILL.md) | write a skill · fix our AGENTS.md | Writing skills, AGENTS.md, and other agent instructions. |
 
 A small, clear edit can stay direct. You do not need a planning session or an agent team for every task.
 

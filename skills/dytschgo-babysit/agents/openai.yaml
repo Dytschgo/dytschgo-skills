@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dytschgo Babysit"
+  short_description: "Watch a PR through CI and review without merging"
+  default_prompt: "Use $dytschgo-babysit on this PR: watch CI and review, fix verified findings, and stop at Ready, Waiting, or Blocked without merging."

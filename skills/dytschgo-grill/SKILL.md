@@ -1,6 +1,6 @@
 ---
 name: dytschgo-grill
-description: "Stress-test a plan or settle material product decisions through a deeper interview. Use when the user asks to grill or unresolved product choices need that depth; routine implementation choices and requests for visual options stay with their current task."
+description: "Stress-test a plan or settle open product decisions with a deeper interview. Use when the user says 'grill me', 'poke holes in this', or material product choices are unresolved."
 ---
 
 # Dytschgo Grill

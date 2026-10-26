@@ -1,6 +1,6 @@
 ---
 name: dytschgo-impact
-description: "Trace what a code change could break beyond its direct diff and test the key assumption that makes it safe. Use for risky changes, small diffs with uncertain side effects, or explicit blast-radius reviews."
+description: "Trace what a change could break beyond its diff and test the assumption that makes it safe. Use when the user says 'blast radius', 'what could this break', or a small diff has uncertain side effects."
 ---
 
 # Dytschgo Impact

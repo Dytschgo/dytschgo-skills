@@ -1,20 +1,21 @@
 ---
 name: dytschgo-engineering
-description: "Complete substantial implementation, cleanup, performance, agent setup, backlog audits, or stalled work, including authorized planning handoffs. Use for a settled build or engineering investigation; small routine edits stay direct and incoming reports use Triage."
+description: "Carry substantial implementation, cleanup, performance, or stalled work to a verified result. Use when the user says 'build it', 'clean this up', 'make it faster', or 'take over this PR'; small edits stay direct."
 ---
 
 # Dytschgo Engineering
 
 If `references/active-profile.md` exists, read it as this installation's selected working profile. Apply relevant defaults under the current task instructions.
 
-Carry difficult engineering work to a verifiable result. Infer scope and acceptance criteria from the request and repository. An audit or review produces findings; a cleanup, fix, optimization, or takeover includes implementation and verification unless the user limits it to read-only work. Ask only when missing information materially affects correctness, scope, access, or an irreversible action.
+Carry difficult engineering work to a verifiable result. Infer scope and acceptance criteria from the request and repository. An audit or review produces findings; a cleanup, fix, optimization, or takeover includes implementation and verification unless the user limits it to read-only work. Ask only when a gap changes correctness, scope, access, or an irreversible action.
 
 Recover a bounded outcome, accepted changes, delivery boundary, and observable completion criteria from the conversation and repository. Short follow-ups retain that context; optional suggestions stay separate. Resolve routine gaps directly and ask a focused question when a material product decision remains. Use [Dytschgo Grill](../dytschgo-grill/SKILL.md) when a deeper interview is requested or needed to settle that decision.
 
 ## Choose the relevant workflow
 
 - For cleanup, slop audits, measured performance, or agent setup and verification, read [code improvement](references/code-improvement.md).
-- For an authorized backlog audit, merges, or stalled work, read [delivery and recovery](references/delivery-and-recovery.md). For qualifying an incoming issue or external PR, use [Dytschgo Triage](../dytschgo-triage/SKILL.md).
+- For an authorized backlog audit, merges, old-PR disposition, or stalled work, read [delivery and recovery](references/delivery-and-recovery.md).
+- When the user wants the change taken to a PR, use [Dytschgo Ship](../dytschgo-ship/SKILL.md). For qualifying an incoming issue or external PR, use [Dytschgo Triage](../dytschgo-triage/SKILL.md).
 
 Combine workflows only when they help the requested outcome. Read applicable repository instructions and inspect relevant implementation, callers, history, and existing changes. Prioritize by impact and evidence; find why an abstraction or workaround exists before removing it. Prefer the simplest coherent change that preserves real requirements.
 

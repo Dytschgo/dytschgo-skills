@@ -22,3 +22,7 @@ Record the chosen effort with each assignment. Raise it after a failed attempt r
 Read the live catalog before delegation. Pass the actual provider instance, model ID, and supported options in tool arguments; a role name or prompt sentence does not select them. Record the returned selection. Honor inherited options according to the runtime; do not silently map unsupported effort or service settings to different values.
 
 If a requested/default model is unavailable, continue useful independent work and disclose the limitation. Use a replacement only within explicit session authorization; ask when a necessary assignment has no authorized replacement. Do not silently use an older-generation fallback. A bounded support worker does not replace consequential technical review. Never claim independent review when no independent reviewer ran.
+
+## Council seats
+
+[Dytschgo Council](../../dytschgo-council/SKILL.md) needs three providers. Use the Sol ID above for the OpenAI seat, and the latest flagship from Anthropic (Claude Opus) and Google (Gemini Pro) from the live catalog. Unavailable seats are reported, never substituted.

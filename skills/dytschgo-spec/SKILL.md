@@ -1,6 +1,6 @@
 ---
 name: dytschgo-spec
-description: "Write a settled conversation as a spec, locally for a draft or to an authorized tracker. Use when decisions are settled and a spec is requested; not interviewing, splitting tickets, or implementation."
+description: "Write settled decisions as a spec, locally or to an authorized tracker. Use when the user says 'write the spec' or 'turn this into a spec'; not for interviewing, ticket splitting, or building."
 ---
 
 # Dytschgo Spec

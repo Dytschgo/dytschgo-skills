@@ -1,6 +1,6 @@
 ---
 name: dytschgo-verify-setup
-description: "Create or maintain a repository-specific way to launch an app, exercise its real user paths, and preserve evidence. Use when a project lacks reliable behavior verification or its local verification guide may have drifted."
+description: "Create or repair a repo's guide for launching the app and proving real user paths. Use when the user says 'set up verification', 'how do we test this for real', or the guide has drifted."
 ---
 
 # Dytschgo Verify Setup

@@ -7,7 +7,7 @@ import { prepareRoutingTrial } from '../scripts/prepare-routing-trial.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 test('selection trial exposes metadata and raw request without preloading bodies or evaluator expectations', () => {
   const trial = prepareRoutingTrial(root, 'retro-explanation');
-  assert.equal(trial.catalog.length, 16);
+  assert.equal(trial.catalog.length, 20);
   assert.ok(trial.catalog.every(s => s.name && s.description && s.path.endsWith('SKILL.md')));
   assert.equal(trial.expected, undefined);
   assert.equal(trial.catalog[0].body, undefined);

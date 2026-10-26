@@ -1,6 +1,6 @@
 ---
 name: dytschgo-wayfinder
-description: "Chart an effort too big for one grilling pass as a map of decision tickets, then resolve one ticket per session until the route is clear. Use when the frontier will not close in this session. Do not build the destination here."
+description: "Chart an effort too big for one session as a map of decision tickets, then resolve one per session. Use when the user says 'map this out' or 'where do we even start'. Does not build."
 ---
 
 # Dytschgo Wayfinder

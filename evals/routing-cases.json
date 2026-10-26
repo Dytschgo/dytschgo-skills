@@ -247,6 +247,49 @@
         ],
         "boundary": "A representative symptom-specific measurement loop before performance hypotheses; no speculative speedup claim."
       }
+    },
+    {
+      "id": "ship-it",
+      "context": "An agreed fix is implemented locally and tests pass.",
+      "request": "Ship it.",
+      "expected": {
+        "include": [
+          "dytschgo-ship"
+        ],
+        "exclude": [
+          "dytschgo-grill",
+          "dytschgo-wayfinder"
+        ],
+        "boundary": "Open, reviewed PR; no merge."
+      }
+    },
+    {
+      "id": "council",
+      "context": "An open PR changes session handling.",
+      "request": "Council this PR.",
+      "expected": {
+        "include": [
+          "dytschgo-council"
+        ],
+        "exclude": [
+          "dytschgo-ship"
+        ],
+        "boundary": "Read-only reviews and a score table; no merge."
+      }
+    },
+    {
+      "id": "babysit",
+      "context": "A PR is open with one failing check and two bot comments.",
+      "request": "Babysit this PR until it's green.",
+      "expected": {
+        "include": [
+          "dytschgo-babysit"
+        ],
+        "exclude": [
+          "dytschgo-grill"
+        ],
+        "boundary": "Ready, Waiting, or Blocked; no merge."
+      }
     }
   ]
 }

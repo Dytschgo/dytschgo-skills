@@ -20,7 +20,7 @@ Workers must not merge any PR, push directly to default/protected branches, alte
 
 ## PR content and handover
 
-Lead with the concrete problem and resulting behavior. Keep simple PRs short; scale detail to actual risk and repository templates. Include applicable information from this list, without boilerplate sections for empty items. The before/after evidence pair and the door are required on every PR; do not omit them when they would otherwise be empty:
+Lead with the concrete problem and resulting behavior; [Dytschgo File PR](../../dytschgo-file-pr/SKILL.md) has the short form with a bad/good example. Keep simple PRs short; scale detail to actual risk and repository templates. Include applicable information from this list, without boilerplate sections for empty items. The before/after evidence pair and the door are required on every PR; do not omit them when they would otherwise be empty:
 
 - Specific title; task ID where one exists; what changed and why.
 - Implementation approach and affected components/files.
@@ -51,6 +51,35 @@ Recommended review focus:
 ```
 
 Explicitly say the PR is ready for coordinator review. CI pending is not passing; record required, optional, skipped, and failed checks distinctly. A PR being open is not proof it is mergeable or approved.
+
+## Merge gate
+
+A PR is ready for the user to merge only when every line holds on the current head SHA:
+
+- [ ] Proof covers every behavior change in the final diff, with a before and an after.
+- [ ] Required checks are green on this head. Pending is not green.
+- [ ] Every bot finding is fixed, or dismissed in-thread with a reason.
+- [ ] No open human change requests.
+- [ ] The branch is up to date with its base, or the repository does not require it.
+- [ ] The PR body has the before/after pair and the door.
+
+Passing the gate makes a PR ready. It does not grant merge. [Dytschgo Ship](../../dytschgo-ship/SKILL.md) and [Dytschgo Babysit](../../dytschgo-babysit/SKILL.md) stop here.
+
+## Ask gate
+
+During an authorized run, ask the user only when:
+
+- the next step is a one-way door or outside the granted actions (merge, deploy, delete, message people, change permissions);
+- a material product decision is open and the evidence does not settle it;
+- a reviewer, bot, or human disputes the approach and the dispute survives one round;
+- required access, credentials, or a provider is missing;
+- the same failure survived three fix attempts.
+
+Everything else is a decision you make and report. Finish reversible work before asking.
+
+## Attribution for agent comments
+
+When an agent posts or replies on a PR or issue under the user's account, end the comment with one line naming the agent and model, for example `— posted by an agent (Codex, model id) for @user`. Keep the comment short and factual. Only post where the run grants commenting.
 
 ## Before merge
 

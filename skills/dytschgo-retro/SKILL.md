@@ -1,6 +1,6 @@
 ---
 name: dytschgo-retro
-description: "Create interactive retro HTML reviews, workflow maps, change explanations, and comparisons when a visual overview helps. Use for a requested HTML report or retro console overview; not ordinary short answers or product UI implementation."
+description: "Build an interactive HTML retro, workflow map, change explanation, or comparison. Use when the user says 'make a retro', 'explain this in HTML', or wants a visual overview; not short answers."
 ---
 
 # Dytschgo Retro

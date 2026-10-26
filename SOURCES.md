@@ -10,6 +10,10 @@ This skill was written for Dytschgo Skills using ideas from Cursor's P stack [bl
 
 P stack is distributed under the MIT License. Its copyright and license notice is retained in [UPSTREAM-LICENSE-PSTACK.txt](UPSTREAM-LICENSE-PSTACK.txt).
 
+## tstack (t3dotgg)
+
+Dytschgo Ship, Babysit, File PR, and Council, plus the merge gate, ask gate, review-loop budget, old-PR disposition, and comment attribution, adapt ideas from [t3dotgg/tstack](https://github.com/t3dotgg/tstack) (MIT, Copyright (c) 2026 Theo Browne): the autonomy ladder that stops at a PR, a single PR watcher, problem-first PR bodies, the multi-provider council with per-round scores, and keeping credit on takeovers. The instructions were rewritten in this collection's voice and names. Nothing was copied verbatim.
+
 ## Matt Pocock skills, tag v1.3.1
 
 These skills adapt behavior from [mattpocock/skills](https://github.com/mattpocock/skills/tree/v1.3.1) (MIT). The instructions were rewritten for this collection. Each skill's source file is named in its `SKILL.md`. Nothing was copied verbatim.

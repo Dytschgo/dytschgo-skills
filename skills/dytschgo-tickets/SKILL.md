@@ -1,6 +1,6 @@
 ---
 name: dytschgo-tickets
-description: "Split a spec, plan, or settled conversation into vertical tracer-bullet tickets with blocking edges. Use when the work is specified and needs a build order; not for interviewing the design or implementing the tickets."
+description: "Split a spec or plan into vertical tracer-bullet tickets with blocking edges. Use when the user says 'break this into tickets' or 'give me a build order'; not for design interviews or implementation."
 ---
 
 # Dytschgo Tickets

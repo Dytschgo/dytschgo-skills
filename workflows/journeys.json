@@ -53,7 +53,7 @@
       "name": "Design",
       "slug": "dytschgo-design",
       "cat": "BUILD",
-      "output": "Comparable options, a working interface, or review findings\u2014depending on the request.",
+      "output": "Comparable options, a working interface, or review findings—depending on the request.",
       "stop": "Mockups stop at exploration. Build the exact chosen direction only within the authorized phase."
     },
     {
@@ -127,6 +127,38 @@
       "cat": "SUPPORT",
       "output": "A self-contained checked HTML report, map, or comparison.",
       "stop": "Present evidence honestly; no product edits or automatic publication."
+    },
+    {
+      "id": "ship",
+      "name": "Ship",
+      "slug": "dytschgo-ship",
+      "cat": "SHIP",
+      "output": "An open, reviewed PR with proof and green checks, reported as Ready, Waiting, or Blocked.",
+      "stop": "Grants branch, commit, push, PR, proof methods, and watching. Never merges without a separate merge request."
+    },
+    {
+      "id": "babysit",
+      "name": "Babysit",
+      "slug": "dytschgo-babysit",
+      "cat": "SHIP",
+      "output": "A PR kept current with CI and review until the merge gate passes or the user is needed.",
+      "stop": "One watcher per PR. Acts only on events newer than the latest push. Never merges."
+    },
+    {
+      "id": "filepr",
+      "name": "File PR",
+      "slug": "dytschgo-file-pr",
+      "cat": "SHIP",
+      "output": "A PR whose body leads with the problem, then before/after proof and the door.",
+      "stop": "Opening a PR grants no merge."
+    },
+    {
+      "id": "council",
+      "name": "Council",
+      "slug": "dytschgo-council",
+      "cat": "PROVE",
+      "output": "Three read-only provider reviews, reconciled, with a score table per round.",
+      "stop": "No substitute models; unavailable seats are reported. Guards scope; grants no merge."
     }
   ],
   "routes": [
@@ -289,7 +321,7 @@
         [
           "spec",
           "IF THE DESTINATION",
-          "Publish the settled result as a spec if that is the map\u2019s destination."
+          "Publish the settled result as a spec if that is the map’s destination."
         ],
         [
           "tickets",
@@ -374,6 +406,45 @@
       "extras": [
         "design",
         "When the request is to implement product UI rather than present an explanation."
+      ]
+    },
+    {
+      "id": "ship",
+      "name": "Ship a change to a PR",
+      "short": "Build, prove, review, file, watch, stop.",
+      "prompt": "Use $dytschgo-ship to take the agreed change to a PR. Prove it with a before and after, run a review loop, open a problem-first PR, watch CI and review, and stop at the merge gate. Do not merge.",
+      "steps": [
+        [
+          "engineering",
+          "START",
+          "Build the agreed change on a task branch."
+        ],
+        [
+          "review",
+          "BEFORE FILING",
+          "Run review-loop mode on the committed diff."
+        ],
+        [
+          "council",
+          "IF REQUESTED",
+          "Seat three providers for a scored review."
+        ],
+        [
+          "filepr",
+          "FILE",
+          "Open the PR with problem, before/after, and door."
+        ],
+        [
+          "babysit",
+          "WATCH",
+          "Keep CI and review moving until Ready, Waiting, or Blocked."
+        ]
+      ],
+      "stop": "Stop at the merge gate. The user merges.",
+      "note": "Saying 'ship it' grants branch, commit, push, PR, proof methods, and watching. Merge needs a separate request.",
+      "extras": [
+        "blast",
+        "When the diff can break things it does not touch."
       ]
     }
   ]

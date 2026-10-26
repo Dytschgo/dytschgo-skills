@@ -1,6 +1,6 @@
 ---
 name: dytschgo-review
-description: "Review a branch, PR, or uncommitted work on separate repository-standards and originating-spec axes. Use for code/change review or before merge; pin the actual requested target and respect read-only scope."
+description: "Review a branch, PR, or uncommitted work on separate standards and spec axes. Use when the user says 'review this', 'check my PR', 'review loop', or before merge. Read-only unless fixes are requested."
 ---
 
 # Dytschgo Review
@@ -14,7 +14,7 @@ Review the requested branch, PR, or uncommitted work on two axes that stay separ
 
 Keep the axes separate and report them side by side. A bounded low-risk read-only check can inspect both axes directly; label it as a single-agent review. Use independent reviewers for consequential work, when repository policy requires them, and always for high-risk changes. When independent review is needed, run the axes in parallel when tools permit. Never claim independence for self-review. Behavior follows Matt Pocock's code-review skill (MIT): https://github.com/mattpocock/skills/blob/v1.3.1/skills/engineering/code-review/SKILL.md
 
-Before a merge, the PR needs before/after evidence and a reversibility assessment: a two-way door can be undone; a one-way door is destructive or hard to undo. This review does not replace that PR context or grant merge permission. The [GitHub ownership and review reference](../dytschgo-coordinate/references/github-and-review.md) provides optional detail when installed; the requirements above remain usable with Review alone.
+Before a merge, the PR needs before/after evidence and a reversibility assessment: a two-way door can be undone; a one-way door is destructive or hard to undo. This review does not replace that PR context or grant merge permission. The [merge gate](../dytschgo-coordinate/references/github-and-review.md#merge-gate) lists the full readiness check when installed; the requirements above remain usable with Review alone.
 
 ## Process
 
@@ -80,6 +80,19 @@ Present the two reports under `## Standards` and `## Spec`. You may clean wordin
 Close with one line: how many findings each axis has, and the worst issue inside each axis, if any. Do not pick a winner across axes.
 
 For a requested HTML overview of the completed assessment, use [Dytschgo Retro](../dytschgo-retro/SKILL.md) to present the findings and evidence. This is a presentation step, not a new review round.
+
+## Review-loop mode
+
+Use when the user says "review loop", or when [Dytschgo Ship](../dytschgo-ship/SKILL.md) asks for review before filing. The author fixes, the reviewer re-reviews, until done.
+
+- **Budget:** 3 rounds. 5 when the change touches security, auth, secrets, or stored data.
+- **Ledger:** keep one table of findings across rounds: id, axis, severity (blocker, should, nit), status (open, fixed, disputed, dismissed with reason).
+- **Each round** reviews the new head only and updates the ledger. Do not reopen fixed items without new evidence.
+- **Stop** when only nits remain, or the budget runs out. Report open items honestly.
+- **Disputes** that survive one round go to the user with both positions. Do not settle them by repetition.
+- For three independent providers, use [Dytschgo Council](../dytschgo-council/SKILL.md).
+
+Fixing is part of the loop only when the user or Ship authorized edits.
 
 ## Why the axes stay separate
 

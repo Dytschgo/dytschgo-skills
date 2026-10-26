@@ -1,6 +1,6 @@
 ---
 name: dytschgo-brief
-description: "Turn a product or software feature idea into a detailed, ready-to-paste implementation prompt and recommend a suitable current model from xAI, OpenAI, or Anthropic. Use when the requested output is a copyable build prompt or a model recommendation, rather than a general planning interview."
+description: "Turn a feature idea into a ready-to-paste build prompt with a model recommendation. Use when the user says 'write me a prompt', 'brief this for an agent', or asks which model to use; not a planning interview."
 ---
 
 # Dytschgo Brief

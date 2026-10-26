@@ -34,6 +34,16 @@ If authorization already covers the prepared action, execute it without requesti
 
 If a merge call has an uncertain result, read the current state before retrying. Pause that mutation when the target, authorization, required checks, or release boundary cannot be established, and complete independent preparation.
 
+## Old PR disposition
+
+For an aging or stalled PR, pick one and state why:
+
+- **Modernize** — the idea and most of the code still fit. Rebase onto the current base, update to current APIs and conventions, keep the original commits where practical.
+- **Rework** — the goal is right but the approach is not. Start a fresh branch from the current base and reimplement; reuse tests and good pieces.
+- **Close** — superseded, already fixed, or no longer wanted. Link the evidence (fixing commit, duplicate, decision). Closing needs authorization.
+
+Keep the original author's credit on any takeover: preserve their commits, or add `Co-authored-by:` trailers for their work, and link the original PR in the new body. Do not close the original before the replacement is open and linked.
+
 ## Take over stalled work
 
 Recover the intended user outcome from the original request, acceptance criteria, discussion, and previous failure evidence. Separate real requirements from assumptions and added scope that accumulated during earlier attempts.

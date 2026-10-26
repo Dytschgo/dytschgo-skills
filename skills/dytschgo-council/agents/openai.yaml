@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dytschgo Council"
+  short_description: "Three-provider review with scored rounds"
+  default_prompt: "Use $dytschgo-council to review this change with three read-only delegates from three providers, score each round out of 10, and reconcile their findings."
