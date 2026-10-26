@@ -20,7 +20,7 @@ Workers must not merge any PR, push directly to default/protected branches, alte
 
 ## PR content and handover
 
-Lead with the concrete problem and resulting behavior. Keep simple PRs short; scale detail to actual risk and repository templates. Include applicable information from this list, without boilerplate sections for empty items. The before/after evidence pair and the door are required on every PR; do not omit them when they would otherwise be empty:
+Lead with the concrete problem and resulting behavior; [Dytschgo File PR](../../dytschgo-file-pr/SKILL.md) has the short form with a bad/good example. Keep simple PRs short; scale detail to actual risk and repository templates. Include applicable information from this list, without boilerplate sections for empty items. The before/after evidence pair and the door are required on every PR; do not omit them when they would otherwise be empty:
 
 - Specific title; task ID where one exists; what changed and why.
 - Implementation approach and affected components/files.
@@ -51,6 +51,53 @@ Recommended review focus:
 ```
 
 Explicitly say the PR is ready for coordinator review. CI pending is not passing; record required, optional, skipped, and failed checks distinctly. A PR being open is not proof it is mergeable or approved.
+
+## Merge gate
+
+A PR is ready to merge only when every line holds on the current head SHA:
+
+- [ ] Proof covers every behavior change in the final diff, with a before and an after.
+- [ ] Required checks are green on this head. Pending is not green.
+- [ ] Qualifying review covers the final integrated diff; no blocker or should-fix finding remains open or disputed. A spent review budget is not approval.
+- [ ] Required approvals are present and valid under the repository's rules for this head.
+- [ ] Every bot finding is fixed, or dismissed in-thread with a reason.
+- [ ] No open human change requests.
+- [ ] The branch is up to date with its base, or the repository does not require it.
+- [ ] The PR is open, not a draft, and mergeable without conflicts; unknown mergeability is not ready.
+- [ ] Without explicit merge authorization, auto-merge is off and the PR is not queued to merge.
+- [ ] The PR body has the before/after pair and the door.
+
+Passing the gate makes a PR ready. It does not grant merge. [Dytschgo Ship](../../dytschgo-ship/SKILL.md) and [Dytschgo Babysit](../../dytschgo-babysit/SKILL.md) stop here.
+
+## PR verdicts
+
+- **Ready:** the merge gate passes on the current head.
+- **Waiting:** only pending checks, a required review, or an approval remains. Name the outstanding condition and the responsible person or service when known. Observation-only runs can watch for it; do not call an actionable failure Waiting.
+- **Blocked:** an unresolved defect, conflict, exhausted correction budget, missing authority, or unavailable necessary capability prevents readiness. State the evidence, attempts, and next needed action.
+
+Use one verdict. Ship and Babysit finish unmerged unless an existing explicit user instruction continues through [Merge when authorized](../../dytschgo-engineering/references/delivery-and-recovery.md#merge-when-authorized). Honor that instruction even when given in the original request.
+
+## Existing merge authority
+
+Honor the user's explicit merge instructions already given for this PR. A verified action by that requesting user to enable auto-merge on this PR also establishes merge authority, unless later instructions revoke it. An enabled flag alone, a bot action, or a repository default does not establish that grant. Keep verified user-authorized auto-merge intact.
+
+Without merge authority, disable existing auto-merge before repair pushes and report the change. If an unauthorized automatic merge cannot be prevented, report Blocked and do not push; use the ask gate to resolve the missing authority. Observation-only runs report this state without changing settings or pushing.
+
+## Ask gate
+
+During an authorized run, ask the user only when:
+
+- the next step is a one-way door or outside the granted actions (merge, deploy, delete, message people, change permissions);
+- a material product decision is open and the evidence does not settle it;
+- a reviewer, bot, or human disputes the approach and the dispute survives one round;
+- required access, credentials, or a provider is missing;
+- the same failure survived three fix attempts.
+
+Everything else is a decision you make and report. Finish reversible work before asking.
+
+## Attribution for agent comments
+
+When an agent posts or replies on a PR or issue under the user's account, end the comment with one line naming the actual agent, model ID, and account. Format: `— posted by an agent (<agent>, <actual model ID>) for <account>`. Substitute real values; do not copy placeholders or add an unsolicited @mention. Keep the comment short and factual. Only post where the run grants commenting.
 
 ## Before merge
 

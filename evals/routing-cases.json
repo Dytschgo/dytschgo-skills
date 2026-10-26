@@ -247,6 +247,103 @@
         ],
         "boundary": "A representative symptom-specific measurement loop before performance hypotheses; no speculative speedup claim."
       }
+    },
+    {
+      "id": "ship-it",
+      "context": "An agreed fix is implemented locally and tests pass.",
+      "request": "Ship it.",
+      "expected": {
+        "include": [
+          "dytschgo-ship"
+        ],
+        "exclude": [
+          "dytschgo-grill",
+          "dytschgo-wayfinder"
+        ],
+        "boundary": "Open, reviewed PR; no merge."
+      }
+    },
+    {
+      "id": "council",
+      "context": "An open PR changes session handling.",
+      "request": "Council this PR.",
+      "expected": {
+        "include": [
+          "dytschgo-council"
+        ],
+        "exclude": [
+          "dytschgo-ship"
+        ],
+        "boundary": "Read-only reviews and a score table; no merge."
+      }
+    },
+    {
+      "id": "babysit",
+      "context": "A PR is open with one failing check and two bot comments.",
+      "request": "Babysit this PR until it's green.",
+      "expected": {
+        "include": [
+          "dytschgo-babysit"
+        ],
+        "exclude": [
+          "dytschgo-grill"
+        ],
+        "boundary": "Ready, Waiting, or Blocked; no merge."
+      }
+    },
+    {
+      "id": "watch-only",
+      "context": "A contributor PR has failing CI. Only observation and a report are requested.",
+      "request": "Watch this PR and tell me what is blocking it.",
+      "expected": {
+        "include": [
+          "dytschgo-babysit"
+        ],
+        "exclude": [
+          "dytschgo-ship"
+        ],
+        "boundary": "Read-only monitoring and report; no fixes, pushes, replies, or merge."
+      }
+    },
+    {
+      "id": "full-stop-is-not-ship",
+      "context": "An implementation discussion is complete. The user is stating a hard scope boundary, not asking for delivery.",
+      "request": "Do not touch production, full stop. Acknowledge that boundary.",
+      "expected": {
+        "include": [],
+        "exclude": [
+          "dytschgo-ship"
+        ],
+        "boundary": "Acknowledge the boundary; no shipping workflow or external actions."
+      }
+    },
+    {
+      "id": "engineering-backlog-audit",
+      "context": "The user requests a read-only audit of open PRs and issues in the known repository, with recommendations and no tracker mutations.",
+      "request": "Audit our open PR backlog and tell me what needs action.",
+      "expected": {
+        "include": [
+          "dytschgo-engineering"
+        ],
+        "exclude": [
+          "dytschgo-ship"
+        ],
+        "boundary": "Evidence-based audit and recommendations only; no fixes, closure, or merge."
+      }
+    },
+    {
+      "id": "engineering-agent-setup",
+      "context": "The repository needs substantial agent setup and verification beyond editing a single instruction file. Local work is authorized.",
+      "request": "Set up our repository agent workflow and verify it works.",
+      "expected": {
+        "include": [
+          "dytschgo-engineering"
+        ],
+        "exclude": [
+          "dytschgo-ship"
+        ],
+        "boundary": "Complete the local setup and relevant verification; no automatic publishing or merge."
+      }
     }
   ]
 }

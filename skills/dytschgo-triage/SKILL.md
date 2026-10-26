@@ -1,6 +1,6 @@
 ---
 name: dytschgo-triage
-description: "Move an issue or external PR through triage roles. Use on a bug report or incoming request before anyone grills it. Verify the claim before recommending its outcome; interview only when needed and apply tracker changes within authorization."
+description: "Qualify an incoming issue or external PR and recommend its outcome. Use when the user says 'triage this', 'is this a real bug', or a report arrives. Verify the claim before recommending."
 ---
 
 # Dytschgo Triage

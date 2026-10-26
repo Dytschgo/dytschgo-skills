@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dytschgo Ship"
+  short_description: "Take a change to a green, reviewed, unmerged PR"
+  default_prompt: "Use $dytschgo-ship to take this change to a PR: build, prove, review, file, and watch it, then stop at the merge gate without merging."

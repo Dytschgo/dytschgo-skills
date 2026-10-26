@@ -81,3 +81,13 @@ test('newline variants produce identical generated output and input fingerprints
   }
   assert.deepEqual(first, buildAtlas(root));
 });
+
+test('atlas visible and accessible skill counts follow the source collection', t => {
+  const { root, write } = fixture(t);
+  write('workflows/atlas-template.html', '<p>__SKILL_COUNT__ skills</p><div aria-label="All __SKILL_COUNT__ skills"></div>');
+  assert.equal(buildAtlas(root).html, '<p>2 skills</p><div aria-label="All 2 skills"></div>');
+  const collectionRoot = path.resolve(import.meta.dirname, '..');
+  const { model, html } = buildAtlas(collectionRoot);
+  assert.ok(html.includes(`<strong>${model.nodes.length} skills.`));
+  assert.ok(html.includes(`aria-label="All ${model.nodes.length} skills"`));
+});

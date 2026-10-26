@@ -1,6 +1,6 @@
 ---
 name: dytschgo-handoff
-description: "Compact the current conversation into a handoff a fresh agent can continue from. Use when the thread should move. Not the same as filing fix tickets for people."
+description: "Compact this conversation into a handoff a fresh agent can continue from. Use when the user says 'hand this off', 'new thread', or the context is full. Not for filing tickets."
 ---
 
 # Dytschgo Handoff

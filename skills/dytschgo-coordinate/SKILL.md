@@ -1,6 +1,6 @@
 ---
 name: dytschgo-coordinate
-description: "Coordinate specialist agents for substantial engineering work. Use when the user requests Dytschgo Coordinate, model-routed delegation, or independent agent implementation and review; not for routine single-agent tasks."
+description: "Run a team of model-routed agents on substantial work: assign, integrate, review, accept. Use when the user says 'coordinate this', 'use agents', or 'delegate and review'; not for routine single-agent tasks."
 ---
 
 # Dytschgo Coordinate
@@ -21,7 +21,7 @@ Use the delegation mechanism exposed by the current runtime. When T3 Code Orches
 
 The user's request and existing authorization define scope. This skill grants no standing permission to merge, deploy, delete, message contributors, force-push, change permissions, or bypass checks. Credentials and repository access are not authorization. Prepare the reviewable change before asking for any missing approval.
 
-Classify by impact and reversibility. Low-risk local changes need a clear assignment, targeted validation, and coordinator review. Medium-risk application or integration changes need acceptance criteria, implementation checks, and independent review when practical. High-risk auth, secrets, production, migrations, or irreversible work needs impact and recovery analysis, independent review, relevant validation, and specific user authorization for the gated action. Read [GitHub ownership and review](references/github-and-review.md) before branch, PR, independent-review, or high-risk work.
+Classify by impact and reversibility. Low-risk local changes need a clear assignment, targeted validation, and coordinator review. Medium-risk application or integration changes need acceptance criteria, implementation checks, and independent review when practical. High-risk auth, secrets, production, migrations, or irreversible work needs impact and recovery analysis, independent review, relevant validation, and specific user authorization for the gated action. Read [GitHub ownership and review](references/github-and-review.md) before branch, PR, independent-review, or high-risk work. When the user says "ship it", run [Dytschgo Ship](../dytschgo-ship/SKILL.md); write PR bodies with [Dytschgo File PR](../dytschgo-file-pr/SKILL.md).
 
 Workers do not merge their own PRs or push directly to protected/default branches. Parallel writers need separate worktrees or serialized writes, explicit file/system ownership, and one integration owner. Do not discard unrelated user changes.
 
@@ -33,7 +33,7 @@ Recover the intended outcome from the conversation and available artifacts. Reso
 
 When this thread should continue in a fresh agent, pull [Dytschgo Handoff](../dytschgo-handoff/SKILL.md). Point at specs, issues, and diffs. Do not copy them into the handoff.
 
-1. Establish the intended outcome, repository state, applicable instructions, acceptance criteria, risks, dependencies, and authorized actions. Resolve routine gaps from evidence; ask only about material missing decisions while continuing independent work.
+1. Establish the intended outcome, repository state, applicable instructions, acceptance criteria, risks, dependencies, and authorized actions. Resolve routine gaps from evidence. Ask only at the [ask gate](references/github-and-review.md#ask-gate) and keep independent work moving.
 2. For nontrivial delegated work, keep a compact canonical record and assignment/result contract using [contracts and shared state](references/contracts-and-state.md). The coordinator owns updates to that record.
 3. Give each worker one outcome, enough context, absolute working directory, write boundaries, permission scope, acceptance evidence, and a limited correction budget. Set concurrency to the independent work available and record the next useful checkpoint. Workers can implement autonomously within those boundaries; no separate babysitter thread is needed by default.
 4. Inspect actual artifacts and evidence. Use independent review for consequential work, always for high-risk work. Refresh dependent branches after relevant parent changes, then review the combined diff and validate the final revision. Check that cited artifacts show the claimed outcome and that tests still protect the behavior. A worker's confidence, an open PR, or tests from an older revision do not establish completion.

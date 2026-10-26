@@ -78,6 +78,7 @@ export function validateRepo(root) {
     }
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(fields.name ?? '') || fields.name !== skill.name || fields.name.length > 64) fail(file, 'name must match folder in hyphen-case');
     if (typeof fields.description !== 'string' || !fields.description.trim() || fields.description.length > 1024 || /[<>]/.test(fields.description)) fail(file, 'invalid description');
+    if (text.replace(/\r?\n$/, '').split(/\r?\n/).length > 200) fail(file, 'SKILL.md over 200 lines; move detail to references');
     if (/^\s*\[TODO:[^\n]*\]\s*$/m.test(prose(text.slice(front[0].length)))) fail(file, 'unfinished scaffold');
     const metadata = path.join(skillRoot, skill.name, 'agents', 'openai.yaml');
     if (!fs.existsSync(metadata)) { fail(metadata, 'missing UI metadata'); continue; }
@@ -116,6 +117,25 @@ export function validateRepo(root) {
     for (const file of files.filter(f => /\.(md|yaml)$/.test(f) && (f.startsWith(orchestratorRoot) || f === path.join(root, 'README.md')) && f !== routing)) {
       if (/\bgpt-\d[\w.-]*/i.test(fs.readFileSync(file, 'utf8'))) fail(file, 'worker IDs belong only in routing.md');
     }
+  }
+  const knownSkills = new Set(skills.map(skill => skill.name));
+  for (const kind of ['behavior', 'routing']) {
+    const file = path.join(root, 'evals', `${kind}-cases.json`);
+    if (!fs.existsSync(file)) continue;
+    try {
+      const { cases } = JSON.parse(fs.readFileSync(file, 'utf8'));
+      if (!Array.isArray(cases)) throw new Error('cases must be an array');
+      const caseIds = new Set();
+      for (const item of cases) {
+        if (!item || typeof item !== 'object') throw new Error('case must be an object');
+        if (typeof item.id !== 'string' || !item.id.trim()) throw new Error('case id must be a nonempty string');
+        if (caseIds.has(item.id)) fail(file, `duplicate case id ${item.id}`);
+        caseIds.add(item.id);
+        const lists = kind === 'behavior' ? [[item.skill]] : [item.expected?.include, item.expected?.exclude];
+        if (lists.some(list => !Array.isArray(list) || list.some(id => typeof id !== 'string'))) throw new Error('skill references must be strings in arrays');
+        for (const id of lists.flat()) if (!knownSkills.has(id)) fail(file, `${item.id}: unknown skill ${id}`);
+      }
+    } catch (error) { fail(file, `invalid eval cases: ${error.message}`); }
   }
   return errors;
 }

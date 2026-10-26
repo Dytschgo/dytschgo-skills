@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dytschgo File PR"
+  short_description: "Open a PR that leads with the problem and proof"
+  default_prompt: "Use $dytschgo-file-pr to open a PR for this branch with a problem-first body, before/after proof, and the door."
