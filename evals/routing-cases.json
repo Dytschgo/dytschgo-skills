@@ -290,6 +290,32 @@
         ],
         "boundary": "Ready, Waiting, or Blocked; no merge."
       }
+    },
+    {
+      "id": "watch-only",
+      "context": "A contributor PR has failing CI. Only observation and a report are requested.",
+      "request": "Watch this PR and tell me what is blocking it.",
+      "expected": {
+        "include": [
+          "dytschgo-babysit"
+        ],
+        "exclude": [
+          "dytschgo-ship"
+        ],
+        "boundary": "Read-only monitoring and report; no fixes, pushes, replies, or merge."
+      }
+    },
+    {
+      "id": "full-stop-is-not-ship",
+      "context": "An implementation discussion is complete. The user is stating a hard scope boundary, not asking for delivery.",
+      "request": "Do not touch production, full stop. Acknowledge that boundary.",
+      "expected": {
+        "include": [],
+        "exclude": [
+          "dytschgo-ship"
+        ],
+        "boundary": "Acknowledge the boundary; no shipping workflow or external actions."
+      }
     }
   ]
 }

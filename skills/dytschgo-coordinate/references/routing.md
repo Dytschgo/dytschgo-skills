@@ -26,3 +26,5 @@ If a requested/default model is unavailable, continue useful independent work an
 ## Council seats
 
 [Dytschgo Council](../../dytschgo-council/SKILL.md) needs three providers. Use the Sol ID above for the OpenAI seat, and the latest flagship from Anthropic (Claude Opus) and Google (Gemini Pro) from the live catalog. Unavailable seats are reported, never substituted.
+
+For Council, run each member at high reasoning effort using the provider's supported option. Explicit user choices of members and settings win. If a requested setting cannot be applied, report the limitation rather than silently mapping it to another value. This is the Council-specific exception to proportional effort above.

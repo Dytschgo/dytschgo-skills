@@ -1,5 +1,5 @@
 {
-  "sourceHash": "fd09204cf5d0cacb97062e0e6148e63e9ce5fdd52e0e5f7d452df8309be7d548",
+  "sourceHash": "30e31b21fff2c3b8962a16db65b01a545f5ff6716d589600de74b9580fd5a875",
   "nodes": [
     {
       "id": "triage",
@@ -151,8 +151,8 @@
       "slug": "dytschgo-ship",
       "cat": "SHIP",
       "output": "An open, reviewed PR with proof and green checks, reported as Ready, Waiting, or Blocked.",
-      "stop": "Grants branch, commit, push, PR, proof methods, and watching. Never merges without a separate merge request.",
-      "desc": "Take a settled change all the way to a reviewed, green, unmerged PR. Use when the user says 'ship it', 'full stop', 'take this to a PR', or 'get this PR-ready'. Never merges."
+      "stop": "Grants bounded branch, push, PR, proof, review replies, and watching. Stops unmerged; existing explicit merge authorization continues through the merge procedure.",
+      "desc": "Take a settled change to a reviewed, green PR when the user asks to ship it. Stops unmerged; an explicit merge instruction continues through the authorized merge procedure."
     },
     {
       "id": "babysit",
@@ -160,8 +160,8 @@
       "slug": "dytschgo-babysit",
       "cat": "SHIP",
       "output": "A PR kept current with CI and review until the merge gate passes or the user is needed.",
-      "stop": "One watcher per PR. Acts only on events newer than the latest push. Never merges.",
-      "desc": "Watch an open PR through CI and review until it is ready or needs the user. Use when the user says 'babysit this PR', 'watch the PR', or 'keep it green'. Never merges."
+      "stop": "Plain watching is read-only. Authorized repair preserves unresolved findings across pushes. One watcher; stops at readiness.",
+      "desc": "Monitor an open PR through CI and review. Babysitting permits bounded repair on an owned task branch; a plain watch request stays read-only. Stops at readiness."
     },
     {
       "id": "filepr",
@@ -178,8 +178,8 @@
       "slug": "dytschgo-council",
       "cat": "PROVE",
       "output": "Three read-only provider reviews, reconciled, with a score table per round.",
-      "stop": "No substitute models; unavailable seats are reported. Guards scope; grants no merge.",
-      "desc": "Get three independent reviews from three different model providers and reconcile them. Use when the user says 'council', 'ask the council', or 'get a second and third opinion'."
+      "stop": "No substitute models; unavailable seats are reported. Review-only requests grant no edits, description updates, or merge.",
+      "desc": "Get independent reviews from three model providers when the user asks for a council. Reconcile findings and scores; a review request grants no edits or external writes."
     }
   ],
   "edges": [
@@ -189,9 +189,19 @@
       "kind": "reference",
       "file": "skills/dytschgo-babysit/SKILL.md",
       "targetFile": "skills/dytschgo-coordinate/references/github-and-review.md",
-      "line": 23,
-      "column": 153,
-      "when": "3. Bot finding: verify the claim against the code before acting. Fix real ones. Dismiss wrong ones with a one-line reason in the thread, signed per the attribution format."
+      "line": 12,
+      "column": 347,
+      "when": "A plain watch, monitor, or report request grants read-only observation. A request to babysit or keep the PR green permits in-scope edits, commits, pushes, and factual replies in that task PR's review threads when the PR and branch are confirmed task-owned. This also applies when Ship hands over its repair authority. Attribute replies using the agent comment format."
+    },
+    {
+      "from": "babysit",
+      "to": "orchestrator",
+      "kind": "reference",
+      "file": "skills/dytschgo-babysit/SKILL.md",
+      "targetFile": "skills/dytschgo-coordinate/references/runtime.md",
+      "line": 18,
+      "column": 249,
+      "when": "Read the full current PR state before the first wait and after every resume, including after a question. Process existing findings first. Keep exactly one watcher per PR, owned by its coordinating thread; delegated children never watch. Follow the runtime watcher guidance and its limits. Finish each iteration with a shared verdict or a supported event wait."
     },
     {
       "from": "babysit",
@@ -200,8 +210,18 @@
       "file": "skills/dytschgo-babysit/SKILL.md",
       "targetFile": "skills/dytschgo-coordinate/references/github-and-review.md",
       "line": 26,
-      "column": 17,
-      "when": "6. Re-check the merge gate. Passed: stop and report Ready. Otherwise watch again."
+      "column": 14,
+      "when": "5. Apply the merge gate and PR verdicts. Stop at Ready or Blocked. For outstanding checks or reviews, report Waiting and use a supported watcher when available; otherwise report the coverage limit and return."
+    },
+    {
+      "from": "babysit",
+      "to": "engineering",
+      "kind": "reference",
+      "file": "skills/dytschgo-babysit/SKILL.md",
+      "targetFile": "skills/dytschgo-engineering/references/delivery-and-recovery.md",
+      "line": 32,
+      "column": 99,
+      "when": "Babysitting alone grants no merge, auto-merge, or merge queue. If already authorized, hand off to Merge when authorized outside Babysit; do not ask again. Without merge authorization, stop existing auto-merge before repair pushes or report that it cannot be stopped. Three failed fixes on the same check means Blocked with evidence."
     },
     {
       "from": "plana",
@@ -239,7 +259,7 @@
       "kind": "load",
       "file": "skills/dytschgo-coordinate/references/github-and-review.md",
       "targetFile": "skills/dytschgo-ship/SKILL.md",
-      "line": 66,
+      "line": 70,
       "column": 61,
       "when": "Passing the gate makes a PR ready. It does not grant merge. Dytschgo Ship and Dytschgo Babysit stop here."
     },
@@ -249,9 +269,19 @@
       "kind": "load",
       "file": "skills/dytschgo-coordinate/references/github-and-review.md",
       "targetFile": "skills/dytschgo-babysit/SKILL.md",
-      "line": 66,
+      "line": 70,
       "column": 111,
       "when": "Passing the gate makes a PR ready. It does not grant merge. Dytschgo Ship and Dytschgo Babysit stop here."
+    },
+    {
+      "from": "orchestrator",
+      "to": "engineering",
+      "kind": "reference",
+      "file": "skills/dytschgo-coordinate/references/github-and-review.md",
+      "targetFile": "skills/dytschgo-engineering/references/delivery-and-recovery.md",
+      "line": 78,
+      "column": 114,
+      "when": "Use one verdict. Ship and Babysit finish unmerged unless an existing explicit user instruction continues through Merge when authorized. Honor that instruction even when given in the original request."
     },
     {
       "from": "orchestrator",
@@ -259,7 +289,7 @@
       "kind": "load",
       "file": "skills/dytschgo-coordinate/references/github-and-review.md",
       "targetFile": "skills/dytschgo-review/SKILL.md",
-      "line": 86,
+      "line": 98,
       "column": 6,
       "when": "Pull Dytschgo Review before merge and follow its requested-target procedure. Pass the captured patch/file evidence and actual source identity for the committed, PR, or requested WIP scopes. Keep standards and spec separate; use independent reviewers according to the risk requirements below. Before a merge, ensure qualifying review covers the integrated committed revision. That review does not replace the before, the after, or the door required above."
     },
@@ -330,8 +360,8 @@
       "file": "skills/dytschgo-council/SKILL.md",
       "targetFile": "skills/dytschgo-coordinate/references/routing.md",
       "line": 12,
-      "column": 119,
-      "when": "- Members the user names win. Otherwise take the current flagship from three different providers: the Sol worker from worker routing for OpenAI, the latest Claude Opus for Anthropic, and the latest Gemini Pro for Google."
+      "column": 33,
+      "when": "- Use the seats and effort from worker routing; named user choices win."
     },
     {
       "from": "council",
@@ -339,9 +369,9 @@
       "kind": "load",
       "file": "skills/dytschgo-council/SKILL.md",
       "targetFile": "skills/dytschgo-review/SKILL.md",
-      "line": 29,
-      "column": 258,
-      "when": "Summarize agreement, disagreement, and the fixes you accept. Check each finding against the code before acting; a majority is not proof. Make accepted in-scope fixes, then run another round. Stop when no member reports a blocker or should-fix, or after the review-loop budget. Bring unresolved disputes to the user."
+      "line": 28,
+      "column": 282,
+      "when": "Summarize agreement, disagreement, and proposed fixes. Check each finding against the code; a majority is not proof. A review-only request ends with findings and scores. Fix accepted in-scope issues and run another round only when existing user authorization covers edits. Use the review-loop budget and ledger; exhaustion with open blocker/should items does not establish readiness. Bring unresolved disputes to the user."
     },
     {
       "from": "diagnose",
@@ -555,13 +585,23 @@
     },
     {
       "from": "ship",
+      "to": "engineering",
+      "kind": "reference",
+      "file": "skills/dytschgo-ship/SKILL.md",
+      "targetFile": "skills/dytschgo-engineering/references/delivery-and-recovery.md",
+      "line": 8,
+      "column": 196,
+      "when": "Carry one agreed change from working tree to a merge-ready PR. Ship ends at that boundary. If the user explicitly authorized merging, including in the same request, continue outside Ship through Merge when authorized without asking again."
+    },
+    {
+      "from": "ship",
       "to": "verification",
       "kind": "load",
       "file": "skills/dytschgo-ship/SKILL.md",
       "targetFile": "skills/dytschgo-verify-setup/SKILL.md",
       "line": 16,
       "column": 25,
-      "when": "- run the proof methods Dytschgo Verify Setup and Dytschgo Impact need, including local app launch and browser checks, even where a project note says to ask first for those checks;"
+      "when": "- run the proof methods Dytschgo Verify Setup and Dytschgo Impact need, including local app launch and browser checks within project constraints and existing authorization;"
     },
     {
       "from": "ship",
@@ -571,7 +611,7 @@
       "targetFile": "skills/dytschgo-impact/SKILL.md",
       "line": 16,
       "column": 88,
-      "when": "- run the proof methods Dytschgo Verify Setup and Dytschgo Impact need, including local app launch and browser checks, even where a project note says to ask first for those checks;"
+      "when": "- run the proof methods Dytschgo Verify Setup and Dytschgo Impact need, including local app launch and browser checks within project constraints and existing authorization;"
     },
     {
       "from": "ship",
@@ -581,7 +621,17 @@
       "targetFile": "skills/dytschgo-babysit/SKILL.md",
       "line": 17,
       "column": 21,
-      "when": "- watch the PR with Dytschgo Babysit and push fixes for its findings."
+      "when": "- watch the PR with Dytschgo Babysit, push in-scope fixes, and post factual replies in that task PR's review threads, using the agent attribution."
+    },
+    {
+      "from": "ship",
+      "to": "orchestrator",
+      "kind": "reference",
+      "file": "skills/dytschgo-ship/SKILL.md",
+      "targetFile": "skills/dytschgo-coordinate/references/github-and-review.md",
+      "line": 17,
+      "column": 161,
+      "when": "- watch the PR with Dytschgo Babysit, push in-scope fixes, and post factual replies in that task PR's review threads, using the agent attribution."
     },
     {
       "from": "ship",
@@ -652,6 +702,16 @@
       "line": 34,
       "column": 58,
       "when": "Keep working without check-ins. Ask only when one of the ask-gate situations comes up. Before asking, finish every reversible step you can."
+    },
+    {
+      "from": "ship",
+      "to": "orchestrator",
+      "kind": "reference",
+      "file": "skills/dytschgo-ship/SKILL.md",
+      "targetFile": "skills/dytschgo-coordinate/references/github-and-review.md",
+      "line": 38,
+      "column": 36,
+      "when": "At Ship's boundary, use the shared PR verdicts. Include the PR link, head SHA, proof, review outcome, checks, door, remaining risk, and \"Not merged.\""
     },
     {
       "from": "spec",
@@ -1073,8 +1133,8 @@
           "Keep CI and review moving until Ready, Waiting, or Blocked."
         ]
       ],
-      "stop": "Stop at the merge gate. The user merges.",
-      "note": "Saying 'ship it' grants branch, commit, push, PR, proof methods, and watching. Merge needs a separate request.",
+      "stop": "Stop at the merge gate; continue through the merge procedure only with explicit user authorization.",
+      "note": "Ship permits task-branch delivery and factual replies in the task PR. It grants no merge; honor explicit merge authorization already given.",
       "extras": [
         "blast",
         "When the diff can break things it does not touch."

@@ -1,22 +1,22 @@
 ---
 name: dytschgo-ship
-description: "Take a settled change all the way to a reviewed, green, unmerged PR. Use when the user says 'ship it', 'full stop', 'take this to a PR', or 'get this PR-ready'. Never merges."
+description: "Take a settled change to a reviewed, green PR when the user asks to ship it. Stops unmerged; an explicit merge instruction continues through the authorized merge procedure."
 ---
 
 # Dytschgo Ship
 
-Carry one agreed change from working tree to a PR that is ready for the user to merge, then stop. The user presses merge, not you.
+Carry one agreed change from working tree to a merge-ready PR. Ship ends at that boundary. If the user explicitly authorized merging, including in the same request, continue outside Ship through [Merge when authorized](../dytschgo-engineering/references/delivery-and-recovery.md#merge-when-authorized) without asking again.
 
 ## What saying "ship it" grants
 
 A ship request is standing permission, for this task only, to:
 
-- create a task branch, commit, push it, rebase it, resolve its conflicts, and `--force-with-lease` that branch;
+- create a task branch, commit, push it, rebase it, resolve its conflicts, and `--force-with-lease` that task-owned, unshared branch;
 - open one PR against the real base branch and edit its description;
-- run the proof methods [Dytschgo Verify Setup](../dytschgo-verify-setup/SKILL.md) and [Dytschgo Impact](../dytschgo-impact/SKILL.md) need, including local app launch and browser checks, even where a project note says to ask first for those checks;
-- watch the PR with [Dytschgo Babysit](../dytschgo-babysit/SKILL.md) and push fixes for its findings.
+- run the proof methods [Dytschgo Verify Setup](../dytschgo-verify-setup/SKILL.md) and [Dytschgo Impact](../dytschgo-impact/SKILL.md) need, including local app launch and browser checks within project constraints and existing authorization;
+- watch the PR with [Dytschgo Babysit](../dytschgo-babysit/SKILL.md), push in-scope fixes, and post factual replies in that task PR's review threads, using the [agent attribution](../dytschgo-coordinate/references/github-and-review.md#attribution-for-agent-comments).
 
-It does not grant: merge, auto-merge, merge queue, pushes to the default branch, bypassing protection, deploys, closing other people's PRs, or messaging people. Only a separate, explicit "merge it" from the user unlocks merge. If auto-merge is already on, turn it off and say so. If you cannot stop an automatic merge, report that before pushing.
+Ship alone grants no merge, auto-merge, merge queue, default-branch push, protection bypass, deploy, closure of other people's PRs, or communication outside the task PR. Preserve explicit task restrictions and project ask-first requirements unless existing user authorization covers the action. Without explicit merge authorization, turn off existing auto-merge and report it; if it cannot be stopped, report that before pushing.
 
 ## The run
 
@@ -35,10 +35,6 @@ Keep working without check-ins. Ask only when one of the [ask-gate](../dytschgo-
 
 ## Report
 
-End with exactly one verdict:
+At Ship's boundary, use the shared [PR verdicts](../dytschgo-coordinate/references/github-and-review.md#pr-verdicts). Include the PR link, head SHA, proof, review outcome, checks, door, remaining risk, and "Not merged."
 
-- **Ready** — the merge gate passes on the current head. The PR stays open and unmerged.
-- **Waiting** — only a human approval or a required human reviewer remains. Name who.
-- **Blocked** — say what stops readiness, what you tried, and the one thing you need.
-
-Include the PR link, head SHA, proof, review outcome, checks, door, remaining risk, and the line "Not merged."
+If an authorized merge follows, report its verified outcome after the merge procedure instead of ending the task at this intermediate verdict.

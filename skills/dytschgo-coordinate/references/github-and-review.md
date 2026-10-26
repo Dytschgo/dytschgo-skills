@@ -54,16 +54,28 @@ Explicitly say the PR is ready for coordinator review. CI pending is not passing
 
 ## Merge gate
 
-A PR is ready for the user to merge only when every line holds on the current head SHA:
+A PR is ready to merge only when every line holds on the current head SHA:
 
 - [ ] Proof covers every behavior change in the final diff, with a before and an after.
 - [ ] Required checks are green on this head. Pending is not green.
+- [ ] Qualifying review covers the final integrated diff; no blocker or should-fix finding remains open or disputed. A spent review budget is not approval.
+- [ ] Required approvals are present and valid under the repository's rules for this head.
 - [ ] Every bot finding is fixed, or dismissed in-thread with a reason.
 - [ ] No open human change requests.
 - [ ] The branch is up to date with its base, or the repository does not require it.
+- [ ] The PR is open, not a draft, and mergeable without conflicts; unknown mergeability is not ready.
+- [ ] Without explicit merge authorization, auto-merge is off and the PR is not queued to merge.
 - [ ] The PR body has the before/after pair and the door.
 
 Passing the gate makes a PR ready. It does not grant merge. [Dytschgo Ship](../../dytschgo-ship/SKILL.md) and [Dytschgo Babysit](../../dytschgo-babysit/SKILL.md) stop here.
+
+## PR verdicts
+
+- **Ready:** the merge gate passes on the current head.
+- **Waiting:** only pending checks, a required review, or an approval remains. Name the outstanding condition and the responsible person or service when known. Observation-only runs can watch for it; do not call an actionable failure Waiting.
+- **Blocked:** an unresolved defect, conflict, exhausted correction budget, missing authority, or unavailable necessary capability prevents readiness. State the evidence, attempts, and next needed action.
+
+Use one verdict. Ship and Babysit finish unmerged unless an existing explicit user instruction continues through [Merge when authorized](../../dytschgo-engineering/references/delivery-and-recovery.md#merge-when-authorized). Honor that instruction even when given in the original request.
 
 ## Ask gate
 
@@ -79,7 +91,7 @@ Everything else is a decision you make and report. Finish reversible work before
 
 ## Attribution for agent comments
 
-When an agent posts or replies on a PR or issue under the user's account, end the comment with one line naming the agent and model, for example `— posted by an agent (Codex, model id) for @user`. Keep the comment short and factual. Only post where the run grants commenting.
+When an agent posts or replies on a PR or issue under the user's account, end the comment with one line naming the actual agent, model ID, and account. Format: `— posted by an agent (<agent>, <actual model ID>) for <account>`. Substitute real values; do not copy placeholders or add an unsolicited @mention. Keep the comment short and factual. Only post where the run grants commenting.
 
 ## Before merge
 

@@ -87,8 +87,8 @@ Use when the user says "review loop", or when [Dytschgo Ship](../dytschgo-ship/S
 
 - **Budget:** 3 rounds. 5 when the change touches security, auth, secrets, or stored data.
 - **Ledger:** keep one table of findings across rounds: id, axis, severity (blocker, should, nit), status (open, fixed, disputed, dismissed with reason).
-- **Each round** reviews the new head only and updates the ledger. Do not reopen fixed items without new evidence.
-- **Stop** when only nits remain, or the budget runs out. Report open items honestly.
+- **Each round** pins the new head and reviews the integrated base-to-head diff, emphasizing new changes and their affected areas. Reassess shared callers and previous fixes when a new change can invalidate them; update the ledger. Reopen fixed items only with new evidence.
+- **Stop** when only nits remain, or the budget runs out. Report open items honestly; unresolved blocker/should items at exhaustion mean Blocked, never Ready.
 - **Disputes** that survive one round go to the user with both positions. Do not settle them by repetition.
 - For three independent providers, use [Dytschgo Council](../dytschgo-council/SKILL.md).
 

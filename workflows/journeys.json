@@ -134,7 +134,7 @@
       "slug": "dytschgo-ship",
       "cat": "SHIP",
       "output": "An open, reviewed PR with proof and green checks, reported as Ready, Waiting, or Blocked.",
-      "stop": "Grants branch, commit, push, PR, proof methods, and watching. Never merges without a separate merge request."
+      "stop": "Grants bounded branch, push, PR, proof, review replies, and watching. Stops unmerged; existing explicit merge authorization continues through the merge procedure."
     },
     {
       "id": "babysit",
@@ -142,7 +142,7 @@
       "slug": "dytschgo-babysit",
       "cat": "SHIP",
       "output": "A PR kept current with CI and review until the merge gate passes or the user is needed.",
-      "stop": "One watcher per PR. Acts only on events newer than the latest push. Never merges."
+      "stop": "Plain watching is read-only. Authorized repair preserves unresolved findings across pushes. One watcher; stops at readiness."
     },
     {
       "id": "filepr",
@@ -158,7 +158,7 @@
       "slug": "dytschgo-council",
       "cat": "PROVE",
       "output": "Three read-only provider reviews, reconciled, with a score table per round.",
-      "stop": "No substitute models; unavailable seats are reported. Guards scope; grants no merge."
+      "stop": "No substitute models; unavailable seats are reported. Review-only requests grant no edits, description updates, or merge."
     }
   ],
   "routes": [
@@ -440,8 +440,8 @@
           "Keep CI and review moving until Ready, Waiting, or Blocked."
         ]
       ],
-      "stop": "Stop at the merge gate. The user merges.",
-      "note": "Saying 'ship it' grants branch, commit, push, PR, proof methods, and watching. Merge needs a separate request.",
+      "stop": "Stop at the merge gate; continue through the merge procedure only with explicit user authorization.",
+      "note": "Ship permits task-branch delivery and factual replies in the task PR. It grants no merge; honor explicit merge authorization already given.",
       "extras": [
         "blast",
         "When the diff can break things it does not touch."

@@ -74,7 +74,7 @@ export function buildAtlas(root) {
   const sourceHash = hash.digest('hex');
   const model = { sourceHash, nodes, edges, routes: config.routes };
   let html = fs.readFileSync(path.join(root, 'workflows/atlas-template.html'), 'utf8').replaceAll('\r\n', '\n');
-  for (const [key, value] of Object.entries({ __NODES__: safeJSON(nodes), __EDGES__: safeJSON(edges), __ROUTES__: safeJSON(config.routes), __SOURCE_HASH__: sourceHash.slice(0, 16) })) html = html.replaceAll(key, value);
+  for (const [key, value] of Object.entries({ __NODES__: safeJSON(nodes), __EDGES__: safeJSON(edges), __ROUTES__: safeJSON(config.routes), __SKILL_COUNT__: String(nodes.length), __SOURCE_HASH__: sourceHash.slice(0, 16) })) html = html.replaceAll(key, value);
   return { model, html };
 }
 

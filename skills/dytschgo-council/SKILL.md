@@ -1,6 +1,6 @@
 ---
 name: dytschgo-council
-description: "Get three independent reviews from three different model providers and reconcile them. Use when the user says 'council', 'ask the council', or 'get a second and third opinion'."
+description: "Get independent reviews from three model providers when the user asks for a council. Reconcile findings and scores; a review request grants no edits or external writes."
 ---
 
 # Dytschgo Council
@@ -9,9 +9,8 @@ Seat three delegates, one per provider, so blind spots of one model family do no
 
 ## Seat the council
 
-- Members the user names win. Otherwise take the current flagship from three different providers: the Sol worker from [worker routing](../dytschgo-coordinate/references/routing.md) for OpenAI, the latest Claude Opus for Anthropic, and the latest Gemini Pro for Google.
-- Run every member at high reasoning effort.
-- Read the live model catalog first. If a provider or named member is unavailable, say so and run with the members you have, or stop if the user needs all three. Never swap in a different model and call it the council.
+- Use the seats and effort from [worker routing](../dytschgo-coordinate/references/routing.md#council-seats); named user choices win.
+- Read the live model catalog first. Report unavailable seats and run the available members by default. Stop only if the user explicitly requires every seat. Never substitute another model for an unavailable member.
 
 ## Run a round
 
@@ -22,17 +21,17 @@ Start the three delegates in parallel:
 
 Give each the same request, the pinned diff or artifact, the spec or acceptance criteria, and repo standards. Keep them read-only. Do not pass your own conclusions or the other members' answers.
 
-For a code review, ask each for findings tagged blocker, should, or nit, and a score out of 10. One full pass by all members is one round. A fresh pass after fixes is a new round.
+For a code review, ask each for findings tagged blocker, should, or nit, and a score out of 10. One pass by the available members is one round; record missing seats as unavailable. A fresh pass after fixes is a new round.
 
 ## Reconcile
 
-Summarize agreement, disagreement, and the fixes you accept. Check each finding against the code before acting; a majority is not proof. Make accepted in-scope fixes, then run another round. Stop when no member reports a blocker or should-fix, or after the [review-loop budget](../dytschgo-review/SKILL.md#review-loop-mode). Bring unresolved disputes to the user.
+Summarize agreement, disagreement, and proposed fixes. Check each finding against the code; a majority is not proof. A review-only request ends with findings and scores. Fix accepted in-scope issues and run another round only when existing user authorization covers edits. Use the [review-loop budget and ledger](../dytschgo-review/SKILL.md#review-loop-mode); exhaustion with open blocker/should items does not establish readiness. Bring unresolved disputes to the user.
 
 Guard the scope. New feature ideas from members become follow-up notes, not more diff.
 
 ## Record scores
 
-If the work has a PR, put the table in the PR description (edit it; do not add a comment). Otherwise put it in the final reply.
+Put scores in the final reply by default. Update a task PR's description only when the session authorizes that write and this run owns its delivery. Replace only the Council section, preserving the remaining description; if absent, append it. Do not post a comment just to record scores.
 
 ```markdown
 ## Council

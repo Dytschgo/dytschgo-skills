@@ -31,6 +31,15 @@ With the currently exposed `collaboration` tools:
 
 Other runtimes may offer different tools. Adapt to their schemas instead of emitting these names as fictional commands. A role-routing skill neither replaces the primary model nor grants extra concurrency or permissions.
 
+## PR watching
+
+Inspect the complete live PR state before waiting and on every resume. Check results apply to a revision; unresolved review threads persist across pushes until verified closed. Keep one watcher per PR in the coordinating thread. Follow higher-priority runtime instructions if they restrict these mechanisms.
+
+- **T3 Code:** handle existing comments and finish any branch update/push first, then use the PR watch tool and end the turn. Completion events resume the thread. A watch persists across wakes; do not register another. Unwatch before final handback or a question, and re-read full state on resumption.
+- **Other harnesses:** use a supported PR-event subscription or helper that covers checks, reviews, comments, and relevant mergeability changes. State any missing event coverage.
+- `gh pr checks <pr> --watch` covers checks only and ends when they complete. Where permitted, use it only for outstanding checks, then re-read full state. It cannot wait for reviews or establish Ready by itself. If no review-event watcher exists, report Waiting and return with that limitation; do not repeatedly restart a completed checks watcher.
+- Use no custom sleep/polling loops or duplicate watchers. On rate limit, record the reset from the host response or `gh api rate_limit`; use a supported deferred retry only when the runtime provides it, otherwise return Waiting with the reset and coverage limit.
+
 ## Workspace isolation
 
 Separate threads share a filesystem unless the runtime explicitly provides isolated environments. All assignments must specify an absolute working directory and file/system ownership.

@@ -80,8 +80,8 @@ These are example routes, not mandatory pipelines:
 - **An open idea:** Grill settles decisions. Spec records them. Tickets splits larger work. Engineering or Coordinate builds when requested.
 - **A website or interface:** Design can explore options or implement the selected direction. You can start here directly.
 - **A hard or unclear bug:** Engineering brings in Debug to reproduce and fix it. Review checks the resulting diff before a merge.
-- **Ship a change:** say "ship it". Ship builds, proves, runs a Review loop, opens a problem-first PR with File PR, and watches it with Babysit. It stops at the merge gate; you merge.
-- **A second, third, and fourth opinion:** say "council". Council runs three read-only reviewers from three providers and records their scores.
+- **Ship a change:** say "ship it". Ship builds, proves, runs a Review loop, opens a problem-first PR with File PR, and watches it with Babysit. It stops at the merge gate. An explicit merge instruction continues through the authorized merge procedure.
+- **Independent opinions:** say "council". Council runs three read-only reviewers from three providers and reports their scores; fixes and PR-description updates need existing authorization.
 - **An HTML explanation:** Retro presents the supplied work and evidence. A technical assessment is only added when the request needs one.
 
 Each stage stops at your requested outcome. Installing one skill does not automatically install every skill it refers to; add a helper if your workflow needs it, or install the full collection.
@@ -96,7 +96,7 @@ All names start with `dytschgo-`.
 | --- | --- | --- |
 | [design](skills/dytschgo-design/SKILL.md) | show me options · mock this up · redesign | UI options, websites, implementation, and visual refinement. |
 | [engineering](skills/dytschgo-engineering/SKILL.md) | build it · clean this up · make it faster | Substantial cleanup, performance, implementation, and stalled work. |
-| [ship](skills/dytschgo-ship/SKILL.md) | ship it · full stop · take this to a PR | A reviewed, green PR, stopped before merge. |
+| [ship](skills/dytschgo-ship/SKILL.md) | ship it | A reviewed, green PR, stopped before merge. |
 | [babysit](skills/dytschgo-babysit/SKILL.md) | babysit this PR · keep it green | Watching one PR through CI and review. |
 | [file-pr](skills/dytschgo-file-pr/SKILL.md) | open a PR · write the PR description | Problem-first PR bodies with before/after and the door. |
 | [debug](skills/dytschgo-debug/SKILL.md) | debug this · why is this flaky | Reproducing a hard bug and proving the fix. |

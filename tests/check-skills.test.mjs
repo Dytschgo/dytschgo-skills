@@ -56,3 +56,35 @@ test('YAML comments and non-string plain descriptions are rejected', t => {
     assert.ok(validateRepo(root).some(e => e.includes('invalid description')), description);
   }
 });
+
+test('200-line limit accepts the boundary with LF, CRLF, or no final newline', t => {
+  const { root, write } = fixture(t);
+  const lines = ['---', 'name: example', 'description: "A focused example skill."', '---', '# Example'];
+  for (const newline of ['\n', '\r\n']) {
+    for (const finalNewline of ['', newline]) {
+      write('skills/example/SKILL.md', [...lines, ...Array(195).fill('A line.')].join(newline) + finalNewline);
+      assert.deepEqual(validateRepo(root), []);
+      write('skills/example/SKILL.md', [...lines, ...Array(196).fill('A line.')].join(newline) + finalNewline);
+      assert.ok(validateRepo(root).some(e => e.includes('over 200 lines')));
+    }
+  }
+});
+
+test('eval skill references must name installed collection skills', t => {
+  const { root, write } = fixture(t);
+  write('evals/behavior-cases.json', JSON.stringify({ cases: [{ id: 'behavior', skill: 'example' }] }));
+  write('evals/routing-cases.json', JSON.stringify({ cases: [{ id: 'routing', expected: { include: ['example'], exclude: [] } }] }));
+  assert.deepEqual(validateRepo(root), []);
+  write('evals/behavior-cases.json', JSON.stringify({ cases: [{ id: 'behavior', skill: 'missing' }] }));
+  write('evals/routing-cases.json', JSON.stringify({ cases: [{ id: 'routing', expected: { include: ['missing-include'], exclude: ['missing-exclude'] } }] }));
+  const errors = validateRepo(root);
+  for (const id of ['missing', 'missing-include', 'missing-exclude']) assert.ok(errors.some(e => e.includes(`unknown skill ${id}`)));
+});
+
+test('malformed eval cases produce validation errors', t => {
+  const { root, write } = fixture(t);
+  for (const value of ['{', '{}', '{"cases": [null]}', '{"cases": [{"expected": {"include": "example"}}]}']) {
+    write('evals/routing-cases.json', value);
+    assert.ok(validateRepo(root).some(e => e.includes('invalid eval cases')));
+  }
+});
